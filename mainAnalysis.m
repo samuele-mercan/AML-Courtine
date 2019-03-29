@@ -25,7 +25,7 @@ function main()
     
     % Create the ground truth based on the csv features 
     
-      
+%% SEGMENTATION USING CSV FILE      
 %%    
     %======================================================================
     % Load Data for Healthy Patient
