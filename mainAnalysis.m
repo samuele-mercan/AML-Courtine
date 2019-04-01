@@ -25,36 +25,136 @@ function main()
     
     % Create the ground truth based on the csv features 
     
-%% SEGMENTATION USING CSV FILE     
-    L_ANK_01 = FLOAT_NO_CRUTCHES.T_01.Raw.Kin.LANK(:,1);
+%% SEGMENTATION USING CSV FILE
+    %% noCrutches_01
+    noCrutches_01_FS_left=[];
+    noCrutches_01_FS_right=[];
+    noCrutches_01_FO_left=[];
+    noCrutches_01_FO_right=[];
+   
+    for i = 1:length(noCrutches_01.Name)
+        if string(noCrutches_01.Name{i})=='Foot Strike'
+            if string(noCrutches_01.Context{i}) == 'Left'
+                noCrutches_01_FS_left = [noCrutches_01_FS_left double(noCrutches_01.Time_s_(i))];
+            else
+                noCrutches_01_FS_right = [noCrutches_01_FS_right double(noCrutches_01.Time_s_(i))];
+            end
+        elseif string(noCrutches_01.Name{i})=='Foot Off'
+            if string(noCrutches_01.Context{i}) == 'Left'
+                noCrutches_01_FO_left = [noCrutches_01_FO_left double(noCrutches_01.Time_s_(i))];
+            else
+                noCrutches_01_FO_right = [noCrutches_01_FO_right double(noCrutches_01.Time_s_(i))];
+            end
+        end
+    end    
     
-    % create the time vector for plotting
-    time_start = 0;
-    time_end = (length(L_ANK_01)-1)/FLOAT_NO_CRUTCHES.T_01.fsKIN;
-    time_step = 1/FLOAT_NO_CRUTCHES.T_01.fsKIN;
-    time = time_start:time_step:time_end;
-    A = table2array(noCrutches_01(1:9,4));
-    B = round(A*FLOAT_NO_CRUTCHES.T_01.fsKIN,0);
-    C = table2array(noCrutches_01(10:17,4));
-    D = round(C*FLOAT_NO_CRUTCHES.T_01.fsKIN,0);
+    %% noCrutches_02
+    noCrutches_02_FS_left=[];
+    noCrutches_02_FS_right=[];
+    noCrutches_02_FO_left=[];
+    noCrutches_02_FO_right=[];
+   
+    for i = 1:length(noCrutches_02.Name)
+        if string(noCrutches_02.Name{i})=='Foot Strike'
+            if string(noCrutches_02.Context{i}) == 'Left'
+                noCrutches_02_FS_left = [noCrutches_02_FS_left double(noCrutches_02.Time_s_(i))];
+            else
+                noCrutches_02_FS_right = [noCrutches_02_FS_right double(noCrutches_02.Time_s_(i))];
+            end
+        elseif string(noCrutches_02.Name{i})=='Foot Off'
+            if string(noCrutches_02.Context{i}) == 'Left'
+                noCrutches_02_FO_left = [noCrutches_02_FO_left double(noCrutches_02.Time_s_(i))];
+            else
+                noCrutches_02_FO_right = [noCrutches_02_FO_right double(noCrutches_02.Time_s_(i))];
+            end
+        end
+    end
+    %% noCrutches_03
+    noCrutches_03_FS_left=[];
+    noCrutches_03_FS_right=[];
+    noCrutches_03_FO_left=[];
+    noCrutches_03_FO_right=[];
+   
+    for i = 1:length(noCrutches_03.Name)
+        if string(noCrutches_03.Name{i})=='Foot Strike'
+            if string(noCrutches_03.Context{i}) == 'Left'
+                noCrutches_03_FS_left = [noCrutches_03_FS_left double(noCrutches_03.Time_s_(i))];
+            else
+                noCrutches_03_FS_right = [noCrutches_03_FS_right double(noCrutches_03.Time_s_(i))];
+            end
+        elseif string(noCrutches_03.Name{i})=='Foot Off'
+            if string(noCrutches_03.Context{i}) == 'Left'
+                noCrutches_03_FO_left = [noCrutches_03_FO_left double(noCrutches_03.Time_s_(i))];
+            else
+                noCrutches_03_FO_right = [noCrutches_03_FO_right double(noCrutches_03.Time_s_(i))];
+            end
+        end
+    end
     
-%     [pks,locs]=findpeaks (L_ANK_01(:,1),'MinPeakDistance',60);
     
-    figure()
-    plot(time, L_ANK_01)
-    hold on
-    plot(time, FLOAT_NO_CRUTCHES.T_01.Raw.Kin.LTOE(:,1))
-    plot(time, FLOAT_NO_CRUTCHES.T_01.Raw.Kin.LKNE(:,1))
-
-    scatter(A, L_ANK_01(B));
-    scatter(C, L_ANK_01(D));
-%     scatter(time(locs), pks)
-    
-   legend('ankle kinematics','Toe kinematics','Knee','foot strike', 'foot off')
-%     legend('ankle kinematics','Toe kinematics','Knee','peaks')
-%     title("left ankle")
-    
-    
+    %% Crutches_01
+    Crutches_01_FS_left=[];
+    Crutches_01_FS_right=[];
+    Crutches_01_FO_left=[];
+    Crutches_01_FO_right=[];
+   
+    for i = 1:length(Crutches_01.Name)
+        if string(Crutches_01.Name{i})=='Foot Strike'
+            if string(Crutches_01.Context{i}) == 'Left'
+                Crutches_01_FS_left = [Crutches_01_FS_left double(Crutches_01.Time_s_(i))];
+            else
+                Crutches_01_FS_right = [Crutches_01_FS_right double(Crutches_01.Time_s_(i))];
+            end
+        elseif string(Crutches_01.Name{i})=='Foot Off'
+            if string(Crutches_01.Context{i}) == 'Left'
+                Crutches_01_FO_left = [Crutches_01_FO_left double(Crutches_01.Time_s_(i))];
+            else
+                Crutches_01_FO_right = [Crutches_01_FO_right double(Crutches_01.Time_s_(i))];
+            end
+        end
+    end
+%% Crutches_02
+    Crutches_02_FS_left=[];
+    Crutches_02_FS_right=[];
+    Crutches_02_FO_left=[];
+    Crutches_02_FO_right=[];
+   
+    for i = 1:length(Crutches_02.Name)
+        if string(Crutches_02.Name{i})=='Foot Strike'
+            if string(Crutches_02.Context{i}) == 'Left'
+                Crutches_02_FS_left = [Crutches_02_FS_left double(Crutches_02.Time_s_(i))];
+            else
+                Crutches_02_FS_right = [Crutches_02_FS_right double(Crutches_02.Time_s_(i))];
+            end
+        elseif string(Crutches_02.Name{i})=='Foot Off'
+            if string(Crutches_02.Context{i}) == 'Left'
+                Crutches_02_FO_left = [Crutches_02_FO_left double(Crutches_02.Time_s_(i))];
+            else
+                Crutches_02_FO_right = [Crutches_02_FO_right double(Crutches_02.Time_s_(i))];
+            end
+        end
+    end
+%% Crutches_03
+    Crutches_03_FS_left=[];
+    Crutches_03_FS_right=[];
+    Crutches_03_FO_left=[];
+    Crutches_03_FO_right=[];
+   
+    for i = 1:length(Crutches_03.Name)
+        if string(Crutches_03.Name{i})=='Foot Strike'
+            if string(Crutches_03.Context{i}) == 'Left'
+                Crutches_03_FS_left = [Crutches_03_FS_left double(Crutches_03.Time_s_(i))];
+            else
+                Crutches_03_FS_right = [Crutches_03_FS_right double(Crutches_03.Time_s_(i))];
+            end
+        elseif string(Crutches_03.Name{i})=='Foot Off'
+            if string(Crutches_03.Context{i}) == 'Left'
+                Crutches_03_FO_left = [Crutches_03_FO_left double(Crutches_03.Time_s_(i))];
+            else
+                Crutches_03_FO_right = [Crutches_03_FO_right double(Crutches_03.Time_s_(i))];
+            end
+        end
+    end
 
 %%    
     %======================================================================
