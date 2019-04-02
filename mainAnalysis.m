@@ -155,6 +155,87 @@ function main()
             end
         end
     end
+    
+%% PARAMETERS FROM KINEMATICS
+
+% GAIT CYCLE TIME (GCT)
+
+GCT_noCrutches_01_left = [];
+GCT_noCrutches_02_left = [];
+GCT_noCrutches_03_left = [];
+
+GCT_noCrutches_01_right = [];
+GCT_noCrutches_02_right = [];
+GCT_noCrutches_03_right = [];
+
+GCT_Crutches_01_left = [];
+GCT_Crutches_02_left = [];
+GCT_Crutches_03_left = [];
+
+GCT_Crutches_01_right = [];
+GCT_Crutches_02_right = [];
+GCT_Crutches_03_right = [];
+
+%to find the total time 
+
+% time_start = 0;
+% %we take one kinemtic marker, they all have the same length
+% %and we define the number of points taken by the sampling frequency to get
+% %the time 
+% time_end = length(NO_FLOAT_CRUTCHES.T_01.Raw.Kin.LANK(:,3))/FLOAT_NO_CRUTCHES.T_01.fsKIN;
+% time_step = 1/FLOAT_NO_CRUTCHES.T_01.fsKIN;
+% time = time_start:time_step:time_end;
+
+for index=1:length(noCrutches_01_FS_left)-1
+    GCT_noCrutches_01_left = [GCT_noCrutches_01_left (noCrutches_01_FS_left(index+1)-noCrutches_01_FS_left(index))];
+end
+
+for index=1:length(noCrutches_02_FS_left)-1
+    GCT_noCrutches_02_left = [GCT_noCrutches_02_left (noCrutches_02_FS_left(index+1)-noCrutches_02_FS_left(index))];
+end
+
+for index=1:length(noCrutches_03_FS_left)-1
+    GCT_noCrutches_03_left = [GCT_noCrutches_03_left (noCrutches_03_FS_left(index+1)-noCrutches_03_FS_left(index))];
+end
+
+for index=1:length(noCrutches_01_FS_right)-1
+    GCT_noCrutches_01_right = [GCT_noCrutches_01_right (noCrutches_01_FS_right(index+1)-noCrutches_01_FS_right(index))];
+end
+
+for index=1:length(noCrutches_02_FS_right)-1
+    GCT_noCrutches_02_right = [GCT_noCrutches_02_right (noCrutches_02_FS_right(index+1)-noCrutches_02_FS_right(index))];
+end
+
+for index=1:length(noCrutches_03_FS_right)-1
+    GCT_noCrutches_03_right = [GCT_noCrutches_03_right (noCrutches_03_FS_right(index+1)-noCrutches_03_FS_right(index))];
+end
+
+
+
+for index=1:length(Crutches_01_FS_left)-1
+    GCT_Crutches_01_left = [GCT_Crutches_01_left (Crutches_01_FS_left(index+1)-Crutches_01_FS_left(index))];
+end
+
+for index=1:length(Crutches_02_FS_left)-1
+    GCT_Crutches_02_left = [GCT_Crutches_02_left (Crutches_02_FS_left(index+1)-Crutches_02_FS_left(index))];
+end
+
+for index=1:length(Crutches_03_FS_left)-1
+    GCT_Crutches_03_left = [GCT_Crutches_03_left (Crutches_03_FS_left(index+1)-Crutches_03_FS_left(index))];
+end
+
+for index=1:length(Crutches_01_FS_right)-1
+    GCT_Crutches_01_right = [GCT_Crutches_01_right (Crutches_01_FS_right(index+1)-Crutches_01_FS_right(index))];
+end
+
+for index=1:length(Crutches_02_FS_right)-1
+    GCT_Crutches_02_right = [GCT_Crutches_02_right (Crutches_02_FS_right(index+1)-Crutches_02_FS_right(index))];
+end
+
+for index=1:length(Crutches_03_FS_right)-1
+    GCT_Crutches_03_right = [GCT_Crutches_03_right (Crutches_03_FS_right(index+1)-Crutches_03_FS_right(index))];
+end
+
 
 %%    
     %======================================================================
