@@ -161,11 +161,9 @@ function main()
 % GAIT CYCLE TIME (GCT)
 
 GCT_noCrutches_left = [];
-
 GCT_noCrutches_right = [];
 
 GCT_Crutches_left = [];
-
 GCT_Crutches_right = [];
 
 %to find the total time 
@@ -226,6 +224,128 @@ end
 for index=1:length(Crutches_03_FS_right)-1
     GCT_Crutches_right = [GCT_Crutches_right (Crutches_03_FS_right(index+1)-Crutches_03_FS_right(index))];
 end
+
+%%  STRIDE LENGTH (LStride)
+
+% stride length is defined as the distance of two consequtive foot strikes
+% of the same foot
+
+LStride_noCrutches_left = [];
+LStride_noCrutches_right = [];
+
+LStride_Crutches_left = [];
+LStride_Crutches_right = [];
+
+for index=1:(length(noCrutches_01_FS_left)-1)
+    timepoint1 = round(noCrutches_01_FS_left(index)*FLOAT_NO_CRUTCHES.T_01.fsKIN,0);
+    pt1 = FLOAT_NO_CRUTCHES.T_01.Raw.Kin.LANK(timepoint1,:);
+    timepoint2 = round(noCrutches_01_FS_left(index+1)*FLOAT_NO_CRUTCHES.T_01.fsKIN,0);
+    pt2 = FLOAT_NO_CRUTCHES.T_01.Raw.Kin.LANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_noCrutches_left = [LStride_noCrutches_left stridelength];
+end
+
+for index=1:length(noCrutches_02_FS_left)-1
+    timepoint1 = round(noCrutches_02_FS_left(index)*FLOAT_NO_CRUTCHES.T_02.fsKIN,0);
+    pt1 = FLOAT_NO_CRUTCHES.T_02.Raw.Kin.LANK(timepoint1,:);
+    timepoint2 = round(noCrutches_02_FS_left(index+1)*FLOAT_NO_CRUTCHES.T_02.fsKIN,0);
+    pt2 = FLOAT_NO_CRUTCHES.T_02.Raw.Kin.LANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_noCrutches_left = [LStride_noCrutches_left stridelength];
+end
+
+for index=1:length(noCrutches_03_FS_left)-1
+    timepoint1 = round(noCrutches_03_FS_left(index)*FLOAT_NO_CRUTCHES.T_03.fsKIN,0);
+    pt1 = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(timepoint1,:);
+    timepoint2 = round(noCrutches_02_FS_left(index+1)*FLOAT_NO_CRUTCHES.T_03.fsKIN,0);
+    pt2 = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_noCrutches_left = [LStride_noCrutches_left stridelength];
+end
+
+for index=1:length(noCrutches_01_FS_right)-1
+    timepoint1 = round(noCrutches_01_FS_right(index)*FLOAT_NO_CRUTCHES.T_01.fsKIN,0);
+    pt1 = FLOAT_NO_CRUTCHES.T_01.Raw.Kin.RANK(timepoint1,:);
+    timepoint2 = round(noCrutches_01_FS_right(index+1)*FLOAT_NO_CRUTCHES.T_01.fsKIN,0);
+    pt2 = FLOAT_NO_CRUTCHES.T_01.Raw.Kin.RANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_noCrutches_right = [LStride_noCrutches_right stridelength];
+end
+
+for index=1:length(noCrutches_02_FS_right)-1
+    timepoint1 = round(noCrutches_02_FS_right(index)*FLOAT_NO_CRUTCHES.T_02.fsKIN,0);
+    pt1 = FLOAT_NO_CRUTCHES.T_02.Raw.Kin.RANK(timepoint1,:);
+    timepoint2 = round(noCrutches_02_FS_right(index+1)*FLOAT_NO_CRUTCHES.T_02.fsKIN,0);
+    pt2 = FLOAT_NO_CRUTCHES.T_02.Raw.Kin.RANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_noCrutches_right = [LStride_noCrutches_right stridelength];
+end
+
+for index=1:length(noCrutches_03_FS_right)-1
+    timepoint1 = round(noCrutches_03_FS_right(index)*FLOAT_NO_CRUTCHES.T_03.fsKIN,0);
+    pt1 = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(timepoint1,:);
+    timepoint2 = round(noCrutches_03_FS_right(index+1)*FLOAT_NO_CRUTCHES.T_03.fsKIN,0);
+    pt2 = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_noCrutches_right = [LStride_noCrutches_right stridelength];
+end
+
+
+for index=1:length(Crutches_01_FS_left)-1
+    timepoint1 = round(Crutches_01_FS_left(index)*NO_FLOAT_CRUTCHES.T_01.fsKIN,0);
+    pt1 = NO_FLOAT_CRUTCHES.T_01.Raw.Kin.LANK(timepoint1,:);
+    timepoint2 = round(Crutches_01_FS_left(index+1)*NO_FLOAT_CRUTCHES.T_01.fsKIN,0);
+    pt2 = NO_FLOAT_CRUTCHES.T_01.Raw.Kin.LANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_Crutches_left = [LStride_Crutches_left stridelength];
+end
+
+for index=1:length(Crutches_02_FS_left)-1
+    timepoint1 = round(Crutches_02_FS_left(index)*NO_FLOAT_CRUTCHES.T_02.fsKIN,0);
+    pt1 = NO_FLOAT_CRUTCHES.T_02.Raw.Kin.LANK(timepoint1,:);
+    timepoint2 = round(Crutches_02_FS_left(index+1)*NO_FLOAT_CRUTCHES.T_02.fsKIN,0);
+    pt2 = NO_FLOAT_CRUTCHES.T_02.Raw.Kin.LANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_Crutches_left = [LStride_Crutches_left stridelength];
+end
+
+for index=1:length(Crutches_03_FS_left)-1
+    timepoint1 = round(Crutches_03_FS_left(index)*NO_FLOAT_CRUTCHES.T_03.fsKIN,0);
+    pt1 = NO_FLOAT_CRUTCHES.T_03.Raw.Kin.LANK(timepoint1,:);
+    timepoint2 = round(Crutches_03_FS_left(index+1)*NO_FLOAT_CRUTCHES.T_03.fsKIN,0);
+    pt2 = NO_FLOAT_CRUTCHES.T_03.Raw.Kin.LANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_Crutches_left = [LStride_Crutches_left stridelength];
+end
+
+for index=1:length(Crutches_01_FS_right)-1
+    timepoint1 = round(Crutches_01_FS_right(index)*NO_FLOAT_CRUTCHES.T_01.fsKIN,0);
+    pt1 = NO_FLOAT_CRUTCHES.T_01.Raw.Kin.RANK(timepoint1,:);
+    timepoint2 = round(Crutches_01_FS_right(index+1)*NO_FLOAT_CRUTCHES.T_01.fsKIN,0);
+    pt2 = NO_FLOAT_CRUTCHES.T_01.Raw.Kin.RANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_Crutches_right = [LStride_Crutches_right stridelength];
+end
+
+for index=1:length(Crutches_02_FS_right)-1
+    timepoint1 = round(Crutches_02_FS_right(index)*NO_FLOAT_CRUTCHES.T_02.fsKIN,0);
+    pt1 = NO_FLOAT_CRUTCHES.T_02.Raw.Kin.RANK(timepoint1,:);
+    timepoint2 = round(Crutches_02_FS_right(index+1)*NO_FLOAT_CRUTCHES.T_02.fsKIN,0);
+    pt2 = NO_FLOAT_CRUTCHES.T_02.Raw.Kin.RANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_Crutches_right = [LStride_Crutches_right stridelength];
+end
+
+for index=1:length(Crutches_03_FS_right)-1
+    timepoint1 = round(Crutches_03_FS_right(index)*NO_FLOAT_CRUTCHES.T_03.fsKIN,0);
+    pt1 = NO_FLOAT_CRUTCHES.T_03.Raw.Kin.RANK(timepoint1,:);
+    timepoint2 = round(Crutches_03_FS_right(index+1)*NO_FLOAT_CRUTCHES.T_03.fsKIN,0);
+    pt2 = NO_FLOAT_CRUTCHES.T_03.Raw.Kin.RANK(timepoint2,:);
+    stridelength = norm(pt2-pt1);
+    LStride_Crutches_right = [LStride_Crutches_right stridelength];
+end
+
+
 
 
 %%    
