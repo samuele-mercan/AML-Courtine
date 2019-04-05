@@ -363,12 +363,40 @@ figure(2);
 plot(samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(:,1),  '-r',...
     samplePoints,FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(:,2), '--b',...
     samplePoints,FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(:,3), '.-c');  
+%NOT SURE ON THE LEGEND!!! IT AFFECT ALL THE NAMES GIVEN FOR FUTURE
+%VARIABLES
 legend('x-coordinate', 'y-coordinate', 'z-coordinate');
 
 %We can observe patterns in y and z coordinate
 %---> TODO derive this to find velocity. IT should give nice separations of
 %gait cycles!
 
+%% Derivation of velocities and accelleration
+velocity_X = diff(FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,1));
+velocity_Y = diff(FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,2));
+velocity_Z = diff(FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,3));
+samplePointsVelocity = samplePoints;
+samplePointsVelocity(:,1)=[];
+
+figure(1);
+plot(samplePointsVelocity, velocity_X',  '-r',...
+    samplePointsVelocity, velocity_Y', '--b',...
+    samplePointsVelocity,velocity_Z', '.-c');  
+legend('x-velocity', 'y-velocity', 'z-velocity');
+title('Velocity');
+
+accelleration_X = diff(velocity_X);
+accelleration_Y = diff(velocity_Y);
+accelleration_Z = diff(velocity_Z);
+samplePointsAcc = samplePointsVelocity;
+samplePointsAcc(:,1)=[];
+
+figure(2);
+plot(samplePointsAcc, accelleration_X',  '-r',...
+    samplePointsAcc, accelleration_Y', '--b',...
+    samplePointsAcc,accelleration_Z', '.-c');  
+legend('x-acc', 'y-acc', 'z-acc');
+title('Accelleration');
 %%    
     %======================================================================
     % Load Data for Healthy Patient
