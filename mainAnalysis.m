@@ -346,11 +346,14 @@ for index=1:length(Crutches_03_FS_right)-1
 end
 
 %% Plotting template
-%TODO fix it on time and not recording frame
 
+%Usefull parameters in Raw are: LANK; LTOE; LKNE, LHIP (note that LHIP does
+%not exist for SCI patients). Same for Right leg 
+% TODO add LASI
+frequency = 100; %Frequency is 100 Hz
 sizeData = size (FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,1));  
 samplePoints = linspace (0,sizeData(1)-1,sizeData(1)); %Just need to divide this by registration frequency
-
+samplePoints = samplePoints./frequency;
 %We plot the values for the Left ANK
 figure(1);
 plot(samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,1),  '-r',...
@@ -370,6 +373,83 @@ legend('x-coordinate', 'y-coordinate', 'z-coordinate');
 %We can observe patterns in y and z coordinate
 %---> TODO derive this to find velocity. IT should give nice separations of
 %gait cycles!
+
+%% Animated plot for right leg
+%x_ankle = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(:,1)';
+y_ankle = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(:,2)';
+z_ankle = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(:,3)';
+
+%x_knee = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RKNE(:,1)';
+y_knee = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RKNE(:,2)';
+z_knee = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RKNE(:,3)';
+
+%x_toe = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RTOE(:,1)';
+y_toe = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RTOE(:,2)';
+z_toe = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RTOE(:,3)';
+
+%x_asi = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RASI(:,1)';
+y_asi = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RASI(:,2)';
+z_asi = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RASI(:,3)';
+
+
+
+curve_ankle = animatedline('Color', 'k');
+curve_knee = animatedline('Color', 'r');
+curve_toe = animatedline('Color', 'c');
+curve_asi = animatedline('Color', 'm');
+
+%view(3)
+
+for i = 1:length(y_ankle)
+    %addpoints(curve_ankle,x_ankle(i),y_ankle(i),z_ankle(i));
+    %addpoints(curve_knee,x_knee(i),y_knee(i),z_knee(i));
+    addpoints(curve_ankle,y_ankle(i),z_ankle(i));
+    addpoints(curve_knee,y_knee(i),z_knee(i));
+    addpoints(curve_toe,y_toe(i),z_toe(i));
+    addpoints(curve_asi,y_asi(i),z_asi(i));
+    
+    drawnow
+end
+
+%% Animated plot for left leg
+%x_ankle = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,1)';
+y_ankle = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,2)';
+z_ankle = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,3)';
+
+%x_knee = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LKNE(:,1)';
+y_knee = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LKNE(:,2)';
+z_knee = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LKNE(:,3)';
+
+%x_toe = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,1)';
+y_toe = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,2)';
+z_toe = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,3)';
+
+%x_asi = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LASI(:,1)';
+y_asi = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LASI(:,2)';
+z_asi = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LASI(:,3)';
+
+
+
+curve_ankle = animatedline('Color', 'k');
+curve_knee = animatedline('Color', 'r');
+curve_toe = animatedline('Color', 'c');
+curve_asi = animatedline('Color', 'm');
+
+%view(3)
+
+for i = 1:length(y_ankle)
+    %addpoints(curve_ankle,x_ankle(i),y_ankle(i),z_ankle(i));
+    %addpoints(curve_knee,x_knee(i),y_knee(i),z_knee(i));
+    %addpoints(curve_toe,x_toe(i),y_toe(i),z_toe(i));
+    %addpoints(curve_asi,x_asi(i),y_asi(i),z_asi(i));
+    
+    addpoints(curve_ankle,y_ankle(i),z_ankle(i));
+    addpoints(curve_knee,y_knee(i),z_knee(i));
+    addpoints(curve_toe,y_toe(i),z_toe(i));
+    addpoints(curve_asi,y_asi(i),z_asi(i));
+    
+    drawnow
+end
 
 %% Derivation of velocities and accelleration
 velocity_X = diff(FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,1));
