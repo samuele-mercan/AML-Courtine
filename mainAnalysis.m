@@ -350,13 +350,24 @@ end
 
 sizeData = size (FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,1));  
 samplePoints = linspace (0,sizeData(1)-1,sizeData(1)); %Just need to divide this by registration frequency
+
+%We plot the values for the Left ANK
 figure(1);
 plot(samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,1),  '-r',...
     samplePoints,FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,2), '--b',...
     samplePoints,FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,3), '.-c');  
 legend('x-coordinate', 'y-coordinate', 'z-coordinate');
 
+%We plot teh values for the Right ANK
+figure(2);
+plot(samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(:,1),  '-r',...
+    samplePoints,FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(:,2), '--b',...
+    samplePoints,FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(:,3), '.-c');  
+legend('x-coordinate', 'y-coordinate', 'z-coordinate');
 
+%We can observe patterns in y and z coordinate
+%---> TODO derive this to find velocity. IT should give nice separations of
+%gait cycles!
 
 %%    
     %======================================================================
