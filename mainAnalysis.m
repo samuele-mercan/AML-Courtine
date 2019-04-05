@@ -345,6 +345,16 @@ for index=1:length(Crutches_03_FS_right)-1
     LStride_Crutches_right = [LStride_Crutches_right stridelength];
 end
 
+%% Plotting template
+%TODO fix it on time and not recording frame
+
+sizeData = size (FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,1));  
+samplePoints = linspace (0,sizeData(1)-1,sizeData(1)); %Just need to divide this by registration frequency
+figure(1);
+plot(samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,1),  '-r',...
+    samplePoints,FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,2), '--b',...
+    samplePoints,FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,3), '.-c');  
+legend('x-coordinate', 'y-coordinate', 'z-coordinate');
 
 
 
