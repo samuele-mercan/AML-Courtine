@@ -225,125 +225,6 @@ for index=1:length(Crutches_03_FS_right)-1
     GCT_Crutches_right = [GCT_Crutches_right (Crutches_03_FS_right(index+1)-Crutches_03_FS_right(index))];
 end
 
-%%  STRIDE LENGTH (LStride)
-
-% stride length is defined as the distance of two consequtive foot strikes
-% of the same foot
-
-LStride_noCrutches_left = [];
-LStride_noCrutches_right = [];
-
-LStride_Crutches_left = [];
-LStride_Crutches_right = [];
-
-for index=1:(length(noCrutches_01_FS_left)-1)
-    timepoint1 = round(noCrutches_01_FS_left(index)*FLOAT_NO_CRUTCHES.T_01.fsKIN,0);
-    pt1 = FLOAT_NO_CRUTCHES.T_01.Raw.Kin.LANK(timepoint1,:);
-    timepoint2 = round(noCrutches_01_FS_left(index+1)*FLOAT_NO_CRUTCHES.T_01.fsKIN,0);
-    pt2 = FLOAT_NO_CRUTCHES.T_01.Raw.Kin.LANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_noCrutches_left = [LStride_noCrutches_left stridelength];
-end
-
-for index=1:length(noCrutches_02_FS_left)-1
-    timepoint1 = round(noCrutches_02_FS_left(index)*FLOAT_NO_CRUTCHES.T_02.fsKIN,0);
-    pt1 = FLOAT_NO_CRUTCHES.T_02.Raw.Kin.LANK(timepoint1,:);
-    timepoint2 = round(noCrutches_02_FS_left(index+1)*FLOAT_NO_CRUTCHES.T_02.fsKIN,0);
-    pt2 = FLOAT_NO_CRUTCHES.T_02.Raw.Kin.LANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_noCrutches_left = [LStride_noCrutches_left stridelength];
-end
-
-for index=1:length(noCrutches_03_FS_left)-1
-    timepoint1 = round(noCrutches_03_FS_left(index)*FLOAT_NO_CRUTCHES.T_03.fsKIN,0);
-    pt1 = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(timepoint1,:);
-    timepoint2 = round(noCrutches_02_FS_left(index+1)*FLOAT_NO_CRUTCHES.T_03.fsKIN,0);
-    pt2 = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_noCrutches_left = [LStride_noCrutches_left stridelength];
-end
-
-for index=1:length(noCrutches_01_FS_right)-1
-    timepoint1 = round(noCrutches_01_FS_right(index)*FLOAT_NO_CRUTCHES.T_01.fsKIN,0);
-    pt1 = FLOAT_NO_CRUTCHES.T_01.Raw.Kin.RANK(timepoint1,:);
-    timepoint2 = round(noCrutches_01_FS_right(index+1)*FLOAT_NO_CRUTCHES.T_01.fsKIN,0);
-    pt2 = FLOAT_NO_CRUTCHES.T_01.Raw.Kin.RANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_noCrutches_right = [LStride_noCrutches_right stridelength];
-end
-
-for index=1:length(noCrutches_02_FS_right)-1
-    timepoint1 = round(noCrutches_02_FS_right(index)*FLOAT_NO_CRUTCHES.T_02.fsKIN,0);
-    pt1 = FLOAT_NO_CRUTCHES.T_02.Raw.Kin.RANK(timepoint1,:);
-    timepoint2 = round(noCrutches_02_FS_right(index+1)*FLOAT_NO_CRUTCHES.T_02.fsKIN,0);
-    pt2 = FLOAT_NO_CRUTCHES.T_02.Raw.Kin.RANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_noCrutches_right = [LStride_noCrutches_right stridelength];
-end
-
-for index=1:length(noCrutches_03_FS_right)-1
-    timepoint1 = round(noCrutches_03_FS_right(index)*FLOAT_NO_CRUTCHES.T_03.fsKIN,0);
-    pt1 = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(timepoint1,:);
-    timepoint2 = round(noCrutches_03_FS_right(index+1)*FLOAT_NO_CRUTCHES.T_03.fsKIN,0);
-    pt2 = FLOAT_NO_CRUTCHES.T_03.Raw.Kin.RANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_noCrutches_right = [LStride_noCrutches_right stridelength];
-end
-
-
-for index=1:length(Crutches_01_FS_left)-1
-    timepoint1 = round(Crutches_01_FS_left(index)*NO_FLOAT_CRUTCHES.T_01.fsKIN,0);
-    pt1 = NO_FLOAT_CRUTCHES.T_01.Raw.Kin.LANK(timepoint1,:);
-    timepoint2 = round(Crutches_01_FS_left(index+1)*NO_FLOAT_CRUTCHES.T_01.fsKIN,0);
-    pt2 = NO_FLOAT_CRUTCHES.T_01.Raw.Kin.LANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_Crutches_left = [LStride_Crutches_left stridelength];
-end
-
-for index=1:length(Crutches_02_FS_left)-1
-    timepoint1 = round(Crutches_02_FS_left(index)*NO_FLOAT_CRUTCHES.T_02.fsKIN,0);
-    pt1 = NO_FLOAT_CRUTCHES.T_02.Raw.Kin.LANK(timepoint1,:);
-    timepoint2 = round(Crutches_02_FS_left(index+1)*NO_FLOAT_CRUTCHES.T_02.fsKIN,0);
-    pt2 = NO_FLOAT_CRUTCHES.T_02.Raw.Kin.LANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_Crutches_left = [LStride_Crutches_left stridelength];
-end
-
-for index=1:length(Crutches_03_FS_left)-1
-    timepoint1 = round(Crutches_03_FS_left(index)*NO_FLOAT_CRUTCHES.T_03.fsKIN,0);
-    pt1 = NO_FLOAT_CRUTCHES.T_03.Raw.Kin.LANK(timepoint1,:);
-    timepoint2 = round(Crutches_03_FS_left(index+1)*NO_FLOAT_CRUTCHES.T_03.fsKIN,0);
-    pt2 = NO_FLOAT_CRUTCHES.T_03.Raw.Kin.LANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_Crutches_left = [LStride_Crutches_left stridelength];
-end
-
-for index=1:length(Crutches_01_FS_right)-1
-    timepoint1 = round(Crutches_01_FS_right(index)*NO_FLOAT_CRUTCHES.T_01.fsKIN,0);
-    pt1 = NO_FLOAT_CRUTCHES.T_01.Raw.Kin.RANK(timepoint1,:);
-    timepoint2 = round(Crutches_01_FS_right(index+1)*NO_FLOAT_CRUTCHES.T_01.fsKIN,0);
-    pt2 = NO_FLOAT_CRUTCHES.T_01.Raw.Kin.RANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_Crutches_right = [LStride_Crutches_right stridelength];
-end
-
-for index=1:length(Crutches_02_FS_right)-1
-    timepoint1 = round(Crutches_02_FS_right(index)*NO_FLOAT_CRUTCHES.T_02.fsKIN,0);
-    pt1 = NO_FLOAT_CRUTCHES.T_02.Raw.Kin.RANK(timepoint1,:);
-    timepoint2 = round(Crutches_02_FS_right(index+1)*NO_FLOAT_CRUTCHES.T_02.fsKIN,0);
-    pt2 = NO_FLOAT_CRUTCHES.T_02.Raw.Kin.RANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_Crutches_right = [LStride_Crutches_right stridelength];
-end
-
-for index=1:length(Crutches_03_FS_right)-1
-    timepoint1 = round(Crutches_03_FS_right(index)*NO_FLOAT_CRUTCHES.T_03.fsKIN,0);
-    pt1 = NO_FLOAT_CRUTCHES.T_03.Raw.Kin.RANK(timepoint1,:);
-    timepoint2 = round(Crutches_03_FS_right(index+1)*NO_FLOAT_CRUTCHES.T_03.fsKIN,0);
-    pt2 = NO_FLOAT_CRUTCHES.T_03.Raw.Kin.RANK(timepoint2,:);
-    stridelength = norm(pt2-pt1);
-    LStride_Crutches_right = [LStride_Crutches_right stridelength];
-end
 
 %% Plotting template
 %TODO fix it on time and not recording frame
@@ -396,9 +277,121 @@ plot(samplePointsAcc, accelleration_X',  '-r',...
     samplePointsAcc, accelleration_Y', '--b',...
     samplePointsAcc,accelleration_Z', '.-c');  
 legend('x-acc', 'y-acc', 'z-acc');
-title('Accelleration');
-%%    
-    %======================================================================
-    % Load Data for Healthy Patient
-    %======================================================================
+title('Acceleration');
+
+end
+
+%% calculate different angles
+function [angle_HIP, angle_KNE, angle_ANK, max_vAng_ANK] = calculate_jointAngles(data,rightLeg)
+    %calculates hip, knee and ankle angle from a given kinematic data structure
+    %and max angular velocity of angle
+    if rightLeg
+        Hip = data.RHIP;
+        Toe = data.RTOE;
+        Ankle = data.RANK;
+        Knee = data.RKNE;         
+    else
+        Hip = kin_data.LHIP;
+        Toe = kin_data.LTOE;
+        Ankle = kin_data.LANK;
+        Knee = kin_data.LKNE;    
+    end
     
+    angle_ANK = zeros(size(Hip,1),1);
+    angle_KNE = zeros(size(Hip,1),1);
+    angle_HIP = zeros(size(Hip,1),1);
+    
+    for i=1:length(Hip(:,1))
+        pt1 = Hip(i,:);
+        pt2 = Knee(i,:);
+        pt3 = Ankle(i,:);
+        pt4 = Toe(i,:);
+        
+        %triangle hip knee ankle with sides a b c
+        a = norm(Hip(i,:)-Ankle(i,:)); 
+        b = norm(Knee(i,:)-Hip(i,:));
+        c = norm(Ankle(i,:)-Knee(i,:));
+        %calculation of angle using the law of cosines
+        angle_KNE(i) = acosd((b*b + c*c -a*a)/(2*b*c));
+        angle_HIP(i) = acosd((a*a + b*b -c*c)/(2*a*b));
+        
+        
+        %triangle knee ankle toe
+        a = norm(Toe(i,:)-Ankle(i,:));
+        b = norm(Knee(i,:)-Toe(i,:));
+        c = norm(Ankle(i,:)-Knee(i,:));
+        angle_ANK(i) = acosd((a*a + c*c -b*b)/(2*a*c));
+    end
+    
+    max_vAng_ANK = max(diff(angle_ANK));
+end
+%% calculate elevation angles 
+function [elevationangle_THIGH, elevationangle_SHANK,...
+    elevationangle_FOOT] = calculate_jointAngles(data,rightLeg)
+    %calculates knee and ankle angle from a given kinematic data structure
+    if rightLeg
+        Hip = data.RHIP;
+        Toe = data.RTOE;
+        Ankle = data.RANK;
+        Knee = data.RKNE;         
+    else
+        Hip = kin_data.LHIP;
+        Toe = kin_data.LTOE;
+        Ankle = kin_data.LANK;
+        Knee = kin_data.LKNE;    
+    end
+    
+    elevationangle_THIGH = zeros(size(Hip,1),1);
+    elevationangle_SHANK = zeros(size(Hip,1),1);
+    elevationangle_FOOT = zeros(size(Hip,1),1);
+    
+    %gravity vector with length 1
+    g = (0,-1,0);
+    
+    for i=1:length(Hip(:,1))
+        pt1 = Hip(i,:);
+        pt2 = Knee(i,:);
+        pt3 = Ankle(i,:);
+        pt4 = Toe(i,:);
+        
+        a = (Hip(i,:)-Knee(i,:))/norm(Hip(i,:)-Knee(i,:)); 
+        b = (Knee(i,:)-Ankle(i,:))/norm(Knee(i,:)-Ankle(i,:));
+        c = (Ankle(i,:)-Toe(i,:))/norm(Ankle(i,:)-Toe(i,:));
+        
+        elevationangle_THIGH(i)    = acosd(g/a);
+        elevationangle_SHANK(i)    = acosd(g/b);
+        elevationangle_FOOT(i)     = acosd(g/c);
+    end
+    
+end
+
+%% calculate elevation angles 
+function[strideLength] = calculate_strideLength(data, rightLeg)
+    if rightLeg
+        Ankle = data.RANK;         
+    else
+        Ankle = kin_data.LANK;    
+    end
+    
+    strideLength = norm(Ankle(end,:)-Ankle(1,:))
+end
+
+%% calculate peak swing velocity and acceleration
+
+function [peakSwingVelocity, peakSwingAcceleration] = calculate_peakSwing (data,rightLeg)
+    if rightLeg
+        Knee = data.RKNE;
+        Ankle = data.RANK;
+    else
+        Knee = data.LKNE;
+        Ankle = data.LANK;
+    end
+    
+    peakSwingVelocity = max(diff(Ankle(:,2)));
+    peakSwingAcceleration = max(diff(diff(Ankle(:,2))));
+    
+end
+    
+
+
+
