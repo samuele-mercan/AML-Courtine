@@ -1,4 +1,5 @@
-function [GaitCycles] = segmentation(datasetName, table01, table02, table03)
+function [GaitCycles] = segmentation(datasetName, table01, table02, table03, leftFoot)
+
     %% Load Data
     
     [dataset_01_FS_left, dataset_01_FS_right, dataset_01_FO_left, dataset_01_FO_right, ...
@@ -7,7 +8,6 @@ function [GaitCycles] = segmentation(datasetName, table01, table02, table03)
 
     dataset = load(datasetName);
     fields = fieldnames(dataset);
-
     
     fsKIN_dataset_01 = dataset.(fields{1}).T_01.fsKIN;
     fsKIN_dataset_02 = dataset.(fields{1}).T_02.fsKIN;
@@ -69,169 +69,163 @@ function [GaitCycles] = segmentation(datasetName, table01, table02, table03)
     
     GaitCycles = struct();
     
-    firstLength = min([length(dataset_01_FS_left),length(dataset_01_FS_right), length(dataset_01_FO_left), length(dataset_01_FO_right)]);
-    secondLength = min([length(dataset_02_FS_left),length(dataset_02_FS_right), length(dataset_02_FO_left), length(dataset_02_FO_right)]);
-    thirdLength = min([length(dataset_03_FS_left),length(dataset_03_FS_right), length(dataset_03_FO_left), length(dataset_03_FO_right)]);
+    % we take the Foot Strike to segment the data in gait cycles
 
     %T_01
+    
+    if (leftFoot)
+        firstLength = length(dataset_01_FS_left)-1;
+        gaitEventsForSegmentation = dataset_01_FS_left; 
+    else
+        firstLength = length(dataset_01_FS_right)-1;
+        gaitEventsForSegmentation = dataset_01_FS_right; 
+    end
+    
     for i=1:firstLength
         
         GaitCycles.(strcat('GC',num2str(i))).Kin = [] ;
         GaitCycles.(strcat('GC',num2str(i))).EMG = [] ;
-
-        if (i < length(dataset_01_FS_left) && i < length(dataset_01_FO_left))
-        
-            if (dataset_01_FO_left(i) < dataset_01_FS_left(i))
-                startIndexKin = int16(dataset_01_FO_left(i)*fsKIN_dataset_01);
-                endIndexKin = int16(dataset_01_FS_left(i)*fsKIN_dataset_01);
-                startIndexEmg = int16(dataset_01_FO_left(i)*fsEMG_dataset_01);
-                endIndexEmg = int16(dataset_01_FS_left(i)*fsEMG_dataset_01);
-            else 
-                startIndexKin = int16(dataset_01_FS_left(i)*fsKIN_dataset_01);
-                endIndexKin = int16(dataset_01_FO_left(i)*fsKIN_dataset_01);
-                startIndexEmg = int16(dataset_01_FS_left(i)*fsEMG_dataset_01);
-                endIndexEmg = int16(dataset_01_FO_left(i)*fsEMG_dataset_01);
-            end
-        
-            GaitCycles.(strcat('GC',num2str(i))).Kin.LASI = LASI_dataset_01(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(i))).Kin.LKNE = LKNE_dataset_01(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(i))).Kin.LANK = LANK_dataset_01(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(i))).Kin.LTOE = LTOE_dataset_01(startIndexKin:endIndexKin,:);
-        
-            GaitCycles.(strcat('GC',num2str(i))).EMG.LTA = LTA_dataset_01(startIndexEmg:endIndexEmg);
-            GaitCycles.(strcat('GC',num2str(i))).EMG.LMG = LMG_dataset_01(startIndexEmg:endIndexEmg);
             
+        startIndexKin = int16(gaitEventsForSegmentation(i)*fsKIN_dataset_01);
+        endIndexKin = int16(gaitEventsForSegmentation(i+1)*fsKIN_dataset_01);
+        startIndexEmg = int16(gaitEventsForSegmentation(i)*fsEMG_dataset_01);
+        endIndexEmg = int16(gaitEventsForSegmentation(i+1)*fsEMG_dataset_01);
+                
+        GaitCycles.(strcat('GC',num2str(i))).Kin.LASI = LASI_dataset_01(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(i))).Kin.LKNE = LKNE_dataset_01(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(i))).Kin.LANK = LANK_dataset_01(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(i))).Kin.LTOE = LTOE_dataset_01(startIndexKin:endIndexKin,:);
+        
+        GaitCycles.(strcat('GC',num2str(i))).EMG.LTA = LTA_dataset_01(startIndexEmg:endIndexEmg);
+        GaitCycles.(strcat('GC',num2str(i))).EMG.LMG = LMG_dataset_01(startIndexEmg:endIndexEmg);
+
+        GaitCycles.(strcat('GC',num2str(i))).Kin.RASI = RASI_dataset_01(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(i))).Kin.RKNE = RKNE_dataset_01(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(i))).Kin.RANK = RANK_dataset_01(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(i))).Kin.RTOE = RTOE_dataset_01(startIndexKin:endIndexKin,:);
+
+        GaitCycles.(strcat('GC',num2str(i))).EMG.RTA = RTA_dataset_01(startIndexEmg:endIndexEmg);
+        GaitCycles.(strcat('GC',num2str(i))).EMG.RMG = RMG_dataset_01(startIndexEmg:endIndexEmg);
+        
+        if (leftFoot)
+            GaitCycles.(strcat('GC',num2str(i))).FS_left = gaitEventsForSegmentation(i);
+            GaitCycles.(strcat('GC',num2str(i))).FO_left = dataset_01_FO_left(dataset_01_FO_left < gaitEventsForSegmentation(i+1) & dataset_01_FO_left > gaitEventsForSegmentation(i));
+            GaitCycles.(strcat('GC',num2str(i))).FS_right = dataset_01_FS_right(dataset_01_FS_right < gaitEventsForSegmentation(i+1) & dataset_01_FS_right > gaitEventsForSegmentation(i));
+            GaitCycles.(strcat('GC',num2str(i))).FO_right = dataset_01_FO_right(dataset_01_FO_right < gaitEventsForSegmentation(i+1) & dataset_01_FO_right > gaitEventsForSegmentation(i));
+        else 
+            GaitCycles.(strcat('GC',num2str(i))).FS_left = dataset_01_FS_left(dataset_01_FS_left < gaitEventsForSegmentation(i+1) & dataset_01_FS_left > gaitEventsForSegmentation(i));
+            GaitCycles.(strcat('GC',num2str(i))).FO_left = dataset_01_FO_left(dataset_01_FO_left < gaitEventsForSegmentation(i+1) & dataset_01_FO_left > gaitEventsForSegmentation(i));
+            GaitCycles.(strcat('GC',num2str(i))).FS_right = gaitEventsForSegmentation(i);
+            GaitCycles.(strcat('GC',num2str(i))).FO_right = dataset_01_FO_right(dataset_01_FO_right < gaitEventsForSegmentation(i+1) & dataset_01_FO_right > gaitEventsForSegmentation(i));
         end
-        
-        if (i < length(dataset_01_FS_right) && i < length(dataset_01_FO_right))
-        
-            if (dataset_01_FO_right(i) < dataset_01_FS_right(i))
-                startIndexKin = int16(dataset_01_FO_right(i)*fsKIN_dataset_01);
-                endIndexKin = int16(dataset_01_FS_right(i)*fsKIN_dataset_01);
-                startIndexEmg = int16(dataset_01_FO_right(i)*fsEMG_dataset_01);
-                endIndexEmg = int16(dataset_01_FS_right(i)*fsEMG_dataset_01);
-            else 
-                startIndexKin = int16(dataset_01_FS_right(i)*fsKIN_dataset_01);
-                endIndexKin = int16(dataset_01_FO_right(i)*fsKIN_dataset_01);
-                startIndexEmg = int16(dataset_01_FS_right(i)*fsEMG_dataset_01);
-                endIndexEmg = int16(dataset_01_FO_right(i)*fsEMG_dataset_01);
-            end
-        
-            GaitCycles.(strcat('GC',num2str(i))).Kin.RASI = RASI_dataset_01(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(i))).Kin.RKNE = RKNE_dataset_01(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(i))).Kin.RANK = RANK_dataset_01(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(i))).Kin.RTOE = RTOE_dataset_01(startIndexKin:endIndexKin,:);
-        
-            GaitCycles.(strcat('GC',num2str(i))).EMG.RTA = RTA_dataset_01(startIndexEmg:endIndexEmg);
-            GaitCycles.(strcat('GC',num2str(i))).EMG.RMG = RMG_dataset_01(startIndexEmg:endIndexEmg);
-        end
-        
+         
     end
     
     %T_02
+    
+    if (leftFoot)
+        secondLength = length(dataset_02_FS_left)-1;
+        gaitEventsForSegmentation = dataset_02_FS_left; 
+    else
+        secondLength = length(dataset_02_FS_right)-1;
+        gaitEventsForSegmentation = dataset_02_FS_right; 
+    end
+    
     for j=1:secondLength
         
         GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin = [] ;
         GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG = [] ;
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_left = [] ;
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_left = [] ;
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_right = [] ;
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_right = [] ;
+            
+        startIndexKin = int16(gaitEventsForSegmentation(j)*fsKIN_dataset_02);
+        endIndexKin = int16(gaitEventsForSegmentation(j+1)*fsKIN_dataset_02);
+        startIndexEmg = int16(gaitEventsForSegmentation(j)*fsEMG_dataset_02);
+        endIndexEmg = int16(gaitEventsForSegmentation(j+1)*fsEMG_dataset_02);
+                
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.LASI = LASI_dataset_02(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.LKNE = LKNE_dataset_02(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.LANK = LANK_dataset_02(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.LTOE = LTOE_dataset_02(startIndexKin:endIndexKin,:);
+        
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG.LTA = LTA_dataset_02(startIndexEmg:endIndexEmg);
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG.LMG = LMG_dataset_02(startIndexEmg:endIndexEmg);
 
-        if (j < length(dataset_02_FS_left) && j < length(dataset_02_FO_left))
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.RASI = RASI_dataset_02(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.RKNE = RKNE_dataset_02(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.RANK = RANK_dataset_02(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.RTOE = RTOE_dataset_02(startIndexKin:endIndexKin,:);
+
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG.RTA = RTA_dataset_02(startIndexEmg:endIndexEmg);
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG.RMG = RMG_dataset_02(startIndexEmg:endIndexEmg);
         
-            if (dataset_02_FO_left(j) < dataset_02_FS_left(j))
-                startIndexKin = int16(dataset_02_FO_left(j)*fsKIN_dataset_02);
-                endIndexKin = int16(dataset_02_FS_left(j)*fsKIN_dataset_02);
-                startIndexEmg = int16(dataset_02_FO_left(j)*fsEMG_dataset_02);
-                endIndexEmg = int16(dataset_02_FS_left(j)*fsEMG_dataset_02);    
-            else 
-                startIndexKin = int16(dataset_02_FS_left(j)*fsKIN_dataset_02);
-                endIndexKin = int16(dataset_02_FO_left(j)*fsKIN_dataset_02);
-                startIndexEmg = int16(dataset_02_FS_left(j)*fsEMG_dataset_02);
-                endIndexEmg = int16(dataset_02_FO_left(j)*fsEMG_dataset_02);
-            end
-        
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.LASI = LASI_dataset_02(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.LKNE = LKNE_dataset_02(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.LANK = LANK_dataset_02(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.LTOE = LTOE_dataset_02(startIndexKin:endIndexKin,:);
-        
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG.LTA = LTA_dataset_02(startIndexEmg:endIndexEmg);
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG.LMG = LMG_dataset_02(startIndexEmg:endIndexEmg);
+        if (leftFoot)
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_left = gaitEventsForSegmentation(j);
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_left = dataset_02_FO_left(dataset_02_FO_left < gaitEventsForSegmentation(j+1) & dataset_02_FO_left > gaitEventsForSegmentation(j));
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_right = dataset_02_FS_right(dataset_02_FS_right < gaitEventsForSegmentation(j+1) & dataset_02_FS_right > gaitEventsForSegmentation(j));
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_right = dataset_02_FO_right(dataset_02_FO_right < gaitEventsForSegmentation(j+1) & dataset_02_FO_right > gaitEventsForSegmentation(j));
+        else 
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_left = dataset_02_FS_left(dataset_02_FS_left < gaitEventsForSegmentation(j+1) & dataset_02_FS_left > gaitEventsForSegmentation(j));
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_left = dataset_02_FO_left(dataset_02_FO_left < gaitEventsForSegmentation(j+1) & dataset_02_FO_left > gaitEventsForSegmentation(j));
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_right = gaitEventsForSegmentation(j);
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_right = dataset_02_FO_right(dataset_02_FO_right < gaitEventsForSegmentation(j+1) & dataset_02_FO_right > gaitEventsForSegmentation(j));
         end
         
-        if (j < length(dataset_02_FS_right) && j < length(dataset_02_FO_right))
-        
-            if (dataset_02_FO_right(j) < dataset_02_FS_right(j))
-                startIndexKin = int16(dataset_02_FO_right(j)*fsKIN_dataset_02);
-                endIndexKin = int16(dataset_02_FS_right(j)*fsKIN_dataset_02);
-                startIndexEmg = int16(dataset_02_FO_right(j)*fsEMG_dataset_02);
-                endIndexEmg = int16(dataset_02_FS_right(j)*fsEMG_dataset_02);
-            else 
-                startIndexKin = int16(dataset_02_FS_right(j)*fsKIN_dataset_02);
-                endIndexKin = int16(dataset_02_FO_right(j)*fsKIN_dataset_02);
-                startIndexEmg = int16(dataset_02_FS_right(j)*fsEMG_dataset_02);
-                endIndexEmg = int16(dataset_02_FO_right(j)*fsEMG_dataset_02);
-            end
-        
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.RASI = RASI_dataset_02(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.RKNE = RKNE_dataset_02(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.RANK = RANK_dataset_02(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin.RTOE = RTOE_dataset_02(startIndexKin:endIndexKin,:);
-       
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG.RTA = RTA_dataset_02(startIndexEmg:endIndexEmg);
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG.RMG = RMG_dataset_02(startIndexEmg:endIndexEmg);
-        end
         
     end
 
     %T_03
+    
+    if (leftFoot)
+        thirdLength = length(dataset_03_FS_left)-1;
+        gaitEventsForSegmentation = dataset_03_FS_left; 
+    else
+        thirdLength = length(dataset_03_FS_right)-1;
+        gaitEventsForSegmentation = dataset_03_FS_right; 
+    end
+    
     for k=1:thirdLength
         
         GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin = [] ;
         GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG = [] ;
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_left = [] ;
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_left = [] ;
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_right = [] ;
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_right = [] ;
+            
+        startIndexKin = int16(gaitEventsForSegmentation(k)*fsKIN_dataset_03);
+        endIndexKin = int16(gaitEventsForSegmentation(k+1)*fsKIN_dataset_03);
+        startIndexEmg = int16(gaitEventsForSegmentation(k)*fsEMG_dataset_03);
+        endIndexEmg = int16(gaitEventsForSegmentation(k+1)*fsEMG_dataset_03);
+                
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.LASI = LASI_dataset_03(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.LKNE = LKNE_dataset_03(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.LANK = LANK_dataset_03(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.LTOE = LTOE_dataset_03(startIndexKin:endIndexKin,:);
+        
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG.LTA = LTA_dataset_03(startIndexEmg:endIndexEmg);
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG.LMG = LMG_dataset_03(startIndexEmg:endIndexEmg);
 
-        if (k < length(dataset_03_FS_left) && k < length(dataset_03_FO_left))
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.RASI = RASI_dataset_03(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.RKNE = RKNE_dataset_03(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.RANK = RANK_dataset_03(startIndexKin:endIndexKin,:);
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.RTOE = RTOE_dataset_03(startIndexKin:endIndexKin,:);
+
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG.RTA = RTA_dataset_03(startIndexEmg:endIndexEmg);
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG.RMG = RMG_dataset_03(startIndexEmg:endIndexEmg);
         
-            if (dataset_03_FO_left(k) < dataset_03_FS_left(k))
-                startIndexKin = int16(dataset_03_FO_left(k)*fsKIN_dataset_03);
-                endIndexKin = int16(dataset_03_FS_left(k)*fsKIN_dataset_03);
-                startIndexEmg = int16(dataset_03_FO_left(k)*fsEMG_dataset_03);
-                endIndexEmg = int16(dataset_03_FS_left(k)*fsEMG_dataset_03);    
-            else 
-                startIndexKin = int16(dataset_03_FS_left(k)*fsKIN_dataset_03);
-                endIndexKin = int16(dataset_03_FO_left(k)*fsKIN_dataset_03);
-                startIndexEmg = int16(dataset_03_FS_left(k)*fsEMG_dataset_03);
-                endIndexEmg = int16(dataset_03_FO_left(k)*fsEMG_dataset_03);
-            end
-        
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.LASI = LASI_dataset_03(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.LKNE = LKNE_dataset_03(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.LANK = LANK_dataset_03(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.LTOE = LTOE_dataset_03(startIndexKin:endIndexKin,:);
-        
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG.LTA = LTA_dataset_03(startIndexEmg:endIndexEmg);
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG.LMG = LMG_dataset_03(startIndexEmg:endIndexEmg);
-        end
-        
-        if (k < length(dataset_03_FS_right) && k < length(dataset_03_FO_right))
-        
-            if (dataset_03_FO_right(k) < dataset_03_FS_right(k))
-                startIndexKin = int16(dataset_03_FO_right(k)*fsKIN_dataset_03);
-                endIndexKin = int16(dataset_03_FS_right(k)*fsKIN_dataset_03);
-                startIndexEmg = int16(dataset_03_FO_right(k)*fsEMG_dataset_03);
-                endIndexEmg = int16(dataset_03_FS_right(k)*fsEMG_dataset_03);
-            else 
-                startIndexKin = int16(dataset_03_FS_right(k)*fsKIN_dataset_03);
-                endIndexKin = int16(dataset_03_FO_right(k)*fsKIN_dataset_03);
-                startIndexEmg = int16(dataset_03_FS_right(k)*fsEMG_dataset_03);
-                endIndexEmg = int16(dataset_03_FO_right(k)*fsEMG_dataset_03);
-            end
-        
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.RASI = RASI_dataset_03(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.RKNE = RKNE_dataset_03(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.RANK = RANK_dataset_03(startIndexKin:endIndexKin,:);
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin.RTOE = RTOE_dataset_03(startIndexKin:endIndexKin,:);
-       
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG.RTA = RTA_dataset_03(startIndexEmg:endIndexEmg);
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG.RMG = RMG_dataset_03(startIndexEmg:endIndexEmg);
+        if (leftFoot)
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_left = gaitEventsForSegmentation(k);
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_left = dataset_03_FO_left(dataset_03_FO_left < gaitEventsForSegmentation(k+1) & dataset_03_FO_left > gaitEventsForSegmentation(k));
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_right = dataset_03_FS_right(dataset_03_FS_right < gaitEventsForSegmentation(k+1) & dataset_03_FS_right > gaitEventsForSegmentation(k));
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_right = dataset_03_FO_right(dataset_03_FO_right < gaitEventsForSegmentation(k+1) & dataset_03_FO_right > gaitEventsForSegmentation(k));
+        else 
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_left = dataset_03_FS_left(dataset_03_FS_left < gaitEventsForSegmentation(k+1) & dataset_03_FS_left > gaitEventsForSegmentation(k));
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_left = dataset_03_FO_left(dataset_03_FO_left < gaitEventsForSegmentation(k+1) & dataset_03_FO_left > gaitEventsForSegmentation(k));
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_right = gaitEventsForSegmentation(k);
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_right = dataset_03_FO_right(dataset_03_FO_right < gaitEventsForSegmentation(k+1) & dataset_03_FO_right > gaitEventsForSegmentation(k));
         end
         
     end
