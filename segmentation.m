@@ -108,15 +108,15 @@ function [GaitCycles] = segmentation(datasetName, table01, table02, table03, lef
         GaitCycles.(strcat('GC',num2str(i))).EMG.RMG = RMG_dataset_01(startIndexEmg:endIndexEmg);
         
         if (leftFoot)
-            GaitCycles.(strcat('GC',num2str(i))).FS_left = gaitEventsForSegmentation(i);
-            GaitCycles.(strcat('GC',num2str(i))).FO_left = dataset_01_FO_left(dataset_01_FO_left < gaitEventsForSegmentation(i+1) & dataset_01_FO_left > gaitEventsForSegmentation(i));
-            GaitCycles.(strcat('GC',num2str(i))).FS_right = dataset_01_FS_right(dataset_01_FS_right < gaitEventsForSegmentation(i+1) & dataset_01_FS_right > gaitEventsForSegmentation(i));
-            GaitCycles.(strcat('GC',num2str(i))).FO_right = dataset_01_FO_right(dataset_01_FO_right < gaitEventsForSegmentation(i+1) & dataset_01_FO_right > gaitEventsForSegmentation(i));
+            GaitCycles.(strcat('GC',num2str(i))).FS_left = 0;
+            GaitCycles.(strcat('GC',num2str(i))).FO_left = dataset_01_FO_left(dataset_01_FO_left < gaitEventsForSegmentation(i+1) & dataset_01_FO_left > gaitEventsForSegmentation(i))-gaitEventsForSegmentation(i);
+            GaitCycles.(strcat('GC',num2str(i))).FS_right = dataset_01_FS_right(dataset_01_FS_right < gaitEventsForSegmentation(i+1) & dataset_01_FS_right > gaitEventsForSegmentation(i))-gaitEventsForSegmentation(i);
+            GaitCycles.(strcat('GC',num2str(i))).FO_right = dataset_01_FO_right(dataset_01_FO_right < gaitEventsForSegmentation(i+1) & dataset_01_FO_right > gaitEventsForSegmentation(i))-gaitEventsForSegmentation(i);
         else 
-            GaitCycles.(strcat('GC',num2str(i))).FS_left = dataset_01_FS_left(dataset_01_FS_left < gaitEventsForSegmentation(i+1) & dataset_01_FS_left > gaitEventsForSegmentation(i));
-            GaitCycles.(strcat('GC',num2str(i))).FO_left = dataset_01_FO_left(dataset_01_FO_left < gaitEventsForSegmentation(i+1) & dataset_01_FO_left > gaitEventsForSegmentation(i));
-            GaitCycles.(strcat('GC',num2str(i))).FS_right = gaitEventsForSegmentation(i);
-            GaitCycles.(strcat('GC',num2str(i))).FO_right = dataset_01_FO_right(dataset_01_FO_right < gaitEventsForSegmentation(i+1) & dataset_01_FO_right > gaitEventsForSegmentation(i));
+            GaitCycles.(strcat('GC',num2str(i))).FS_left = dataset_01_FS_left(dataset_01_FS_left < gaitEventsForSegmentation(i+1) & dataset_01_FS_left > gaitEventsForSegmentation(i))-gaitEventsForSegmentation(i);
+            GaitCycles.(strcat('GC',num2str(i))).FO_left = dataset_01_FO_left(dataset_01_FO_left < gaitEventsForSegmentation(i+1) & dataset_01_FO_left > gaitEventsForSegmentation(i))-gaitEventsForSegmentation(i);
+            GaitCycles.(strcat('GC',num2str(i))).FS_right = 0;
+            GaitCycles.(strcat('GC',num2str(i))).FO_right = dataset_01_FO_right(dataset_01_FO_right < gaitEventsForSegmentation(i+1) & dataset_01_FO_right > gaitEventsForSegmentation(i))-gaitEventsForSegmentation(i);
         end
          
     end
@@ -162,15 +162,15 @@ function [GaitCycles] = segmentation(datasetName, table01, table02, table03, lef
         GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG.RMG = RMG_dataset_02(startIndexEmg:endIndexEmg);
         
         if (leftFoot)
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_left = gaitEventsForSegmentation(j);
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_left = dataset_02_FO_left(dataset_02_FO_left < gaitEventsForSegmentation(j+1) & dataset_02_FO_left > gaitEventsForSegmentation(j));
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_right = dataset_02_FS_right(dataset_02_FS_right < gaitEventsForSegmentation(j+1) & dataset_02_FS_right > gaitEventsForSegmentation(j));
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_right = dataset_02_FO_right(dataset_02_FO_right < gaitEventsForSegmentation(j+1) & dataset_02_FO_right > gaitEventsForSegmentation(j));
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_left = 0;
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_left = dataset_02_FO_left(dataset_02_FO_left < gaitEventsForSegmentation(j+1) & dataset_02_FO_left > gaitEventsForSegmentation(j))-gaitEventsForSegmentation(j);
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_right = dataset_02_FS_right(dataset_02_FS_right < gaitEventsForSegmentation(j+1) & dataset_02_FS_right > gaitEventsForSegmentation(j))-gaitEventsForSegmentation(j);
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_right = dataset_02_FO_right(dataset_02_FO_right < gaitEventsForSegmentation(j+1) & dataset_02_FO_right > gaitEventsForSegmentation(j))-gaitEventsForSegmentation(j);
         else 
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_left = dataset_02_FS_left(dataset_02_FS_left < gaitEventsForSegmentation(j+1) & dataset_02_FS_left > gaitEventsForSegmentation(j));
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_left = dataset_02_FO_left(dataset_02_FO_left < gaitEventsForSegmentation(j+1) & dataset_02_FO_left > gaitEventsForSegmentation(j));
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_right = gaitEventsForSegmentation(j);
-            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_right = dataset_02_FO_right(dataset_02_FO_right < gaitEventsForSegmentation(j+1) & dataset_02_FO_right > gaitEventsForSegmentation(j));
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_left = dataset_02_FS_left(dataset_02_FS_left < gaitEventsForSegmentation(j+1) & dataset_02_FS_left > gaitEventsForSegmentation(j))-gaitEventsForSegmentation(j);
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_left = dataset_02_FO_left(dataset_02_FO_left < gaitEventsForSegmentation(j+1) & dataset_02_FO_left > gaitEventsForSegmentation(j))-gaitEventsForSegmentation(j);
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_right = 0;
+            GaitCycles.(strcat('GC',num2str(j+firstLength))).FO_right = dataset_02_FO_right(dataset_02_FO_right < gaitEventsForSegmentation(j+1) & dataset_02_FO_right > gaitEventsForSegmentation(j))-gaitEventsForSegmentation(j);
         end
         
         
@@ -217,15 +217,15 @@ function [GaitCycles] = segmentation(datasetName, table01, table02, table03, lef
         GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG.RMG = RMG_dataset_03(startIndexEmg:endIndexEmg);
         
         if (leftFoot)
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_left = gaitEventsForSegmentation(k);
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_left = dataset_03_FO_left(dataset_03_FO_left < gaitEventsForSegmentation(k+1) & dataset_03_FO_left > gaitEventsForSegmentation(k));
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_right = dataset_03_FS_right(dataset_03_FS_right < gaitEventsForSegmentation(k+1) & dataset_03_FS_right > gaitEventsForSegmentation(k));
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_right = dataset_03_FO_right(dataset_03_FO_right < gaitEventsForSegmentation(k+1) & dataset_03_FO_right > gaitEventsForSegmentation(k));
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_left = 0;
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_left = dataset_03_FO_left(dataset_03_FO_left < gaitEventsForSegmentation(k+1) & dataset_03_FO_left > gaitEventsForSegmentation(k))-gaitEventsForSegmentation(k);
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_right = dataset_03_FS_right(dataset_03_FS_right < gaitEventsForSegmentation(k+1) & dataset_03_FS_right > gaitEventsForSegmentation(k))-gaitEventsForSegmentation(k);
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_right = dataset_03_FO_right(dataset_03_FO_right < gaitEventsForSegmentation(k+1) & dataset_03_FO_right > gaitEventsForSegmentation(k))-gaitEventsForSegmentation(k);
         else 
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_left = dataset_03_FS_left(dataset_03_FS_left < gaitEventsForSegmentation(k+1) & dataset_03_FS_left > gaitEventsForSegmentation(k));
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_left = dataset_03_FO_left(dataset_03_FO_left < gaitEventsForSegmentation(k+1) & dataset_03_FO_left > gaitEventsForSegmentation(k));
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_right = gaitEventsForSegmentation(k);
-            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_right = dataset_03_FO_right(dataset_03_FO_right < gaitEventsForSegmentation(k+1) & dataset_03_FO_right > gaitEventsForSegmentation(k));
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_left = dataset_03_FS_left(dataset_03_FS_left < gaitEventsForSegmentation(k+1) & dataset_03_FS_left > gaitEventsForSegmentation(k))-gaitEventsForSegmentation(k);
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_left = dataset_03_FO_left(dataset_03_FO_left < gaitEventsForSegmentation(k+1) & dataset_03_FO_left > gaitEventsForSegmentation(k))-gaitEventsForSegmentation(k);
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_right = 0;
+            GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FO_right = dataset_03_FO_right(dataset_03_FO_right < gaitEventsForSegmentation(k+1) & dataset_03_FO_right > gaitEventsForSegmentation(k))-gaitEventsForSegmentation(k);
         end
         
     end
