@@ -281,9 +281,9 @@ title('Acceleration');
 
 end
 
-%% calculate all parameters for one gait cycle
+%% calculate all parameters for all gait cycles
 
-function parameters = calculate_parameters[data]
+function parameters = initialize_matrix[data, SCI]
     %kinematic parameters
     [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
         max_vAng_ANK_right] = calculate_jointAngles(data, 1);
@@ -315,19 +315,25 @@ function parameters = calculate_parameters[data]
 end
 
 %% calculate different angles
-function [angle_HIP, angle_KNE, angle_ANK, max_vAng_ANK] = calculate_jointAngles(data,rightLeg)
+function [angle_HIP, angle_KNE, angle_ANK, max_vAng_ANK] = calculate_jointAngles(data,rightLeg, SCI)
     %calculates hip, knee and ankle angle from a given kinematic data structure
     %and max angular velocity of angle
     if rightLeg
-        Hip = data.RHIP;
-        Toe = data.RTOE;
-        Ankle = data.RANK;
-        Knee = data.RKNE;         
+        if SCI
+            Hip = data.Kin.RASI;
+        else
+            Hip = data.Kin.RHIP;
+        Toe = data.Kin.RTOE;
+        Ankle = data.Kin.RANK;
+        Knee = data.Kin.RKNE;         
     else
-        Hip = kin_data.LHIP;
-        Toe = kin_data.LTOE;
-        Ankle = kin_data.LANK;
-        Knee = kin_data.LKNE;    
+        if SCI
+            Hip = data.Kin.LASI;
+        else
+            Hip = data.Kin.LHIP;
+        Toe = data.Kin.LTOE;
+        Ankle = data.Kin.LANK;
+        Knee = data.Kin.LKNE;    
     end
     
     angle_ANK = zeros(size(Hip,1),1);
@@ -360,18 +366,24 @@ function [angle_HIP, angle_KNE, angle_ANK, max_vAng_ANK] = calculate_jointAngles
 end
 %% calculate elevation angles 
 function [elevationangle_THIGH, elevationangle_SHANK,...
-    elevationangle_FOOT] = calculate_jointAngles(data,rightLeg)
+    elevationangle_FOOT] = calculate_jointAngles(data,rightLeg, SCI)
     %calculates knee and ankle angle from a given kinematic data structure
     if rightLeg
-        Hip = data.RHIP;
-        Toe = data.RTOE;
-        Ankle = data.RANK;
-        Knee = data.RKNE;         
+        if SCI
+            Hip = data.Kin.RASI;
+        else
+            Hip = data.Kin.RHIP;
+        Toe = data.Kin.RTOE;
+        Ankle = data.Kin.RANK;
+        Knee = data.Kin.RKNE;         
     else
-        Hip = kin_data.LHIP;
-        Toe = kin_data.LTOE;
-        Ankle = kin_data.LANK;
-        Knee = kin_data.LKNE;    
+        if SCI
+            Hip = data.Kin.LASI;
+        else
+            Hip = data.Kin.LHIP;
+        Toe = data.Kin.LTOE;
+        Ankle = data.Kin.LANK;
+        Knee = data.Kin.LKNE;    
     end
     
     elevationangle_THIGH = zeros(size(Hip,1),1);

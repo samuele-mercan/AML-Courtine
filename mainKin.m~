@@ -281,47 +281,59 @@ title('Acceleration');
 
 end
 
-%% calculate all parameters for one gait cycle
+%% calculate all parameters for all gait cycles
 
-function parameters = calculate_parameters[data]
-
+function parameters = initialize_matrix[data, SCI]
+    %kinematic parameters
     [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
         max_vAng_ANK_right] = calculate_jointAngles(data, 1);
     [angle_HIP_left, angle_KNE_left, angle_ANK_left,...
         max_vAng_ANK_left]= calculate_jointAngles(data, 0);
-    
     [elevationangle_THIGH_right, elevationangle_SHANK_right,...
         elevationangle_FOOT_right] = calculate_jointAngles(data, 1);
     [elevationangle_THIGH_left, elevationangle_SHANK_left,...
         elevationangle_FOOT_left] = calculate_jointAngles(data, 0);
-    
-    
     strideLength_right = calculate_strideLength(data, 1);
     strideLength_left = calculate_strideLength(data, 0);
-    
     [peakSwingVelocity_right, peakSwingAcceleration_right] = calculate_peakSwing (data, 1);
     [peakSwingVelocity_left, peakSwingAcceleration_left] = calculate_peakSwing (data, 0);
     
     
+    %emg parameters
     
+    
+    
+    %collect all calculated parameters into one vector
     parameters = [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
-        max_vAng_ANK_right, ];
+        max_vAng_ANK_right, elevationangle_THIGH_right, elevationangle_SHANK_right,...
+        elevationangle_FOOT_right, strideLength_right, peakSwingVelocity_right,...
+        peakSwingAcceleration_right,...
+        angle_HIP_left, angle_KNE_left, angle_ANK_left,...
+        max_vAng_ANK_left, elevationangle_THIGH_left, elevationangle_SHANK_left,...
+        elevationangle_FOOT_left,   strideLength_left, peakSwingVelocity_left,...
+        peakSwingAcceleration_left];
 end
 
 %% calculate different angles
-function [angle_HIP, angle_KNE, angle_ANK, max_vAng_ANK] = calculate_jointAngles(data,rightLeg)
+function [angle_HIP, angle_KNE, angle_ANK, max_vAng_ANK] = calculate_jointAngles(data,rightLeg, SCI)
     %calculates hip, knee and ankle angle from a given kinematic data structure
     %and max angular velocity of angle
     if rightLeg
-        Hip = data.RHIP;
-        Toe = data.RTOE;
-        Ankle = data.RANK;
-        Knee = data.RKNE;         
+        if SCI
+            Hip = data.Kin.RASI;
+        else
+            Hip = data.Kin.RHIP;
+        Toe = data.Kin.RTOE;
+        Ankle = data.Kin.RANK;
+        Knee = data.Kin.RKNE;         
     else
-        Hip = kin_data.LHIP;
-        Toe = kin_data.LTOE;
-        Ankle = kin_data.LANK;
-        Knee = kin_data.LKNE;    
+        if SCI
+            Hip = data.Kin.LASI;
+        else
+            Hip = data.Kin.LHIP;
+        Toe = data.Kin.LTOE;
+        Ankle = data.Kin.LANK;
+        Knee = data.Kin.LKNE;    
     end
     
     angle_ANK = zeros(size(Hip,1),1);
@@ -354,18 +366,24 @@ function [angle_HIP, angle_KNE, angle_ANK, max_vAng_ANK] = calculate_jointAngles
 end
 %% calculate elevation angles 
 function [elevationangle_THIGH, elevationangle_SHANK,...
-    elevationangle_FOOT] = calculate_jointAngles(data,rightLeg)
+    elevationangle_FOOT] = calculate_jointAngles(data,rightLeg, SCI)
     %calculates knee and ankle angle from a given kinematic data structure
     if rightLeg
-        Hip = data.RHIP;
-        Toe = data.RTOE;
-        Ankle = data.RANK;
-        Knee = data.RKNE;         
+        if SCI
+            Hip = data.Kin.RASI;
+        else
+            Hip = data.Kin.RHIP;
+        Toe = data.Kin.RTOE;
+        Ankle = data.Kin.RANK;
+        Knee = data.Kin.RKNE;         
     else
-        Hip = kin_data.LHIP;
-        Toe = kin_data.LTOE;
-        Ankle = kin_data.LANK;
-        Knee = kin_data.LKNE;    
+        if SCI
+            Hip = data.Kin.LASI;
+        else
+            Hip = data.Kin.LHIP;
+        Toe = data.Kin.LTOE;
+        Ankle = data.Kin.LANK;
+        Knee = data.Kin.LKNE;    
     end
     
     elevationangle_THIGH = zeros(size(Hip,1),1);
