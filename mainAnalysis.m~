@@ -266,11 +266,9 @@ for i = 1:length(y_ankle)
 end
 %% Logical Mask
 
-logicalMask = zeros(1,size(samplePointsVelocity,2));
-tempLogical = [];
-for i = 1:size(noCrutches_03_FO_left,2)
-    currentValue = round(noCrutches_03_FO_left(1,i),2);
-    tempLogical = (samplePointsVelocity == currentValue);
+logicalMask = zeros(1size(samplePointsVelocity,2))';
+for i = 1:size(Crutches_03_FO_left,1)
+    tempLogical = samplePointsVelocity == Crutches_03_FO_left(1,i);
     logicalMask = logicalMask + tempLogical;
 end
 
