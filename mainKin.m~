@@ -284,34 +284,28 @@ end
 %% calculate all parameters for one gait cycle
 
 function parameters = calculate_parameters[data]
-    %kinematic parameters
+
     [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
         max_vAng_ANK_right] = calculate_jointAngles(data, 1);
     [angle_HIP_left, angle_KNE_left, angle_ANK_left,...
         max_vAng_ANK_left]= calculate_jointAngles(data, 0);
+    
     [elevationangle_THIGH_right, elevationangle_SHANK_right,...
         elevationangle_FOOT_right] = calculate_jointAngles(data, 1);
     [elevationangle_THIGH_left, elevationangle_SHANK_left,...
         elevationangle_FOOT_left] = calculate_jointAngles(data, 0);
+    
+    
     strideLength_right = calculate_strideLength(data, 1);
     strideLength_left = calculate_strideLength(data, 0);
+    
     [peakSwingVelocity_right, peakSwingAcceleration_right] = calculate_peakSwing (data, 1);
     [peakSwingVelocity_left, peakSwingAcceleration_left] = calculate_peakSwing (data, 0);
     
     
-    %emg parameters
     
-    
-    
-    %collect all calculated parameters into one vector
     parameters = [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
-        max_vAng_ANK_right, elevationangle_THIGH_right, elevationangle_SHANK_right,...
-        elevationangle_FOOT_right, strideLength_right, peakSwingVelocity_right,...
-        peakSwingAcceleration_right,...
-        angle_HIP_left, angle_KNE_left, angle_ANK_left,...
-        max_vAng_ANK_left, elevationangle_THIGH_left, elevationangle_SHANK_left,...
-        elevationangle_FOOT_left,   strideLength_left, peakSwingVelocity_left,...
-        peakSwingAcceleration_left];
+        max_vAng_ANK_right, ];
 end
 
 %% calculate different angles
