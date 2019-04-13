@@ -403,53 +403,54 @@ function [angle_HIP, angle_KNE, angle_ANK, max_vAng_ANK] = calculate_jointAngles
     
     max_vAng_ANK = max(diff(angle_ANK));
 end
-% %% calculate elevation angles 
-% function [elevationangle_THIGH, elevationangle_SHANK,...
-%     elevationangle_FOOT] = calculate_jointAngles(data,rightLeg, SCI)
-%     %calculates knee and ankle angle from a given kinematic data structure
-%     if rightLeg
-%         if SCI
-%             Hip = data.Kin.RASI;
-%         else
-%             Hip = data.Kin.RHIP;
-%         end
-%         Toe = data.Kin.RTOE;
-%         Ankle = data.Kin.RANK;
-%         Knee = data.Kin.RKNE;         
-%     else
-%         if SCI
-%             Hip = data.Kin.LASI;
-%         else
-%             Hip = data.Kin.LHIP;
-%         end
-%         Toe = data.Kin.LTOE;
-%         Ankle = data.Kin.LANK;
-%         Knee = data.Kin.LKNE;    
-%     end
-%     
-%     elevationangle_THIGH = zeros(size(Hip,1),1);
-%     elevationangle_SHANK = zeros(size(Hip,1),1);
-%     elevationangle_FOOT = zeros(size(Hip,1),1);
-%     
-%     %gravity vector with length 1
-%     g = [0,-1,0];
-%     
-%     for i=1:length(Hip(:,1))
-%         pt1 = Hip(i,:);
-%         pt2 = Knee(i,:);
-%         pt3 = Ankle(i,:);
-%         pt4 = Toe(i,:);
-%         
-%         a = (Hip(i,:)-Knee(i,:))/norm(Hip(i,:)-Knee(i,:)); 
-%         b = (Knee(i,:)-Ankle(i,:))/norm(Knee(i,:)-Ankle(i,:));
-%         c = (Ankle(i,:)-Toe(i,:))/norm(Ankle(i,:)-Toe(i,:));
-%         
-%         elevationangle_THIGH(i)    = acosd(g/a);
-%         elevationangle_SHANK(i)    = acosd(g/b);
-%         elevationangle_FOOT(i)     = acosd(g/c);
-%     end
-%     
-% end
+
+%% calculate elevation angles 
+function [elevationangle_THIGH, elevationangle_SHANK,...
+    elevationangle_FOOT] = calculate_jointAngles(data,rightLeg, SCI)
+    %calculates knee and ankle angle from a given kinematic data structure
+    if rightLeg
+        if SCI
+            Hip = data.Kin.RASI;
+        else
+            Hip = data.Kin.RHIP;
+        end
+        Toe = data.Kin.RTOE;
+        Ankle = data.Kin.RANK;
+        Knee = data.Kin.RKNE;         
+    else
+        if SCI
+            Hip = data.Kin.LASI;
+        else
+            Hip = data.Kin.LHIP;
+        end
+        Toe = data.Kin.LTOE;
+        Ankle = data.Kin.LANK;
+        Knee = data.Kin.LKNE;    
+    end
+    
+    elevationangle_THIGH = zeros(size(Hip,1),1);
+    elevationangle_SHANK = zeros(size(Hip,1),1);
+    elevationangle_FOOT = zeros(size(Hip,1),1);
+    
+    %gravity vector with length 1
+    g = [0,-1,0];
+    
+    for i=1:length(Hip(:,1))
+        pt1 = Hip(i,:);
+        pt2 = Knee(i,:);
+        pt3 = Ankle(i,:);
+        pt4 = Toe(i,:);
+        
+        a = (Hip(i,:)-Knee(i,:))/norm(Hip(i,:)-Knee(i,:)); 
+        b = (Knee(i,:)-Ankle(i,:))/norm(Knee(i,:)-Ankle(i,:));
+        c = (Ankle(i,:)-Toe(i,:))/norm(Ankle(i,:)-Toe(i,:));
+        
+        elevationangle_THIGH(i)    = acosd(g/a);
+        elevationangle_SHANK(i)    = acosd(g/b);
+        elevationangle_FOOT(i)     = acosd(g/c);
+    end
+    
+end
 
 %% calculate elevation angles 
 function strideLength = calculate_strideLength(data, rightLeg)
