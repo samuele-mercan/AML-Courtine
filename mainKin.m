@@ -284,6 +284,7 @@ end
 %% calculate all parameters for all gait cycles
 
 function parameters = initialize_matrix[data, SCI]
+    
     %kinematic parameters
     [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
         max_vAng_ANK_right] = calculate_jointAngles(data, 1);
