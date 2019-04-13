@@ -283,7 +283,13 @@ end
 
 %% calculate all parameters for all gait cycles
 
-function parameters = initialize_matrix(data, SCI)
+% rightLeg is True if the right leg is used as reference to segment the
+% gait cycles and is False if the left leg is used
+
+% sampling_frequency_kin is the sampling frequency of the kinetics
+% measures
+
+function parameters = initialize_matrix(data, SCI, sampling_frequency_kin, rightLeg)
     
     %kinematic parameters
     [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
@@ -298,8 +304,27 @@ function parameters = initialize_matrix(data, SCI)
     strideLength_left = calculate_strideLength(data, 0);
     [peakSwingVelocity_right, peakSwingAcceleration_right] = calculate_peakSwing (data, 1);
     [peakSwingVelocity_left, peakSwingAcceleration_left] = calculate_peakSwing (data, 0);
-    
-    
+       
+    [swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_SR, ...
+        step_length_SI, step_length_SR, max_clearance_toe_SI,max_clearance_toe_SR, ...
+        max_clearance_heel_SI,max_clearance_heel_SR, step_width_SI,step_width_SR] = ...
+        calculate_gait_cycle_symmetry(GaitCycle, rightLeg, sampling_frequency_kin);
+    [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ...
+        rightLeg, sampling_frequency_kin);
+    [max_clearance_toe_right, max_clearance_toe_left, max_clearance_heel_right, ...
+        max_clearance_heel_left] = calculate_max_clearance(GaitCycle);
+    [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg, ...
+        sampling_frequency_kin);
+    [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg, ...
+        sampling_frequency_kin);
+    [initial_double_support,terminal_double_support] = calculate_double_support(...
+        GaitCycle,rightLeg);
+    [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg, ...
+        sampling_frequency_kin);
+    [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg, ... 
+        sampling_frequency_kin);
+    [cadence] = calculate_cadence(GaitCycle,sampling_frequency_kin);
+
     %emg parameters
     
     
@@ -312,7 +337,18 @@ function parameters = initialize_matrix(data, SCI)
         angle_HIP_left, angle_KNE_left, angle_ANK_left,...
         max_vAng_ANK_left, elevationangle_THIGH_left, elevationangle_SHANK_left,...
         elevationangle_FOOT_left,   strideLength_left, peakSwingVelocity_left,...
-        peakSwingAcceleration_left];
+        peakSwingAcceleration_left, ...
+        swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_SR, step_length_SI, step_length_SR, ...
+        max_clearance_toe_SI, max_clearance_toe_SR, max_clearance_heel_SI, max_clearance_heel_SR, ...
+        step_width_SI, step_width_SR, ...
+        right_step_width,left_step_width, ...
+        max_clearance_toe_right, max_clearance_toe_left, max_clearance_heel_right, max_clearance_heel_left, ...
+        step_length_right, step_length_left, ...
+        step_period_left, step_period_right, ...
+        initial_double_support, terminal_double_support, ...
+        stance_left, stance_right, ...
+        swing_left, swing_right, ...
+        cadence];
 end
 
 %% calculate different angles
@@ -367,53 +403,53 @@ function [angle_HIP, angle_KNE, angle_ANK, max_vAng_ANK] = calculate_jointAngles
     
     max_vAng_ANK = max(diff(angle_ANK));
 end
-%% calculate elevation angles 
-function [elevationangle_THIGH, elevationangle_SHANK,...
-    elevationangle_FOOT] = calculate_jointAngles(data,rightLeg, SCI)
-    %calculates knee and ankle angle from a given kinematic data structure
-    if rightLeg
-        if SCI
-            Hip = data.Kin.RASI;
-        else
-            Hip = data.Kin.RHIP;
-        end
-        Toe = data.Kin.RTOE;
-        Ankle = data.Kin.RANK;
-        Knee = data.Kin.RKNE;         
-    else
-        if SCI
-            Hip = data.Kin.LASI;
-        else
-            Hip = data.Kin.LHIP;
-        end
-        Toe = data.Kin.LTOE;
-        Ankle = data.Kin.LANK;
-        Knee = data.Kin.LKNE;    
-    end
-    
-    elevationangle_THIGH = zeros(size(Hip,1),1);
-    elevationangle_SHANK = zeros(size(Hip,1),1);
-    elevationangle_FOOT = zeros(size(Hip,1),1);
-    
-    %gravity vector with length 1
-    g = [0,-1,0];
-    
-    for i=1:length(Hip(:,1))
-        pt1 = Hip(i,:);
-        pt2 = Knee(i,:);
-        pt3 = Ankle(i,:);
-        pt4 = Toe(i,:);
-        
-        a = (Hip(i,:)-Knee(i,:))/norm(Hip(i,:)-Knee(i,:)); 
-        b = (Knee(i,:)-Ankle(i,:))/norm(Knee(i,:)-Ankle(i,:));
-        c = (Ankle(i,:)-Toe(i,:))/norm(Ankle(i,:)-Toe(i,:));
-        
-        elevationangle_THIGH(i)    = acosd(g/a);
-        elevationangle_SHANK(i)    = acosd(g/b);
-        elevationangle_FOOT(i)     = acosd(g/c);
-    end
-    
-end
+% %% calculate elevation angles 
+% function [elevationangle_THIGH, elevationangle_SHANK,...
+%     elevationangle_FOOT] = calculate_jointAngles(data,rightLeg, SCI)
+%     %calculates knee and ankle angle from a given kinematic data structure
+%     if rightLeg
+%         if SCI
+%             Hip = data.Kin.RASI;
+%         else
+%             Hip = data.Kin.RHIP;
+%         end
+%         Toe = data.Kin.RTOE;
+%         Ankle = data.Kin.RANK;
+%         Knee = data.Kin.RKNE;         
+%     else
+%         if SCI
+%             Hip = data.Kin.LASI;
+%         else
+%             Hip = data.Kin.LHIP;
+%         end
+%         Toe = data.Kin.LTOE;
+%         Ankle = data.Kin.LANK;
+%         Knee = data.Kin.LKNE;    
+%     end
+%     
+%     elevationangle_THIGH = zeros(size(Hip,1),1);
+%     elevationangle_SHANK = zeros(size(Hip,1),1);
+%     elevationangle_FOOT = zeros(size(Hip,1),1);
+%     
+%     %gravity vector with length 1
+%     g = [0,-1,0];
+%     
+%     for i=1:length(Hip(:,1))
+%         pt1 = Hip(i,:);
+%         pt2 = Knee(i,:);
+%         pt3 = Ankle(i,:);
+%         pt4 = Toe(i,:);
+%         
+%         a = (Hip(i,:)-Knee(i,:))/norm(Hip(i,:)-Knee(i,:)); 
+%         b = (Knee(i,:)-Ankle(i,:))/norm(Knee(i,:)-Ankle(i,:));
+%         c = (Ankle(i,:)-Toe(i,:))/norm(Ankle(i,:)-Toe(i,:));
+%         
+%         elevationangle_THIGH(i)    = acosd(g/a);
+%         elevationangle_SHANK(i)    = acosd(g/b);
+%         elevationangle_FOOT(i)     = acosd(g/c);
+%     end
+%     
+% end
 
 %% calculate elevation angles 
 function strideLength = calculate_strideLength(data, rightLeg)
@@ -727,7 +763,7 @@ function [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ..
 
 end
 
-%% Symmetry index
+%% Symmetry index and ratio
 
 % receives a feature measured for each foot for the same gait cycle and
 % evaluates the symmetry between the 2 feet
