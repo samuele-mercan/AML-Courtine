@@ -104,6 +104,8 @@ offset_HP_no_float_1 = hand_detection(HP_no_float1,denoised_HO_no_float1);
 offset_HP_no_float_2 = hand_detection(HP_no_float2,denoised_HO_no_float2);
 offset_HP_no_float_3 = hand_detection(HP_no_float3,denoised_HO_no_float3);
 
+%% Clean Onset/Offsets
+
 %% Burst Duration
 durations = arrayfun(@(x) x(2)-x(1),[onsets,offsets]);
 durations= arrayfun(@(x) arrayfun(@(z,a) rms(z(a(1):a(2))) ,x,y), denoised, sets);
