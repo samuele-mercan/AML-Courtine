@@ -75,12 +75,13 @@ ylabel('Loading of feature')
 
 % kmeans into 4 clusters
 idx4 = kmeans(score,4);
+T4 = ones(1, length(idx4))
+[Acc4,rand_index4,match4]=AccMeasure(T4,idx4)
 
 % kmeans into 8 clusters
 idx8 = kmeans(score,8);
-
-
-
+T8 = ones(1, length(idx8))
+[Acc8,rand_index8,match8]=AccMeasure(T8,idx8)
 
 %% PCA: segmentation with respect to right foot
 

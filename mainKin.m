@@ -21,209 +21,11 @@ function main()
     Crutches_01 = readtable('Exercise - Material - SCI Subject/NO_FLOAT_CRUTCHES/GAIT FILES/SCI_HCU_20150505_02OVGa_AD_01_GAIT.csv');
     Crutches_02 = readtable('Exercise - Material - SCI Subject/NO_FLOAT_CRUTCHES/GAIT FILES/SCI_HCU_20150505_02OVGa_AD_02_GAIT.csv');
     Crutches_03 = readtable('Exercise - Material - SCI Subject/NO_FLOAT_CRUTCHES/GAIT FILES/SCI_HCU_20150505_02OVGa_AD_03_GAIT.csv');
-    
-    
-    % Create the ground truth based on the csv features 
-    
-%% SEGMENTATION USING CSV FILE
-    %% noCrutches_01
-    noCrutches_01_FS_left=[];
-    noCrutches_01_FS_right=[];
-    noCrutches_01_FO_left=[];
-    noCrutches_01_FO_right=[];
+     
    
-    for i = 1:length(noCrutches_01.Name)
-        if string(noCrutches_01.Name{i})=='Foot Strike'
-            if string(noCrutches_01.Context{i}) == 'Left'
-                noCrutches_01_FS_left = [noCrutches_01_FS_left double(noCrutches_01.Time_s_(i))];
-            else
-                noCrutches_01_FS_right = [noCrutches_01_FS_right double(noCrutches_01.Time_s_(i))];
-            end
-        elseif string(noCrutches_01.Name{i})=='Foot Off'
-            if string(noCrutches_01.Context{i}) == 'Left'
-                noCrutches_01_FO_left = [noCrutches_01_FO_left double(noCrutches_01.Time_s_(i))];
-            else
-                noCrutches_01_FO_right = [noCrutches_01_FO_right double(noCrutches_01.Time_s_(i))];
-            end
-        end
-    end    
-    
-    %% noCrutches_02
-    noCrutches_02_FS_left=[];
-    noCrutches_02_FS_right=[];
-    noCrutches_02_FO_left=[];
-    noCrutches_02_FO_right=[];
-   
-    for i = 1:length(noCrutches_02.Name)
-        if string(noCrutches_02.Name{i})=='Foot Strike'
-            if string(noCrutches_02.Context{i}) == 'Left'
-                noCrutches_02_FS_left = [noCrutches_02_FS_left double(noCrutches_02.Time_s_(i))];
-            else
-                noCrutches_02_FS_right = [noCrutches_02_FS_right double(noCrutches_02.Time_s_(i))];
-            end
-        elseif string(noCrutches_02.Name{i})=='Foot Off'
-            if string(noCrutches_02.Context{i}) == 'Left'
-                noCrutches_02_FO_left = [noCrutches_02_FO_left double(noCrutches_02.Time_s_(i))];
-            else
-                noCrutches_02_FO_right = [noCrutches_02_FO_right double(noCrutches_02.Time_s_(i))];
-            end
-        end
-    end
-    %% noCrutches_03
-    noCrutches_03_FS_left=[];
-    noCrutches_03_FS_right=[];
-    noCrutches_03_FO_left=[];
-    noCrutches_03_FO_right=[];
-   
-    for i = 1:length(noCrutches_03.Name)
-        if string(noCrutches_03.Name{i})=='Foot Strike'
-            if string(noCrutches_03.Context{i}) == 'Left'
-                noCrutches_03_FS_left = [noCrutches_03_FS_left double(noCrutches_03.Time_s_(i))];
-            else
-                noCrutches_03_FS_right = [noCrutches_03_FS_right double(noCrutches_03.Time_s_(i))];
-            end
-        elseif string(noCrutches_03.Name{i})=='Foot Off'
-            if string(noCrutches_03.Context{i}) == 'Left'
-                noCrutches_03_FO_left = [noCrutches_03_FO_left double(noCrutches_03.Time_s_(i))];
-            else
-                noCrutches_03_FO_right = [noCrutches_03_FO_right double(noCrutches_03.Time_s_(i))];
-            end
-        end
-    end
-    
-    
-    %% Crutches_01
-    Crutches_01_FS_left=[];
-    Crutches_01_FS_right=[];
-    Crutches_01_FO_left=[];
-    Crutches_01_FO_right=[];
-   
-    for i = 1:length(Crutches_01.Name)
-        if string(Crutches_01.Name{i})=='Foot Strike'
-            if string(Crutches_01.Context{i}) == 'Left'
-                Crutches_01_FS_left = [Crutches_01_FS_left double(Crutches_01.Time_s_(i))];
-            else
-                Crutches_01_FS_right = [Crutches_01_FS_right double(Crutches_01.Time_s_(i))];
-            end
-        elseif string(Crutches_01.Name{i})=='Foot Off'
-            if string(Crutches_01.Context{i}) == 'Left'
-                Crutches_01_FO_left = [Crutches_01_FO_left double(Crutches_01.Time_s_(i))];
-            else
-                Crutches_01_FO_right = [Crutches_01_FO_right double(Crutches_01.Time_s_(i))];
-            end
-        end
-    end
-%% Crutches_02
-    Crutches_02_FS_left=[];
-    Crutches_02_FS_right=[];
-    Crutches_02_FO_left=[];
-    Crutches_02_FO_right=[];
-   
-    for i = 1:length(Crutches_02.Name)
-        if string(Crutches_02.Name{i})=='Foot Strike'
-            if string(Crutches_02.Context{i}) == 'Left'
-                Crutches_02_FS_left = [Crutches_02_FS_left double(Crutches_02.Time_s_(i))];
-            else
-                Crutches_02_FS_right = [Crutches_02_FS_right double(Crutches_02.Time_s_(i))];
-            end
-        elseif string(Crutches_02.Name{i})=='Foot Off'
-            if string(Crutches_02.Context{i}) == 'Left'
-                Crutches_02_FO_left = [Crutches_02_FO_left double(Crutches_02.Time_s_(i))];
-            else
-                Crutches_02_FO_right = [Crutches_02_FO_right double(Crutches_02.Time_s_(i))];
-            end
-        end
-    end
-%% Crutches_03
-    Crutches_03_FS_left=[];
-    Crutches_03_FS_right=[];
-    Crutches_03_FO_left=[];
-    Crutches_03_FO_right=[];
-   
-    for i = 1:length(Crutches_03.Name)
-        if string(Crutches_03.Name{i})=='Foot Strike'
-            if string(Crutches_03.Context{i}) == 'Left'
-                Crutches_03_FS_left = [Crutches_03_FS_left double(Crutches_03.Time_s_(i))];
-            else
-                Crutches_03_FS_right = [Crutches_03_FS_right double(Crutches_03.Time_s_(i))];
-            end
-        elseif string(Crutches_03.Name{i})=='Foot Off'
-            if string(Crutches_03.Context{i}) == 'Left'
-                Crutches_03_FO_left = [Crutches_03_FO_left double(Crutches_03.Time_s_(i))];
-            else
-                Crutches_03_FO_right = [Crutches_03_FO_right double(Crutches_03.Time_s_(i))];
-            end
-        end
-    end
     
 %% PARAMETERS FROM KINEMATICS
 
-% GAIT CYCLE TIME (GCT)
-
-GCT_noCrutches_left = [];
-GCT_noCrutches_right = [];
-
-GCT_Crutches_left = [];
-GCT_Crutches_right = [];
-
-%to find the total time 
-
-% time_start = 0;
-% %we take one kinemtic marker, they all have the same length
-% %and we define the number of points taken by the sampling frequency to get
-% %the time 
-% time_end = length(NO_FLOAT_CRUTCHES.T_01.Raw.Kin.LANK(:,3))/FLOAT_NO_CRUTCHES.T_01.fsKIN;
-% time_step = 1/FLOAT_NO_CRUTCHES.T_01.fsKIN;
-% time = time_start:time_step:time_end;
-
-for index=1:length(noCrutches_01_FS_left)-1
-    GCT_noCrutches_left = [GCT_noCrutches_left (noCrutches_01_FS_left(index+1)-noCrutches_01_FS_left(index))];
-end
-
-for index=1:length(noCrutches_02_FS_left)-1
-    GCT_noCrutches_left = [GCT_noCrutches_left (noCrutches_02_FS_left(index+1)-noCrutches_02_FS_left(index))];
-end
-
-for index=1:length(noCrutches_03_FS_left)-1
-    GCT_noCrutches_left = [GCT_noCrutches_left (noCrutches_03_FS_left(index+1)-noCrutches_03_FS_left(index))];
-end
-
-for index=1:length(noCrutches_01_FS_right)-1
-    GCT_noCrutches_right = [GCT_noCrutches_right (noCrutches_01_FS_right(index+1)-noCrutches_01_FS_right(index))];
-end
-
-for index=1:length(noCrutches_02_FS_right)-1
-    GCT_noCrutches_right = [GCT_noCrutches_right (noCrutches_02_FS_right(index+1)-noCrutches_02_FS_right(index))];
-end
-
-for index=1:length(noCrutches_03_FS_right)-1
-    GCT_noCrutches_right = [GCT_noCrutches_right (noCrutches_03_FS_right(index+1)-noCrutches_03_FS_right(index))];
-end
-
-
-for index=1:length(Crutches_01_FS_left)-1
-    GCT_Crutches_left = [GCT_Crutches_left (Crutches_01_FS_left(index+1)-Crutches_01_FS_left(index))];
-end
-
-for index=1:length(Crutches_02_FS_left)-1
-    GCT_Crutches_left = [GCT_Crutches_left (Crutches_02_FS_left(index+1)-Crutches_02_FS_left(index))];
-end
-
-for index=1:length(Crutches_03_FS_left)-1
-    GCT_Crutches_left = [GCT_Crutches_left (Crutches_03_FS_left(index+1)-Crutches_03_FS_left(index))];
-end
-
-for index=1:length(Crutches_01_FS_right)-1
-    GCT_Crutches_right = [GCT_Crutches_right (Crutches_01_FS_right(index+1)-Crutches_01_FS_right(index))];
-end
-
-for index=1:length(Crutches_02_FS_right)-1
-    GCT_Crutches_right = [GCT_Crutches_right (Crutches_02_FS_right(index+1)-Crutches_02_FS_right(index))];
-end
-
-for index=1:length(Crutches_03_FS_right)-1
-    GCT_Crutches_right = [GCT_Crutches_right (Crutches_03_FS_right(index+1)-Crutches_03_FS_right(index))];
-end
 
 
 %% Plotting template
@@ -297,9 +99,9 @@ function parameters = initialize_matrix(data, SCI, sampling_frequency_kin, right
     [angle_HIP_left, angle_KNE_left, angle_ANK_left,...
         max_vAng_ANK_left]= calculate_jointAngles(data, 0);
     [elevationangle_THIGH_right, elevationangle_SHANK_right,...
-        elevationangle_FOOT_right] = calculate_jointAngles(data, 1);
+        elevationangle_FOOT_right] = calculate_elevationAngles(data, 1);
     [elevationangle_THIGH_left, elevationangle_SHANK_left,...
-        elevationangle_FOOT_left] = calculate_jointAngles(data, 0);
+        elevationangle_FOOT_left] = calculate_elevationAngles(data, 0);
     strideLength_right = calculate_strideLength(data, 1);
     strideLength_left = calculate_strideLength(data, 0);
     [peakSwingVelocity_right, peakSwingAcceleration_right] = calculate_peakSwing (data, 1);
@@ -406,7 +208,7 @@ end
 
 %% calculate elevation angles 
 function [elevationangle_THIGH, elevationangle_SHANK,...
-    elevationangle_FOOT] = calculate_jointAngles(data,rightLeg, SCI)
+    elevationangle_FOOT] = calculate_elevationAngles(data,rightLeg, SCI)
     %calculates knee and ankle angle from a given kinematic data structure
     if rightLeg
         if SCI
