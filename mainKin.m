@@ -21,209 +21,10 @@ function main()
     Crutches_01 = readtable('Exercise - Material - SCI Subject/NO_FLOAT_CRUTCHES/GAIT FILES/SCI_HCU_20150505_02OVGa_AD_01_GAIT.csv');
     Crutches_02 = readtable('Exercise - Material - SCI Subject/NO_FLOAT_CRUTCHES/GAIT FILES/SCI_HCU_20150505_02OVGa_AD_02_GAIT.csv');
     Crutches_03 = readtable('Exercise - Material - SCI Subject/NO_FLOAT_CRUTCHES/GAIT FILES/SCI_HCU_20150505_02OVGa_AD_03_GAIT.csv');
-    
-    
-    % Create the ground truth based on the csv features 
-    
-%% SEGMENTATION USING CSV FILE
-    %% noCrutches_01
-    noCrutches_01_FS_left=[];
-    noCrutches_01_FS_right=[];
-    noCrutches_01_FO_left=[];
-    noCrutches_01_FO_right=[];
+     
    
-    for i = 1:length(noCrutches_01.Name)
-        if string(noCrutches_01.Name{i})=='Foot Strike'
-            if string(noCrutches_01.Context{i}) == 'Left'
-                noCrutches_01_FS_left = [noCrutches_01_FS_left double(noCrutches_01.Time_s_(i))];
-            else
-                noCrutches_01_FS_right = [noCrutches_01_FS_right double(noCrutches_01.Time_s_(i))];
-            end
-        elseif string(noCrutches_01.Name{i})=='Foot Off'
-            if string(noCrutches_01.Context{i}) == 'Left'
-                noCrutches_01_FO_left = [noCrutches_01_FO_left double(noCrutches_01.Time_s_(i))];
-            else
-                noCrutches_01_FO_right = [noCrutches_01_FO_right double(noCrutches_01.Time_s_(i))];
-            end
-        end
-    end    
-    
-    %% noCrutches_02
-    noCrutches_02_FS_left=[];
-    noCrutches_02_FS_right=[];
-    noCrutches_02_FO_left=[];
-    noCrutches_02_FO_right=[];
-   
-    for i = 1:length(noCrutches_02.Name)
-        if string(noCrutches_02.Name{i})=='Foot Strike'
-            if string(noCrutches_02.Context{i}) == 'Left'
-                noCrutches_02_FS_left = [noCrutches_02_FS_left double(noCrutches_02.Time_s_(i))];
-            else
-                noCrutches_02_FS_right = [noCrutches_02_FS_right double(noCrutches_02.Time_s_(i))];
-            end
-        elseif string(noCrutches_02.Name{i})=='Foot Off'
-            if string(noCrutches_02.Context{i}) == 'Left'
-                noCrutches_02_FO_left = [noCrutches_02_FO_left double(noCrutches_02.Time_s_(i))];
-            else
-                noCrutches_02_FO_right = [noCrutches_02_FO_right double(noCrutches_02.Time_s_(i))];
-            end
-        end
-    end
-    %% noCrutches_03
-    noCrutches_03_FS_left=[];
-    noCrutches_03_FS_right=[];
-    noCrutches_03_FO_left=[];
-    noCrutches_03_FO_right=[];
-   
-    for i = 1:length(noCrutches_03.Name)
-        if string(noCrutches_03.Name{i})=='Foot Strike'
-            if string(noCrutches_03.Context{i}) == 'Left'
-                noCrutches_03_FS_left = [noCrutches_03_FS_left double(noCrutches_03.Time_s_(i))];
-            else
-                noCrutches_03_FS_right = [noCrutches_03_FS_right double(noCrutches_03.Time_s_(i))];
-            end
-        elseif string(noCrutches_03.Name{i})=='Foot Off'
-            if string(noCrutches_03.Context{i}) == 'Left'
-                noCrutches_03_FO_left = [noCrutches_03_FO_left double(noCrutches_03.Time_s_(i))];
-            else
-                noCrutches_03_FO_right = [noCrutches_03_FO_right double(noCrutches_03.Time_s_(i))];
-            end
-        end
-    end
-    
-    
-    %% Crutches_01
-    Crutches_01_FS_left=[];
-    Crutches_01_FS_right=[];
-    Crutches_01_FO_left=[];
-    Crutches_01_FO_right=[];
-   
-    for i = 1:length(Crutches_01.Name)
-        if string(Crutches_01.Name{i})=='Foot Strike'
-            if string(Crutches_01.Context{i}) == 'Left'
-                Crutches_01_FS_left = [Crutches_01_FS_left double(Crutches_01.Time_s_(i))];
-            else
-                Crutches_01_FS_right = [Crutches_01_FS_right double(Crutches_01.Time_s_(i))];
-            end
-        elseif string(Crutches_01.Name{i})=='Foot Off'
-            if string(Crutches_01.Context{i}) == 'Left'
-                Crutches_01_FO_left = [Crutches_01_FO_left double(Crutches_01.Time_s_(i))];
-            else
-                Crutches_01_FO_right = [Crutches_01_FO_right double(Crutches_01.Time_s_(i))];
-            end
-        end
-    end
-%% Crutches_02
-    Crutches_02_FS_left=[];
-    Crutches_02_FS_right=[];
-    Crutches_02_FO_left=[];
-    Crutches_02_FO_right=[];
-   
-    for i = 1:length(Crutches_02.Name)
-        if string(Crutches_02.Name{i})=='Foot Strike'
-            if string(Crutches_02.Context{i}) == 'Left'
-                Crutches_02_FS_left = [Crutches_02_FS_left double(Crutches_02.Time_s_(i))];
-            else
-                Crutches_02_FS_right = [Crutches_02_FS_right double(Crutches_02.Time_s_(i))];
-            end
-        elseif string(Crutches_02.Name{i})=='Foot Off'
-            if string(Crutches_02.Context{i}) == 'Left'
-                Crutches_02_FO_left = [Crutches_02_FO_left double(Crutches_02.Time_s_(i))];
-            else
-                Crutches_02_FO_right = [Crutches_02_FO_right double(Crutches_02.Time_s_(i))];
-            end
-        end
-    end
-%% Crutches_03
-    Crutches_03_FS_left=[];
-    Crutches_03_FS_right=[];
-    Crutches_03_FO_left=[];
-    Crutches_03_FO_right=[];
-   
-    for i = 1:length(Crutches_03.Name)
-        if string(Crutches_03.Name{i})=='Foot Strike'
-            if string(Crutches_03.Context{i}) == 'Left'
-                Crutches_03_FS_left = [Crutches_03_FS_left double(Crutches_03.Time_s_(i))];
-            else
-                Crutches_03_FS_right = [Crutches_03_FS_right double(Crutches_03.Time_s_(i))];
-            end
-        elseif string(Crutches_03.Name{i})=='Foot Off'
-            if string(Crutches_03.Context{i}) == 'Left'
-                Crutches_03_FO_left = [Crutches_03_FO_left double(Crutches_03.Time_s_(i))];
-            else
-                Crutches_03_FO_right = [Crutches_03_FO_right double(Crutches_03.Time_s_(i))];
-            end
-        end
-    end
     
 %% PARAMETERS FROM KINEMATICS
-
-% GAIT CYCLE TIME (GCT)
-
-GCT_noCrutches_left = [];
-GCT_noCrutches_right = [];
-
-GCT_Crutches_left = [];
-GCT_Crutches_right = [];
-
-%to find the total time 
-
-% time_start = 0;
-% %we take one kinemtic marker, they all have the same length
-% %and we define the number of points taken by the sampling frequency to get
-% %the time 
-% time_end = length(NO_FLOAT_CRUTCHES.T_01.Raw.Kin.LANK(:,3))/FLOAT_NO_CRUTCHES.T_01.fsKIN;
-% time_step = 1/FLOAT_NO_CRUTCHES.T_01.fsKIN;
-% time = time_start:time_step:time_end;
-
-for index=1:length(noCrutches_01_FS_left)-1
-    GCT_noCrutches_left = [GCT_noCrutches_left (noCrutches_01_FS_left(index+1)-noCrutches_01_FS_left(index))];
-end
-
-for index=1:length(noCrutches_02_FS_left)-1
-    GCT_noCrutches_left = [GCT_noCrutches_left (noCrutches_02_FS_left(index+1)-noCrutches_02_FS_left(index))];
-end
-
-for index=1:length(noCrutches_03_FS_left)-1
-    GCT_noCrutches_left = [GCT_noCrutches_left (noCrutches_03_FS_left(index+1)-noCrutches_03_FS_left(index))];
-end
-
-for index=1:length(noCrutches_01_FS_right)-1
-    GCT_noCrutches_right = [GCT_noCrutches_right (noCrutches_01_FS_right(index+1)-noCrutches_01_FS_right(index))];
-end
-
-for index=1:length(noCrutches_02_FS_right)-1
-    GCT_noCrutches_right = [GCT_noCrutches_right (noCrutches_02_FS_right(index+1)-noCrutches_02_FS_right(index))];
-end
-
-for index=1:length(noCrutches_03_FS_right)-1
-    GCT_noCrutches_right = [GCT_noCrutches_right (noCrutches_03_FS_right(index+1)-noCrutches_03_FS_right(index))];
-end
-
-
-for index=1:length(Crutches_01_FS_left)-1
-    GCT_Crutches_left = [GCT_Crutches_left (Crutches_01_FS_left(index+1)-Crutches_01_FS_left(index))];
-end
-
-for index=1:length(Crutches_02_FS_left)-1
-    GCT_Crutches_left = [GCT_Crutches_left (Crutches_02_FS_left(index+1)-Crutches_02_FS_left(index))];
-end
-
-for index=1:length(Crutches_03_FS_left)-1
-    GCT_Crutches_left = [GCT_Crutches_left (Crutches_03_FS_left(index+1)-Crutches_03_FS_left(index))];
-end
-
-for index=1:length(Crutches_01_FS_right)-1
-    GCT_Crutches_right = [GCT_Crutches_right (Crutches_01_FS_right(index+1)-Crutches_01_FS_right(index))];
-end
-
-for index=1:length(Crutches_02_FS_right)-1
-    GCT_Crutches_right = [GCT_Crutches_right (Crutches_02_FS_right(index+1)-Crutches_02_FS_right(index))];
-end
-
-for index=1:length(Crutches_03_FS_right)-1
-    GCT_Crutches_right = [GCT_Crutches_right (Crutches_03_FS_right(index+1)-Crutches_03_FS_right(index))];
-end
 
 
 %% Plotting template
@@ -289,7 +90,7 @@ end
 % sampling_frequency_kin is the sampling frequency of the kinetics
 % measures
 
-function parameters = initialize_matrix(data, SCI, sampling_frequency_kin, rightLeg)
+function parameters = initialize_matrix(data, SCI, rightLeg)
     
     %kinematic parameters
     [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
@@ -297,9 +98,9 @@ function parameters = initialize_matrix(data, SCI, sampling_frequency_kin, right
     [angle_HIP_left, angle_KNE_left, angle_ANK_left,...
         max_vAng_ANK_left]= calculate_jointAngles(data, 0);
     [elevationangle_THIGH_right, elevationangle_SHANK_right,...
-        elevationangle_FOOT_right] = calculate_jointAngles(data, 1);
+        elevationangle_FOOT_right] = calculate_elevationAngles(data, 1);
     [elevationangle_THIGH_left, elevationangle_SHANK_left,...
-        elevationangle_FOOT_left] = calculate_jointAngles(data, 0);
+        elevationangle_FOOT_left] = calculate_elevationAngles(data, 0);
     strideLength_right = calculate_strideLength(data, 1);
     strideLength_left = calculate_strideLength(data, 0);
     [peakSwingVelocity_right, peakSwingAcceleration_right] = calculate_peakSwing (data, 1);
@@ -308,22 +109,18 @@ function parameters = initialize_matrix(data, SCI, sampling_frequency_kin, right
     [swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_SR, ...
         step_length_SI, step_length_SR, max_clearance_toe_SI,max_clearance_toe_SR, ...
         max_clearance_heel_SI,max_clearance_heel_SR, step_width_SI,step_width_SR] = ...
-        calculate_gait_cycle_symmetry(GaitCycle, rightLeg, sampling_frequency_kin);
+        calculate_gait_cycle_symmetry(GaitCycle, rightLeg);
     [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ...
-        rightLeg, sampling_frequency_kin);
+        rightLeg);
     [max_clearance_toe_right, max_clearance_toe_left, max_clearance_heel_right, ...
         max_clearance_heel_left] = calculate_max_clearance(GaitCycle);
-    [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg, ...
-        sampling_frequency_kin);
-    [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg, ...
-        sampling_frequency_kin);
+    [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg);
+    [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg);
     [initial_double_support,terminal_double_support] = calculate_double_support(...
         GaitCycle,rightLeg);
-    [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg, ...
-        sampling_frequency_kin);
-    [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg, ... 
-        sampling_frequency_kin);
-    [cadence] = calculate_cadence(GaitCycle,sampling_frequency_kin);
+    [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg);
+    [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg);
+    [cadence] = calculate_cadence(GaitCycle);
 
     %emg parameters
     
@@ -406,7 +203,7 @@ end
 
 %% calculate elevation angles 
 function [elevationangle_THIGH, elevationangle_SHANK,...
-    elevationangle_FOOT] = calculate_jointAngles(data,rightLeg, SCI)
+    elevationangle_FOOT] = calculate_elevationAngles(data,rightLeg, SCI)
     %calculates knee and ankle angle from a given kinematic data structure
     if rightLeg
         if SCI
@@ -481,11 +278,8 @@ end
 
 %% Cadence
 
-% sampling_frequency_kin is the sampling frequency of the kinetic
-% measurements
-
-function [cadence] = calculate_cadence(GaitCycle,sampling_frequency_kin)
-    GCT = length(GaitCycle.Kin.LANK(:,1))/sampling_frequency_kin;
+function [cadence] = calculate_cadence(GaitCycle)
+    GCT = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
     cadence = 120/GCT;  
 end
 
@@ -494,13 +288,9 @@ end
 % rightLeg is a variable with value True or False to indicate whether the
 % foot used to determine the gait cycles is the right foot or the left foot
 
-% sampling_frequency_kin is the sampling frequency of the kinetic
-% measurements
-
-function [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg, ... 
-    sampling_frequency_kin)
+function [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg)
     
-    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/sampling_frequency_kin;
+    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
     
     if rightLeg % the reference foot is the right foot
         
@@ -540,17 +330,13 @@ end
 % rightLeg is a variable with value True or False to indicate whether the
 % foot used to determine the gait cycles is the right foot or the left foot
 
-% sampling_frequency_kin is the sampling frequency of the kinetic
-% measurements
-
 % for the stance period of the non reference foot, we do an approximation : 
 % we use the end of the stance from the lase gait cycle and the beginning
 % of the stance from the curremt gait cycle
 
-function [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg, ...
-    sampling_frequency_kin)
+function [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg)
 
-    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/sampling_frequency_kin;
+    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
 
     if rightLeg % reference foot is the right foot
         
@@ -631,10 +417,9 @@ end
 % Step left is the step during which foot left swings
 % Step right is the step during which foot right swings
 
-function [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg, ...
-    sampling_frequency_kin)
+function [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg)
 
-    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/sampling_frequency_kin;
+    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
     
     if rightLeg
         
@@ -667,14 +452,13 @@ end
 % = distance between 2 consecutive footstrikes (Y direction)
 % (definition cours)
 
-function [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg, ...
-    sampling_frequency_kin)
+function [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg)
 
     if rightLeg
         
         if ~  isempty(GaitCycle.FS_left)
             FS_right1 = GaitCycle.Kin.RANK(1,2);
-            index_FS_left = round(GaitCycle.FS_left*sampling_frequency_kin);
+            index_FS_left = round(GaitCycle.FS_left*GaitCycle.fsKIN);
             FS_left = GaitCycle.Kin.LANK(index_FS_left,2);           
             FS_right2 = GaitCycle.Kin.RANK(end,2);
             
@@ -689,7 +473,7 @@ function [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg, 
         
         if ~  isempty(GaitCycle.FS_right)
             FS_left1 = GaitCycle.Kin.LANK(1,2);
-            index_FS_right = round(GaitCycle.FS_right*sampling_frequency_kin);
+            index_FS_right = round(GaitCycle.FS_right*GaitCycle.fsKIN);
             FS_right = GaitCycle.Kin.RANK(index_FS_right,2);
             FS_left2 = GaitCycle.Kin.LANK(end,2);
             
@@ -727,14 +511,13 @@ end
 % Step width was determined as the distance in X between the ankles 
 % of two consecutive footprints (between consecutive footstrikes)
 
-function [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ...
-    rightLeg, sampling_frequency_kin)
+function [right_step_width,left_step_width] = calculate_step_width(GaitCycle,rightLeg)
     
     if rightLeg
         
         if ~  isempty(GaitCycle.FS_left)
             FS_right1 = GaitCycle.Kin.RANK(1,1);
-            index_FS_left = round(GaitCycle.FS_left*sampling_frequency_kin);
+            index_FS_left = round(GaitCycle.FS_left*GaitCycle.fsKIN);
             FS_left = GaitCycle.Kin.LANK(index_FS_left,1);           
             FS_right2 = GaitCycle.Kin.RANK(end,1);
             
@@ -749,7 +532,7 @@ function [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ..
         
         if ~  isempty(GaitCycle.FS_right)
             FS_left1 = GaitCycle.Kin.LANK(1,1);
-            index_FS_right = round(GaitCycle.FS_right*sampling_frequency_kin);
+            index_FS_right = round(GaitCycle.FS_right*GaitCycle.fsKIN);
             FS_right = GaitCycle.Kin.RANK(index_FS_right,1);
             FS_left2 = GaitCycle.Kin.LANK(end,1);
             
@@ -788,22 +571,18 @@ function [swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_
     step_length_SI, step_length_SR, ...
     max_clearance_toe_SI,max_clearance_toe_SR, max_clearance_heel_SI,max_clearance_heel_SR, ...
     step_width_SI,step_width_SR] = ...
-    calculate_gait_cycle_symmetry(GaitCycle, rightLeg, sampling_frequency_kin)
+    calculate_gait_cycle_symmetry(GaitCycle, rightLeg)
 
-    [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg, ... 
-        sampling_frequency_kin);
+    [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg);
     [swing_SI,swing_SR] = calculate_symmetry_param(swing_right,swing_left);
 
-    [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg, ...
-        sampling_frequency_kin);
+    [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg);
     [stance_SI,stance_SR] = calculate_symmetry_param(stance_right,stance_left);
     
-    [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg, ...
-        sampling_frequency_kin);
+    [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg);
     [step_period_SI,step_period_SR] = calculate_symmetry_param(step_period_right,step_period_left);
     
-    [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg, ...
-        sampling_frequency_kin);
+    [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg);
     [step_length_SI,step_length_SR] = calculate_symmetry_param(step_length_right,step_length_left);
     
     [max_clearance_toe_right, max_clearance_toe_left, max_clearance_heel_right, ...
@@ -814,7 +593,7 @@ function [swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_
         max_clearance_heel_right,max_clearance_heel_left);
     
     [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ...
-        rightLeg, sampling_frequency_kin);
+        rightLeg);
     [step_width_SI,step_width_SR] = calculate_symmetry_param(right_step_width, ...
         left_step_width);
     
