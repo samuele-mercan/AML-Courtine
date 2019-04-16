@@ -6,9 +6,13 @@ function [GaitCycles] = Healthysegmentation2(datasetName, dataset_FS_left,datase
     dataset = load(datasetName);
     fields = fieldnames(dataset);
     
+    LHIP_dataset = [dataset.(fields{1}).T_01.Raw.Kin.LHIP; dataset.(fields{1}).T_02.Raw.Kin.LHIP; dataset.(fields{1}).T_03.Raw.Kin.LHIP];
+    
+    RHIP_dataset = [dataset.(fields{1}).T_01.Raw.Kin.RHIP; dataset.(fields{1}).T_02.Raw.Kin.RHIP; dataset.(fields{1}).T_03.Raw.Kin.RHIP];
+
     LKNE_dataset = [dataset.(fields{1}).T_01.Raw.Kin.LKNE; dataset.(fields{1}).T_02.Raw.Kin.LKNE; dataset.(fields{1}).T_03.Raw.Kin.LKNE];
     
-    RKNE_dataset = [dataset.(fields{1}).T_01.Raw.Kin.RKNE; dataset.(fields{1}).T_02.Raw.Kin.RKNE; dataset.(fields{1}).T_03.Raw.Kin.RKNE];
+    RKNE_dataset = [dataset.(fields{1}).T_01.Raw.Kin.RKNE; dataset.(fields{1}).T_02.Raw.Kin.RKNE; dataset.(fields{1}).T_03.Raw.Kin.RKNE];    
     
     LANK_dataset = [dataset.(fields{1}).T_01.Raw.Kin.LANK; dataset.(fields{1}).T_02.Raw.Kin.LANK; dataset.(fields{1}).T_03.Raw.Kin.LANK];
     
@@ -53,7 +57,8 @@ function [GaitCycles] = Healthysegmentation2(datasetName, dataset_FS_left,datase
         endIndexKin = int16(gaitEventsForSegmentation(i+1)*fsKIN_dataset);
         startIndexEmg = int16(gaitEventsForSegmentation(i)*fsEMG_dataset);
         endIndexEmg = int16(gaitEventsForSegmentation(i+1)*fsEMG_dataset);
-                
+         
+        GaitCycles.(strcat('GC',num2str(i))).Kin.LHIP = LHIP_dataset(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.LKNE = LKNE_dataset(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.LANK = LANK_dataset(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.LTOE = LTOE_dataset(startIndexKin:endIndexKin,:);
@@ -61,6 +66,7 @@ function [GaitCycles] = Healthysegmentation2(datasetName, dataset_FS_left,datase
         GaitCycles.(strcat('GC',num2str(i))).EMG.LTA = LTA_dataset(startIndexEmg:endIndexEmg);
         GaitCycles.(strcat('GC',num2str(i))).EMG.LMG = LMG_dataset(startIndexEmg:endIndexEmg);
 
+        GaitCycles.(strcat('GC',num2str(i))).Kin.RHIP = RHIP_dataset(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.RKNE = RKNE_dataset(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.RANK = RANK_dataset(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.RTOE = RTOE_dataset(startIndexKin:endIndexKin,:);
