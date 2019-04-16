@@ -207,28 +207,6 @@ if side == 0
     HP_float9 = arrayfun(@(x,y) HP_float9(x:y), Float_FS_left9(1:end-1),Float_FS_left9(2:end));
     
 elseif side == 1
-    
-        % No Float
-    HP_no_float1 = arrayfun(@(x,y) HP_no_float1(x:y), noFloat_FS_right1(1:end-1),noFloat_FS_right1(2:end));
-    HP_no_float2 = arrayfun(@(x,y) HP_no_float2(x:y), noFloat_FS_right2(1:end-1),noFloat_FS_right2(2:end));
-    HP_no_float3 = arrayfun(@(x,y) HP_no_float3(x:y), noFloat_FS_right3(1:end-1),noFloat_FS_right3(2:end));
-    HP_no_float4 = arrayfun(@(x,y) HP_no_float4(x:y), noFloat_FS_right4(1:end-1),noFloat_FS_right4(2:end));
-    HP_no_float5 = arrayfun(@(x,y) HP_no_float5(x:y), noFloat_FS_right5(1:end-1),noFloat_FS_right5(2:end));
-    HP_no_float6 = arrayfun(@(x,y) HP_no_float6(x:y), noFloat_FS_right6(1:end-1),noFloat_FS_right6(2:end));
-    HP_no_float7 = arrayfun(@(x,y) HP_no_float7(x:y), noFloat_FS_right7(1:end-1),noFloat_FS_right7(2:end));
-    HP_no_float8 = arrayfun(@(x,y) HP_no_float8(x:y), noFloat_FS_right8(1:end-1),noFloat_FS_right8(2:end));
-    HP_no_float9 = arrayfun(@(x,y) HP_no_float9(x:y), noFloat_FS_right9(1:end-1),noFloat_FS_right9(2:end));
-    
-    % Float
-    HP_float1 = arrayfun(@(x,y) HP_float1(x:y), Float_FS_right1(1:end-1),Float_FS_right1(2:end));
-    HP_float2 = arrayfun(@(x,y) HP_float2(x:y), Float_FS_right2(1:end-1),Float_FS_right2(2:end));
-    HP_float3 = arrayfun(@(x,y) HP_float3(x:y), Float_FS_right3(1:end-1),Float_FS_right3(2:end));
-    HP_float4 = arrayfun(@(x,y) HP_float4(x:y), Float_FS_right4(1:end-1),Float_FS_right4(2:end));
-    HP_float5 = arrayfun(@(x,y) HP_float5(x:y), Float_FS_right5(1:end-1),Float_FS_right5(2:end));
-    HP_float6 = arrayfun(@(x,y) HP_float6(x:y), Float_FS_right6(1:end-1),Float_FS_right6(2:end));
-    HP_float7 = arrayfun(@(x,y) HP_float7(x:y), Float_FS_right7(1:end-1),Float_FS_right7(2:end));
-    HP_float8 = arrayfun(@(x,y) HP_float8(x:y), Float_FS_right8(1:end-1),Float_FS_right8(2:end));
-    HP_float9 = arrayfun(@(x,y) HP_float9(x:y), Float_FS_right9(1:end-1),Float_FS_right9(2:end));
 end
 
 

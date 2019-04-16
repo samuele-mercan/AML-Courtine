@@ -1,4 +1,4 @@
-function [noFloat_FS_left, noFloat_FO_left, noFloat_FS_right, noFloat_FO_right, Float_FS_left, Float_FO_left, Float_FS_right, Float_FO_right] = HealthySegmentation(datafile1, datafile2)
+function [noFloat_FS_left, noFloat_FO_left, noFloat_FS_right, noFloat_FO_right, Float_FS_left, Float_FO_left, Float_FS_right, Float_FO_right] = HealthySegmentation(datafile)
     %======================================================================
     % Load Data for Healthy Patient, and return the foot off and foot strike
     % gait events for conditions of Float and no Float, for both right and
@@ -6,38 +6,36 @@ function [noFloat_FS_left, noFloat_FO_left, noFloat_FS_right, noFloat_FO_right, 
     %======================================================================
     
     % Data with no Crutches => FLOAT 
-    datasetName1 = datafile1;
+    datasetName1 = datafile;
     data_struct = load(datasetName1); % load data structure
-    fields = fieldnames(data_struct);
     
-    LHIP_kin_Float = [data_struct.(fields{1}).T_01.Raw.Kin.LHIP; data_struct.(fields{1}).T_02.Raw.Kin.LHIP; data_struct.(fields{1}).T_03.Raw.Kin.LHIP];
-    RHIP_kin_Float = [data_struct.(fields{1}).T_01.Raw.Kin.RHIP; data_struct.(fields{1}).T_02.Raw.Kin.RHIP; data_struct.(fields{1}).T_03.Raw.Kin.RHIP];
+    LHIP_kin_Float = [data_struct.T_01.Raw.Kin.LHIP; S6_FLOAT.T_02.Raw.Kin.LHIP; S6_FLOAT.T_03.Raw.Kin.LHIP];
+    RHIP_kin_Float = [S6_FLOAT.T_01.Raw.Kin.RHIP; S6_FLOAT.T_02.Raw.Kin.RHIP; S6_FLOAT.T_03.Raw.Kin.RHIP];
     
-    LKNE_kin_Float = [data_struct.(fields{1}).T_01.Raw.Kin.LKNE; data_struct.(fields{1}).T_02.Raw.Kin.LKNE; data_struct.(fields{1}).T_03.Raw.Kin.LKNE];
-    RKNE_kin_Float = [data_struct.(fields{1}).T_01.Raw.Kin.RKNE; data_struct.(fields{1}).T_02.Raw.Kin.RKNE; data_struct.(fields{1}).T_03.Raw.Kin.RKNE];
-   
-    LANK_kin_Float = [data_struct.(fields{1}).T_01.Raw.Kin.LANK; data_struct.(fields{1}).T_02.Raw.Kin.LANK; data_struct.(fields{1}).T_03.Raw.Kin.LANK];
-    RANK_kin_Float = [data_struct.(fields{1}).T_01.Raw.Kin.RANK; data_struct.(fields{1}).T_02.Raw.Kin.RANK; data_struct.(fields{1}).T_03.Raw.Kin.RANK];
+    LKNE_kin_Float = [S6_FLOAT.T_01.Raw.Kin.LKNE; S6_FLOAT.T_02.Raw.Kin.LKNE; S6_FLOAT.T_03.Raw.Kin.LKNE];
+    RKNE_kin_Float = [S6_FLOAT.T_01.Raw.Kin.RKNE; S6_FLOAT.T_02.Raw.Kin.RKNE; S6_FLOAT.T_03.Raw.Kin.RKNE];
     
-    LTOE_kin_Float = [data_struct.(fields{1}).T_01.Raw.Kin.LTOE; data_struct.(fields{1}).T_02.Raw.Kin.LTOE; data_struct.(fields{1}).T_03.Raw.Kin.LTOE];
-    RTOE_kin_Float = [data_struct.(fields{1}).T_01.Raw.Kin.RTOE; data_struct.(fields{1}).T_02.Raw.Kin.RTOE; data_struct.(fields{1}).T_03.Raw.Kin.RTOE];
+    LANK_kin_Float = [S6_FLOAT.T_01.Raw.Kin.LANK; S6_FLOAT.T_02.Raw.Kin.LANK; S6_FLOAT.T_03.Raw.Kin.LANK];
+    RANK_kin_Float = [S6_FLOAT.T_01.Raw.Kin.RANK; S6_FLOAT.T_02.Raw.Kin.RANK; S6_FLOAT.T_03.Raw.Kin.RANK];
+    
+    LTOE_kin_Float = [S6_FLOAT.T_01.Raw.Kin.LTOE; S6_FLOAT.T_02.Raw.Kin.LTOE; S6_FLOAT.T_03.Raw.Kin.LTOE];
+    RTOE_kin_Float = [S6_FLOAT.T_01.Raw.Kin.RTOE; S6_FLOAT.T_02.Raw.Kin.RTOE; S6_FLOAT.T_03.Raw.Kin.RTOE];
     
     % Data with Crutches => NO FLOAT
-    datasetName2 = datafile2;
-    data_struct = load(datasetName2); % load data structure
-    fields = fieldnames(data_struct);
+    datasetName2 = 'Healthy Recordings/Subject6/NO_FLOAT/S6_NO_FLOAT.mat';
+    load(datasetName2); % load data structure
     
-    LHIP_kin_noFloat = [data_struct.(fields{1}).T_01.Raw.Kin.LHIP; data_struct.(fields{1}).T_02.Raw.Kin.LHIP; data_struct.(fields{1}).T_03.Raw.Kin.LHIP];
-    RHIP_kin_noFloat = [data_struct.(fields{1}).T_01.Raw.Kin.RHIP; data_struct.(fields{1}).T_02.Raw.Kin.RHIP; data_struct.(fields{1}).T_03.Raw.Kin.RHIP];
+    LHIP_kin_noFloat = [S6_NO_FLOAT.T_01.Raw.Kin.LHIP; S6_NO_FLOAT.T_02.Raw.Kin.LHIP; S6_NO_FLOAT.T_03.Raw.Kin.LHIP];
+    RHIP_kin_noFloat = [S6_NO_FLOAT.T_01.Raw.Kin.RHIP; S6_NO_FLOAT.T_02.Raw.Kin.RHIP; S6_NO_FLOAT.T_03.Raw.Kin.RHIP];
     
-    LKNE_kin_noFloat = [data_struct.(fields{1}).T_01.Raw.Kin.LKNE; data_struct.(fields{1}).T_02.Raw.Kin.LKNE; data_struct.(fields{1}).T_03.Raw.Kin.LKNE];
-    RKNE_kin_noFloat = [data_struct.(fields{1}).T_01.Raw.Kin.RKNE; data_struct.(fields{1}).T_02.Raw.Kin.RKNE; data_struct.(fields{1}).T_03.Raw.Kin.RKNE];
+    LKNE_kin_noFloat = [S6_NO_FLOAT.T_01.Raw.Kin.LKNE; S6_NO_FLOAT.T_02.Raw.Kin.LKNE; S6_NO_FLOAT.T_03.Raw.Kin.LKNE];
+    RKNE_kin_noFloat = [S6_NO_FLOAT.T_01.Raw.Kin.RKNE; S6_NO_FLOAT.T_02.Raw.Kin.RKNE; S6_NO_FLOAT.T_03.Raw.Kin.RKNE];
     
-    LANK_kin_noFloat = [data_struct.(fields{1}).T_01.Raw.Kin.LANK; data_struct.(fields{1}).T_02.Raw.Kin.LANK; data_struct.(fields{1}).T_03.Raw.Kin.LANK];
-    RANK_kin_noFloat = [data_struct.(fields{1}).T_01.Raw.Kin.RANK; data_struct.(fields{1}).T_02.Raw.Kin.RANK; data_struct.(fields{1}).T_03.Raw.Kin.RANK];
+    LANK_kin_noFloat = [S6_NO_FLOAT.T_01.Raw.Kin.LANK; S6_NO_FLOAT.T_02.Raw.Kin.LANK; S6_NO_FLOAT.T_03.Raw.Kin.LANK];
+    RANK_kin_noFloat = [S6_NO_FLOAT.T_01.Raw.Kin.RANK; S6_NO_FLOAT.T_02.Raw.Kin.RANK; S6_NO_FLOAT.T_03.Raw.Kin.RANK];
     
-    LTOE_kin_noFloat = [data_struct.(fields{1}).T_01.Raw.Kin.LTOE; data_struct.(fields{1}).T_02.Raw.Kin.LTOE; data_struct.(fields{1}).T_03.Raw.Kin.LTOE];
-    RTOE_kin_noFloat = [data_struct.(fields{1}).T_01.Raw.Kin.RTOE; data_struct.(fields{1}).T_02.Raw.Kin.RTOE; data_struct.(fields{1}).T_03.Raw.Kin.RTOE];
+    LTOE_kin_noFloat = [S6_NO_FLOAT.T_01.Raw.Kin.LTOE; S6_NO_FLOAT.T_02.Raw.Kin.LTOE; S6_NO_FLOAT.T_03.Raw.Kin.LTOE];
+    RTOE_kin_noFloat = [S6_NO_FLOAT.T_01.Raw.Kin.RTOE; S6_NO_FLOAT.T_02.Raw.Kin.RTOE; S6_NO_FLOAT.T_03.Raw.Kin.RTOE];
 
     %% SEGMENTATION OF THE DATA
     
