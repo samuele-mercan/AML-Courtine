@@ -107,6 +107,9 @@ function [GaitCycles] = segmentation(datasetName, table01, table02, table03, lef
         GaitCycles.(strcat('GC',num2str(i))).EMG.RTA = RTA_dataset_01(startIndexEmg:endIndexEmg);
         GaitCycles.(strcat('GC',num2str(i))).EMG.RMG = RMG_dataset_01(startIndexEmg:endIndexEmg);
         
+        GaitCycles.(strcat('GC',num2str(i))).fsKIN = fsKIN_dataset_01;
+        GaitCycles.(strcat('GC',num2str(i))).fsEMG = fsEMG_dataset_01;
+        
         if (leftFoot)
             GaitCycles.(strcat('GC',num2str(i))).FS_left = 0;
             GaitCycles.(strcat('GC',num2str(i))).FO_left = dataset_01_FO_left(dataset_01_FO_left < gaitEventsForSegmentation(i+1) & dataset_01_FO_left > gaitEventsForSegmentation(i))-gaitEventsForSegmentation(i);
@@ -160,6 +163,9 @@ function [GaitCycles] = segmentation(datasetName, table01, table02, table03, lef
 
         GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG.RTA = RTA_dataset_02(startIndexEmg:endIndexEmg);
         GaitCycles.(strcat('GC',num2str(j+firstLength))).EMG.RMG = RMG_dataset_02(startIndexEmg:endIndexEmg);
+        
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).fsKIN = fsKIN_dataset_02;
+        GaitCycles.(strcat('GC',num2str(j+firstLength))).fsEMG = fsEMG_dataset_02;
         
         if (leftFoot)
             GaitCycles.(strcat('GC',num2str(j+firstLength))).FS_left = 0;
@@ -215,6 +221,9 @@ function [GaitCycles] = segmentation(datasetName, table01, table02, table03, lef
 
         GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG.RTA = RTA_dataset_03(startIndexEmg:endIndexEmg);
         GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).EMG.RMG = RMG_dataset_03(startIndexEmg:endIndexEmg);
+        
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).fsKIN = fsKIN_dataset_03;
+        GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).fsEMG = fsEMG_dataset_03;
         
         if (leftFoot)
             GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).FS_left = 0;
