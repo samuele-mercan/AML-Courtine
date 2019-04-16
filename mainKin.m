@@ -80,6 +80,53 @@ plot(samplePointsAcc, accelleration_X',  '-r',...
 legend('x-acc', 'y-acc', 'z-acc');
 title('Acceleration');
 
+
+
+%% GAIT CYCLES SEGMENTATION
+
+% SCI SUBJECT
+
+[SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation();
+
+% HEALTHY SUBJECT
+
+leftFoot = false;
+
+[GaitCyclesFloat1,GaitCyclesNoFloat1] = HealthySegmentation1('Healthy Recordings/Subject3_2018/FLOAT/S3_FLOAT.mat', ...
+    'Healthy Recordings/Subject3_2018/NO_FLOAT/S3_NO_FLOAT.mat',leftFoot);
+
+[GaitCyclesFloat2,GaitCyclesNoFloat2] = HealthySegmentation1('Healthy Recordings/Subject4_2018/FLOAT/S4_FLOAT.mat', ...
+    'Healthy Recordings/Subject4_2018/NO_FLOAT/S4_NO_FLOAT.mat',leftFoot);
+
+[GaitCyclesFloat3,GaitCyclesNoFloat3] = HealthySegmentation1('Healthy Recordings/Subject5_2018/FLOAT/S5_FLOAT.mat', ...
+    'Healthy Recordings/Subject5_2018/NO_FLOAT/S5_NO_FLOAT.mat',leftFoot);
+
+[GaitCyclesFloat4,GaitCyclesNoFloat4] = HealthySegmentation1('Healthy Recordings/Subject6_2018/FLOAT/S6_FLOAT.mat', ...
+    'Healthy Recordings/Subject6_2018/NO_FLOAT/S6_NO_FLOAT.mat',leftFoot);
+
+[GaitCyclesFloat5,GaitCyclesNoFloat5] = HealthySegmentation1('Healthy Recordings/Subject1_2019/FLOAT/S1_FLOAT.mat', ...
+    'Healthy Recordings/Subject1_2019/NO_FLOAT/S1_NO_FLOAT.mat',leftFoot);
+
+[GaitCyclesFloat6,GaitCyclesNoFloat6] = HealthySegmentation1('Healthy Recordings/Subject2_2019/FLOAT/S2_FLOAT.mat', ...
+    'Healthy Recordings/Subject2_2019/NO_FLOAT/S2_NO_FLOAT.mat',leftFoot);
+
+[GaitCyclesFloat7,GaitCyclesNoFloat7] = HealthySegmentation1('Healthy Recordings/Subject3_2019/FLOAT/S3_FLOAT.mat', ...
+    'Healthy Recordings/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat',leftFoot);
+
+
+
+% [noFloat_FS_left3, noFloat_FO_left3, noFloat_FS_right3, noFloat_FO_right3, ...
+%     Float_FS_left3, Float_FO_left3, Float_FS_right3, Float_FO_right3] = ...
+%     HealthySegmentation('Healthy Recordings/Subject3_2018/FLOAT/S3_FLOAT.mat', ...
+%     'Healthy Recordings/Subject3_2018/NO_FLOAT/S3_NO_FLOAT.mat');
+% 
+% [GaitCycles] = complementary_segmentation('Healthy Recordings/Subject3_2018/FLOAT/S3_FLOAT.mat', ...
+%     Float_FS_left3,Float_FO_left3,Float_FS_right3,Float_FO_right3,leftFoot);
+% 
+% [GaitCycles] = complementary_segmentation('Healthy Recordings/Subject3_2018/NO_FLOAT/S3_NO_FLOAT.mat', ...
+%     noFloat_FS_left3,noFloat_FO_left3,noFloat_FS_right3,noFloat_FO_right3,leftFoot);
+
+
 end
 
 %% calculate all parameters for all gait cycles
