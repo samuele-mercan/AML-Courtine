@@ -19,7 +19,7 @@ function [denoised_emg] = denoising_EMG(raw_emg,frequency)
 [b,a] = butter(3,frequency/500,'high');
 %freqz(b,a)
 
-denoised_emg = [];
+denoised_emg = raw_emg;
 
 denoised_emg.T_01.Clean.EMG.LMG = filtfilt(b,a,raw_emg.T_01.Raw.EMG.LMG);
 denoised_emg.T_01.Clean.EMG.RMG = filtfilt(b,a,raw_emg.T_01.Raw.EMG.RMG);

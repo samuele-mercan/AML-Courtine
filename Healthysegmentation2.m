@@ -22,13 +22,13 @@ function [GaitCycles] = Healthysegmentation2(datasetName, dataset_FS_left,datase
     
     RTOE_dataset = [dataset.(fields{1}).T_01.Raw.Kin.RTOE; dataset.(fields{1}).T_02.Raw.Kin.RTOE; dataset.(fields{1}).T_03.Raw.Kin.RTOE];
     
-    LTA_dataset = [dataset.(fields{1}).T_01.Raw.EMG.LTA; dataset.(fields{1}).T_02.Raw.EMG.LTA; dataset.(fields{1}).T_03.Raw.EMG.LTA];
+    LTA_dataset = [dataset.(fields{1}).T_01.Clean.EMG.LTA; dataset.(fields{1}).T_02.Clean.EMG.LTA; dataset.(fields{1}).T_03.Clean.EMG.LTA];
     
-    RTA_dataset = [dataset.(fields{1}).T_01.Raw.EMG.RTA; dataset.(fields{1}).T_02.Raw.EMG.RTA; dataset.(fields{1}).T_03.Raw.EMG.RTA];
+    RTA_dataset = [dataset.(fields{1}).T_01.Clean.EMG.RTA; dataset.(fields{1}).T_02.Clean.EMG.RTA; dataset.(fields{1}).T_03.Clean.EMG.RTA];
     
-    LMG_dataset = [dataset.(fields{1}).T_01.Raw.EMG.LMG; dataset.(fields{1}).T_02.Raw.EMG.LMG; dataset.(fields{1}).T_03.Raw.EMG.LMG];
+    LMG_dataset = [dataset.(fields{1}).T_01.Clean.EMG.LMG; dataset.(fields{1}).T_02.Clean.EMG.LMG; dataset.(fields{1}).T_03.Clean.EMG.LMG];
     
-    RMG_dataset = [dataset.(fields{1}).T_01.Raw.EMG.RMG; dataset.(fields{1}).T_02.Raw.EMG.RMG; dataset.(fields{1}).T_03.Raw.EMG.RMG];
+    RMG_dataset = [dataset.(fields{1}).T_01.Clean.EMG.RMG; dataset.(fields{1}).T_02.Clean.EMG.RMG; dataset.(fields{1}).T_03.Clean.EMG.RMG];
     
     fsKIN_dataset = dataset.(fields{1}).T_01.fsKin;
     fsEMG_dataset = dataset.(fields{1}).T_01.fsEMG;
