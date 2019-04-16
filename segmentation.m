@@ -49,21 +49,21 @@ function [GaitCycles] = segmentation(datasetName, table01, table02, table03, lef
     RTOE_dataset_02 = dataset.(fields{1}).T_02.Raw.Kin.RTOE;
     RTOE_dataset_03 = dataset.(fields{1}).T_03.Raw.Kin.RTOE;
     
-    LTA_dataset_01 = dataset.(fields{1}).T_01.Clean.EMG.LTA;
-    LTA_dataset_02 = dataset.(fields{1}).T_02.Clean.EMG.LTA;
-    LTA_dataset_03 = dataset.(fields{1}).T_03.Clean.EMG.LTA;
+    LTA_dataset_01 = dataset.(fields{1}).T_01.Raw.EMG.LTA;
+    LTA_dataset_02 = dataset.(fields{1}).T_02.Raw.EMG.LTA;
+    LTA_dataset_03 = dataset.(fields{1}).T_03.Raw.EMG.LTA;
     
-    RTA_dataset_01 = dataset.(fields{1}).T_01.Clean.EMG.RTA;
-    RTA_dataset_02 = dataset.(fields{1}).T_02.Clean.EMG.RTA;
-    RTA_dataset_03 = dataset.(fields{1}).T_03.Clean.EMG.RTA;
+    RTA_dataset_01 = dataset.(fields{1}).T_01.Raw.EMG.RTA;
+    RTA_dataset_02 = dataset.(fields{1}).T_02.Raw.EMG.RTA;
+    RTA_dataset_03 = dataset.(fields{1}).T_03.Raw.EMG.RTA;
     
-    LMG_dataset_01 = dataset.(fields{1}).T_01.Clean.EMG.LMG;
-    LMG_dataset_02 = dataset.(fields{1}).T_02.Clean.EMG.LMG;
-    LMG_dataset_03 = dataset.(fields{1}).T_03.Clean.EMG.LMG;
+    LMG_dataset_01 = dataset.(fields{1}).T_01.Raw.EMG.LMG;
+    LMG_dataset_02 = dataset.(fields{1}).T_02.Raw.EMG.LMG;
+    LMG_dataset_03 = dataset.(fields{1}).T_03.Raw.EMG.LMG;
     
-    RMG_dataset_01 = dataset.(fields{1}).T_01.Clean.EMG.RMG;
-    RMG_dataset_02 = dataset.(fields{1}).T_02.Clean.EMG.RMG;
-    RMG_dataset_03 = dataset.(fields{1}).T_03.Clean.EMG.RMG;
+    RMG_dataset_01 = dataset.(fields{1}).T_01.Raw.EMG.RMG;
+    RMG_dataset_02 = dataset.(fields{1}).T_02.Raw.EMG.RMG;
+    RMG_dataset_03 = dataset.(fields{1}).T_03.Raw.EMG.RMG;
     
     %% Segment the data and initialize the structure 
     

@@ -81,14 +81,14 @@ title('Acceleration');
 
 
 
-% GAIT CYCLES SEGMENTATION
+%% GAIT CYCLES SEGMENTATION
 
-SCI SUBJECT
+% SCI SUBJECT
 
-pour le moment left foot par defaut : A CHANGER !!!!!!
+% pour le moment left foot par defaut : A CHANGER !!!!!!
 [SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation();
 
-% HEALTHY SUBJECT
+% % HEALTHY SUBJECT
 
 leftFoot = true;
 
@@ -119,11 +119,13 @@ leftFoot = true;
 [GaitCyclesFloat9,GaitCyclesNoFloat9] = HealthySegmentation1('Healthy Recordings/Subject3_2019/FLOAT/S3_FLOAT.mat', ...
     'Healthy Recordings/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat',leftFoot);
 
-% rightLeg = false;
-% PCA_parameters_matrix = [];
-% SCI = true;
-% 
-% result = initialize_matrix(SCI_GaitCycles_Float.GC1,SCI,rightLeg)
+% exemple des features pour un gait cycle
+rightLeg = false;
+PCA_parameters_matrix = [];
+SCI = true;
+number_subjects = 10;
+
+result = initialize_matrix(SCI_GaitCycles_Float.GC1,SCI,rightLeg);
 
 
 
@@ -139,33 +141,33 @@ function parameters = initialize_matrix(GaitCycle, SCI, rightLeg)
     
     %kinematic parameters
     [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
-        max_vAng_ANK_right] = calculate_jointAngles(GaitCycle, 1, SCI)
+        max_vAng_ANK_right] = calculate_jointAngles(GaitCycle, 1, SCI);
     [angle_HIP_left, angle_KNE_left, angle_ANK_left,...
-        max_vAng_ANK_left]= calculate_jointAngles(GaitCycle, 0, SCI)
+        max_vAng_ANK_left]= calculate_jointAngles(GaitCycle, 0, SCI);
     [elevationangle_THIGH_right, elevationangle_SHANK_right,...
-        elevationangle_FOOT_right] = calculate_elevationAngles(GaitCycle, 1, SCI)
+        elevationangle_FOOT_right] = calculate_elevationAngles(GaitCycle, 1, SCI);
     [elevationangle_THIGH_left, elevationangle_SHANK_left,...
-        elevationangle_FOOT_left] = calculate_elevationAngles(GaitCycle, 0, SCI)
-    strideLength_right = calculate_strideLength(GaitCycle, 1)
-    strideLength_left = calculate_strideLength(GaitCycle, 0)
-    [peakSwingVelocity_right, peakSwingAcceleration_right] = calculate_peakSwing (GaitCycle, 1)
-    [peakSwingVelocity_left, peakSwingAcceleration_left] = calculate_peakSwing (GaitCycle, 0)
+        elevationangle_FOOT_left] = calculate_elevationAngles(GaitCycle, 0, SCI);
+    strideLength_right = calculate_strideLength(GaitCycle, 1);
+    strideLength_left = calculate_strideLength(GaitCycle, 0);
+    [peakSwingVelocity_right, peakSwingAcceleration_right] = calculate_peakSwing (GaitCycle, 1);
+    [peakSwingVelocity_left, peakSwingAcceleration_left] = calculate_peakSwing (GaitCycle, 0);
        
     [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ...
-        rightLeg)
+        rightLeg);
     [max_clearance_toe_right, max_clearance_toe_left, max_clearance_heel_right, ...
-        max_clearance_heel_left] = calculate_max_clearance(GaitCycle)
-    [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg)
-    [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg)
+        max_clearance_heel_left] = calculate_max_clearance(GaitCycle);
+    [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg);
+    [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg);
     [initial_double_support,terminal_double_support] = calculate_double_support(...
-        GaitCycle,rightLeg)
-    [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg)
-    [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg)
-    [cadence] = calculate_cadence(GaitCycle)
+        GaitCycle,rightLeg);
+    [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg);
+    [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg);
+    [cadence] = calculate_cadence(GaitCycle);
     [swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_SR, ...
         step_length_SI, step_length_SR, max_clearance_toe_SI,max_clearance_toe_SR, ...
         max_clearance_heel_SI,max_clearance_heel_SR, step_width_SI,step_width_SR] = ...
-        calculate_gait_cycle_symmetry(GaitCycle, rightLeg)
+        calculate_gait_cycle_symmetry(GaitCycle, rightLeg);
 
 
     %emg parameters
@@ -193,7 +195,7 @@ function parameters = initialize_matrix(GaitCycle, SCI, rightLeg)
         stance_left, stance_right, ...
         swing_left, swing_right, ...
         cadence];
-    parameters = []
+    
 end
 
 %% calculate different angles
@@ -305,7 +307,7 @@ function strideLength = calculate_strideLength(data, rightLeg)
         Ankle = data.Kin.LANK;    
     end
     
-    strideLength = norm(Ankle(end,:)-Ankle(1,:))
+    strideLength = norm(Ankle(end,:)-Ankle(1,:));
 end
 
 %% calculate peak swing velocity and acceleration
@@ -566,7 +568,6 @@ function [right_step_width,left_step_width] = calculate_step_width(GaitCycle,rig
         if ~  isempty(GaitCycle.FS_left)
             FS_right1 = GaitCycle.Kin.RANK(1,1);
             index_FS_left = round(GaitCycle.FS_left*GaitCycle.fsKIN);
-            index_FS_left
             FS_left = GaitCycle.Kin.LANK(index_FS_left,1);           
             FS_right2 = GaitCycle.Kin.RANK(end,1);
             
