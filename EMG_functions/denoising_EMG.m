@@ -21,20 +21,20 @@ function [denoised_emg] = denoising_EMG(raw_emg,frequency)
 
 denoised_emg = [];
 
-denoised_emg.T1.LMG = filtfilt(b,a,raw_emg.T1.LMG);
-denoised_emg.T1.RMG = filtfilt(b,a,raw_emg.T1.RMG);
-denoised_emg.T1.LTA = filtfilt(b,a,raw_emg.T1.LTA);
-denoised_emg.T1.RTA = filtfilt(b,a,raw_emg.T1.RTA);
+denoised_emg.T_01.Clean.EMG.LMG = filtfilt(b,a,raw_emg.T_01.Raw.EMG.LMG);
+denoised_emg.T_01.Clean.EMG.RMG = filtfilt(b,a,raw_emg.T_01.Raw.EMG.RMG);
+denoised_emg.T_01.Clean.EMG.LTA = filtfilt(b,a,raw_emg.T_01.Raw.EMG.LTA);
+denoised_emg.T_01.Clean.EMG.RTA = filtfilt(b,a,raw_emg.T_01.Raw.EMG.RTA);
 
-denoised_emg.T2.LMG = filtfilt(b,a,raw_emg.T2.LMG);
-denoised_emg.T2.RMG = filtfilt(b,a,raw_emg.T2.RMG);
-denoised_emg.T2.LTA = filtfilt(b,a,raw_emg.T2.LTA);
-denoised_emg.T2.RTA = filtfilt(b,a,raw_emg.T2.RTA);
+denoised_emg.T_02.Clean.EMG.LMG = filtfilt(b,a,raw_emg.T_02.Raw.EMG.LMG);
+denoised_emg.T_02.Clean.EMG.RMG = filtfilt(b,a,raw_emg.T_02.Raw.EMG.RMG);
+denoised_emg.T_02.Clean.EMG.LTA = filtfilt(b,a,raw_emg.T_02.Raw.EMG.LTA);
+denoised_emg.T_02.Clean.EMG.RTA = filtfilt(b,a,raw_emg.T_02.Raw.EMG.RTA);
 
-denoised_emg.T3.LMG = filtfilt(b,a,raw_emg.T3.LMG);
-denoised_emg.T3.RMG = filtfilt(b,a,raw_emg.T3.RMG);
-denoised_emg.T3.LTA = filtfilt(b,a,raw_emg.T3.LTA);
-denoised_emg.T3.RTA = filtfilt(b,a,raw_emg.T3.RTA);
+denoised_emg.T_03.Clean.EMG.LMG = filtfilt(b,a,raw_emg.T_03.Raw.EMG.LMG);
+denoised_emg.T_03.Clean.EMG.RMG = filtfilt(b,a,raw_emg.T_03.Raw.EMG.RMG);
+denoised_emg.T_03.Clean.EMG.LTA = filtfilt(b,a,raw_emg.T_03.Raw.EMG.LTA);
+denoised_emg.T_03.Clean.EMG.RTA = filtfilt(b,a,raw_emg.T_03.Raw.EMG.RTA);
 
 end
 
