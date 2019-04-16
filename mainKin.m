@@ -1,5 +1,4 @@
 
-function main()
     close all; clear all; 
     %======================================================================
     % Load Data for SCI subject
@@ -86,33 +85,38 @@ title('Acceleration');
 
 % SCI SUBJECT
 
-[SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation();
+% [SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation();
 
 % HEALTHY SUBJECT
 
 leftFoot = false;
 
-[GaitCyclesFloat1,GaitCyclesNoFloat1] = HealthySegmentation1('Healthy Recordings/Subject3_2018/FLOAT/S3_FLOAT.mat', ...
+[GaitCyclesFloat1,GaitCyclesNoFloat1] = HealthySegmentation1('Healthy Recordings/Subject1_2018/FLOAT/S1_FLOAT.mat', ...
+    'Healthy Recordings/Subject1_2018/NO_FLOAT/S1_NO_FLOAT.mat',leftFoot);
+
+[GaitCyclesFloat2,GaitCyclesNoFloat2] = HealthySegmentation1('Healthy Recordings/Subject2_2018/FLOAT/S2_FLOAT.mat', ...
+    'Healthy Recordings/Subject2_2018/NO_FLOAT/S2_NO_FLOAT.mat',leftFoot);
+
+[GaitCyclesFloat3,GaitCyclesNoFloat3] = HealthySegmentation1('Healthy Recordings/Subject3_2018/FLOAT/S3_FLOAT.mat', ...
     'Healthy Recordings/Subject3_2018/NO_FLOAT/S3_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat2,GaitCyclesNoFloat2] = HealthySegmentation1('Healthy Recordings/Subject4_2018/FLOAT/S4_FLOAT.mat', ...
+[GaitCyclesFloat4,GaitCyclesNoFloat4] = HealthySegmentation1('Healthy Recordings/Subject4_2018/FLOAT/S4_FLOAT.mat', ...
     'Healthy Recordings/Subject4_2018/NO_FLOAT/S4_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat3,GaitCyclesNoFloat3] = HealthySegmentation1('Healthy Recordings/Subject5_2018/FLOAT/S5_FLOAT.mat', ...
+[GaitCyclesFloat5,GaitCyclesNoFloat5] = HealthySegmentation1('Healthy Recordings/Subject5_2018/FLOAT/S5_FLOAT.mat', ...
     'Healthy Recordings/Subject5_2018/NO_FLOAT/S5_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat4,GaitCyclesNoFloat4] = HealthySegmentation1('Healthy Recordings/Subject6_2018/FLOAT/S6_FLOAT.mat', ...
+[GaitCyclesFloat6,GaitCyclesNoFloat6] = HealthySegmentation1('Healthy Recordings/Subject6_2018/FLOAT/S6_FLOAT.mat', ...
     'Healthy Recordings/Subject6_2018/NO_FLOAT/S6_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat5,GaitCyclesNoFloat5] = HealthySegmentation1('Healthy Recordings/Subject1_2019/FLOAT/S1_FLOAT.mat', ...
+[GaitCyclesFloat7,GaitCyclesNoFloat7] = HealthySegmentation1('Healthy Recordings/Subject1_2019/FLOAT/S1_FLOAT.mat', ...
     'Healthy Recordings/Subject1_2019/NO_FLOAT/S1_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat6,GaitCyclesNoFloat6] = HealthySegmentation1('Healthy Recordings/Subject2_2019/FLOAT/S2_FLOAT.mat', ...
+[GaitCyclesFloat8,GaitCyclesNoFloat8] = HealthySegmentation1('Healthy Recordings/Subject2_2019/FLOAT/S2_FLOAT.mat', ...
     'Healthy Recordings/Subject2_2019/NO_FLOAT/S2_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat7,GaitCyclesNoFloat7] = HealthySegmentation1('Healthy Recordings/Subject3_2019/FLOAT/S3_FLOAT.mat', ...
+[GaitCyclesFloat9,GaitCyclesNoFloat9] = HealthySegmentation1('Healthy Recordings/Subject3_2019/FLOAT/S3_FLOAT.mat', ...
     'Healthy Recordings/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat',leftFoot);
-
 
 
 % [noFloat_FS_left3, noFloat_FO_left3, noFloat_FS_right3, noFloat_FO_right3, ...
@@ -127,7 +131,7 @@ leftFoot = false;
 %     noFloat_FS_left3,noFloat_FO_left3,noFloat_FS_right3,noFloat_FO_right3,leftFoot);
 
 
-end
+
 
 %% calculate all parameters for all gait cycles
 
@@ -137,21 +141,21 @@ end
 % sampling_frequency_kin is the sampling frequency of the kinetics
 % measures
 
-function parameters = initialize_matrix(data, SCI, rightLeg)
+function parameters = initialize_matrix(GaitCycle,  rightLeg)
     
     %kinematic parameters
     [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
-        max_vAng_ANK_right] = calculate_jointAngles(data, 1);
+        max_vAng_ANK_right] = calculate_jointAngles(GaitCycle, 1);
     [angle_HIP_left, angle_KNE_left, angle_ANK_left,...
-        max_vAng_ANK_left]= calculate_jointAngles(data, 0);
+        max_vAng_ANK_left]= calculate_jointAngles(GaitCycle, 0);
     [elevationangle_THIGH_right, elevationangle_SHANK_right,...
-        elevationangle_FOOT_right] = calculate_elevationAngles(data, 1);
+        elevationangle_FOOT_right] = calculate_elevationAngles(GaitCycle, 1);
     [elevationangle_THIGH_left, elevationangle_SHANK_left,...
-        elevationangle_FOOT_left] = calculate_elevationAngles(data, 0);
-    strideLength_right = calculate_strideLength(data, 1);
-    strideLength_left = calculate_strideLength(data, 0);
-    [peakSwingVelocity_right, peakSwingAcceleration_right] = calculate_peakSwing (data, 1);
-    [peakSwingVelocity_left, peakSwingAcceleration_left] = calculate_peakSwing (data, 0);
+        elevationangle_FOOT_left] = calculate_elevationAngles(GaitCycle, 0);
+    strideLength_right = calculate_strideLength(GaitCycle, 1);
+    strideLength_left = calculate_strideLength(GaitCycle, 0);
+    [peakSwingVelocity_right, peakSwingAcceleration_right] = calculate_peakSwing (GaitCycle, 1);
+    [peakSwingVelocity_left, peakSwingAcceleration_left] = calculate_peakSwing (GaitCycle, 0);
        
     [swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_SR, ...
         step_length_SI, step_length_SR, max_clearance_toe_SI,max_clearance_toe_SR, ...
