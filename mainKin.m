@@ -27,7 +27,6 @@ function main()
 %% PARAMETERS FROM KINEMATICS
 
 
-
 %% Plotting template
 %TODO fix it on time and not recording frame
 
@@ -91,7 +90,7 @@ end
 % sampling_frequency_kin is the sampling frequency of the kinetics
 % measures
 
-function parameters = initialize_matrix(data, SCI, sampling_frequency_kin, rightLeg)
+function parameters = initialize_matrix(data, SCI, rightLeg)
     
     %kinematic parameters
     [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
@@ -110,22 +109,18 @@ function parameters = initialize_matrix(data, SCI, sampling_frequency_kin, right
     [swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_SR, ...
         step_length_SI, step_length_SR, max_clearance_toe_SI,max_clearance_toe_SR, ...
         max_clearance_heel_SI,max_clearance_heel_SR, step_width_SI,step_width_SR] = ...
-        calculate_gait_cycle_symmetry(GaitCycle, rightLeg, sampling_frequency_kin);
+        calculate_gait_cycle_symmetry(GaitCycle, rightLeg);
     [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ...
-        rightLeg, sampling_frequency_kin);
+        rightLeg);
     [max_clearance_toe_right, max_clearance_toe_left, max_clearance_heel_right, ...
         max_clearance_heel_left] = calculate_max_clearance(GaitCycle);
-    [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg, ...
-        sampling_frequency_kin);
-    [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg, ...
-        sampling_frequency_kin);
+    [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg);
+    [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg);
     [initial_double_support,terminal_double_support] = calculate_double_support(...
         GaitCycle,rightLeg);
-    [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg, ...
-        sampling_frequency_kin);
-    [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg, ... 
-        sampling_frequency_kin);
-    [cadence] = calculate_cadence(GaitCycle,sampling_frequency_kin);
+    [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg);
+    [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg);
+    [cadence] = calculate_cadence(GaitCycle);
 
     %emg parameters
     
@@ -283,11 +278,8 @@ end
 
 %% Cadence
 
-% sampling_frequency_kin is the sampling frequency of the kinetic
-% measurements
-
-function [cadence] = calculate_cadence(GaitCycle,sampling_frequency_kin)
-    GCT = length(GaitCycle.Kin.LANK(:,1))/sampling_frequency_kin;
+function [cadence] = calculate_cadence(GaitCycle)
+    GCT = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
     cadence = 120/GCT;  
 end
 
@@ -296,13 +288,9 @@ end
 % rightLeg is a variable with value True or False to indicate whether the
 % foot used to determine the gait cycles is the right foot or the left foot
 
-% sampling_frequency_kin is the sampling frequency of the kinetic
-% measurements
-
-function [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg, ... 
-    sampling_frequency_kin)
+function [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg)
     
-    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/sampling_frequency_kin;
+    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
     
     if rightLeg % the reference foot is the right foot
         
@@ -342,17 +330,13 @@ end
 % rightLeg is a variable with value True or False to indicate whether the
 % foot used to determine the gait cycles is the right foot or the left foot
 
-% sampling_frequency_kin is the sampling frequency of the kinetic
-% measurements
-
 % for the stance period of the non reference foot, we do an approximation : 
 % we use the end of the stance from the lase gait cycle and the beginning
 % of the stance from the curremt gait cycle
 
-function [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg, ...
-    sampling_frequency_kin)
+function [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg)
 
-    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/sampling_frequency_kin;
+    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
 
     if rightLeg % reference foot is the right foot
         
@@ -433,10 +417,9 @@ end
 % Step left is the step during which foot left swings
 % Step right is the step during which foot right swings
 
-function [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg, ...
-    sampling_frequency_kin)
+function [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg)
 
-    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/sampling_frequency_kin;
+    reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
     
     if rightLeg
         
@@ -469,14 +452,13 @@ end
 % = distance between 2 consecutive footstrikes (Y direction)
 % (definition cours)
 
-function [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg, ...
-    sampling_frequency_kin)
+function [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg)
 
     if rightLeg
         
         if ~  isempty(GaitCycle.FS_left)
             FS_right1 = GaitCycle.Kin.RANK(1,2);
-            index_FS_left = round(GaitCycle.FS_left*sampling_frequency_kin);
+            index_FS_left = round(GaitCycle.FS_left*GaitCycle.fsKIN);
             FS_left = GaitCycle.Kin.LANK(index_FS_left,2);           
             FS_right2 = GaitCycle.Kin.RANK(end,2);
             
@@ -491,7 +473,7 @@ function [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg, 
         
         if ~  isempty(GaitCycle.FS_right)
             FS_left1 = GaitCycle.Kin.LANK(1,2);
-            index_FS_right = round(GaitCycle.FS_right*sampling_frequency_kin);
+            index_FS_right = round(GaitCycle.FS_right*GaitCycle.fsKIN);
             FS_right = GaitCycle.Kin.RANK(index_FS_right,2);
             FS_left2 = GaitCycle.Kin.LANK(end,2);
             
@@ -529,14 +511,13 @@ end
 % Step width was determined as the distance in X between the ankles 
 % of two consecutive footprints (between consecutive footstrikes)
 
-function [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ...
-    rightLeg, sampling_frequency_kin)
+function [right_step_width,left_step_width] = calculate_step_width(GaitCycle,rightLeg)
     
     if rightLeg
         
         if ~  isempty(GaitCycle.FS_left)
             FS_right1 = GaitCycle.Kin.RANK(1,1);
-            index_FS_left = round(GaitCycle.FS_left*sampling_frequency_kin);
+            index_FS_left = round(GaitCycle.FS_left*GaitCycle.fsKIN);
             FS_left = GaitCycle.Kin.LANK(index_FS_left,1);           
             FS_right2 = GaitCycle.Kin.RANK(end,1);
             
@@ -551,7 +532,7 @@ function [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ..
         
         if ~  isempty(GaitCycle.FS_right)
             FS_left1 = GaitCycle.Kin.LANK(1,1);
-            index_FS_right = round(GaitCycle.FS_right*sampling_frequency_kin);
+            index_FS_right = round(GaitCycle.FS_right*GaitCycle.fsKIN);
             FS_right = GaitCycle.Kin.RANK(index_FS_right,1);
             FS_left2 = GaitCycle.Kin.LANK(end,1);
             
@@ -590,22 +571,18 @@ function [swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_
     step_length_SI, step_length_SR, ...
     max_clearance_toe_SI,max_clearance_toe_SR, max_clearance_heel_SI,max_clearance_heel_SR, ...
     step_width_SI,step_width_SR] = ...
-    calculate_gait_cycle_symmetry(GaitCycle, rightLeg, sampling_frequency_kin)
+    calculate_gait_cycle_symmetry(GaitCycle, rightLeg)
 
-    [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg, ... 
-        sampling_frequency_kin);
+    [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg);
     [swing_SI,swing_SR] = calculate_symmetry_param(swing_right,swing_left);
 
-    [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg, ...
-        sampling_frequency_kin);
+    [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg);
     [stance_SI,stance_SR] = calculate_symmetry_param(stance_right,stance_left);
     
-    [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg, ...
-        sampling_frequency_kin);
+    [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg);
     [step_period_SI,step_period_SR] = calculate_symmetry_param(step_period_right,step_period_left);
     
-    [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg, ...
-        sampling_frequency_kin);
+    [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg);
     [step_length_SI,step_length_SR] = calculate_symmetry_param(step_length_right,step_length_left);
     
     [max_clearance_toe_right, max_clearance_toe_left, max_clearance_heel_right, ...
@@ -616,7 +593,7 @@ function [swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_
         max_clearance_heel_right,max_clearance_heel_left);
     
     [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ...
-        rightLeg, sampling_frequency_kin);
+        rightLeg);
     [step_width_SI,step_width_SR] = calculate_symmetry_param(right_step_width, ...
         left_step_width);
     
