@@ -4,14 +4,13 @@ function [data_01_FS_left, data_01_FS_right, ...
     data_02_FS_left, data_02_FS_right, ...
     data_02_FO_left, data_02_FO_right, ...
     data_03_FS_left, data_03_FS_right, ...
-    data_03_FO_left, data_03_FO_right] = groundTruthTool()
+    data_03_FO_left, data_03_FO_right] = groundTruthTool(dataName)
 
 
 % this tool plots each raw signal for the kinematics with a cursor 
 % by looking at the signal, the locations of the gait events are found
 % for each signal we find the foot strikes and the foot off 
 
-dataName = "Healthy Recordings Raw/Subject6_2018/FLOAT/S6_FLOAT.mat";
 data = load(dataName);
 fields = fieldnames(data);
 
