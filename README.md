@@ -5,6 +5,8 @@ Let's analyse this gait!
 TODOs:
 
 Samuele:
+- Adapt Load
+- Adapt code with "InitializeGaitEvents"
 - Gait detection with velocity
 - Stick plot zy-axis
 
