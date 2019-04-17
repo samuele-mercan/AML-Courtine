@@ -2,6 +2,7 @@
 %Cleaning
 close all; clear all;
 
+% TODO CORRECT THE LOAD!!!!!!!!
 %Loading healthy recordings
 load('./Healthy Recordings/Subject1_2019/FLOAT/S6_FLOAT.mat')
 load('./Healthy Recordings/Subject1_2019/NO_FLOAT/S6_NO_FLOAT.mat')
