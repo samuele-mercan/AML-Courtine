@@ -3,8 +3,8 @@
 close all; clear all;
 
 %Loading healthy recordings
-load('./Healthy Recordings/Subject6/FLOAT/S6_FLOAT.mat')
-load('./Healthy Recordings/Subject6/NO_FLOAT/S6_NO_FLOAT.mat')
+load('./Healthy Recordings/Subject1_2019/FLOAT/S6_FLOAT.mat')
+load('./Healthy Recordings/Subject1_2019/NO_FLOAT/S6_NO_FLOAT.mat')
 
 %Loading SCI patient data
 load('Exercise - Material - SCI Subject/FLOAT_NO_CRUTCHES/MAT/FLOAT_NO_CRUTCHES.mat');
