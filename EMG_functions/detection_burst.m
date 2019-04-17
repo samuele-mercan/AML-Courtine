@@ -5,21 +5,14 @@ function [onset_index,offset_index] = detection_burst(env_EMG)
 
 onset_index=[];
 offset_index=[];
+fields = fieldnames(env_EMG);
 
-[onset_index.T1.LMG,offset_index.T1.LMG] = detect(env_EMG.T1.LMG);
-[onset_index.T1.RMG,offset_index.T1.RMG] = detect(env_EMG.T1.RMG);
-[onset_index.T1.LTA,offset_index.T1.LTA] = detect(env_EMG.T1.LTA);
-[onset_index.T1.RTA,offset_index.T1.RTA] = detect(env_EMG.T1.RTA);
-
-[onset_index.T2.LMG,offset_index.T2.LMG] = detect(env_EMG.T2.LMG);
-[onset_index.T2.RMG,offset_index.T2.RMG] = detect(env_EMG.T2.RMG);
-[onset_index.T2.LTA,offset_index.T2.LTA] = detect(env_EMG.T2.LTA);
-[onset_index.T2.RTA,offset_index.T2.RTA] = detect(env_EMG.T2.RTA);
-
-[onset_index.T3.LMG,offset_index.T3.LMG] = detect(env_EMG.T3.LMG);
-[onset_index.T3.RMG,offset_index.T3.RMG] = detect(env_EMG.T3.RMG);
-[onset_index.T3.LTA,offset_index.T3.LTA] = detect(env_EMG.T3.LTA);
-[onset_index.T3.RTA,offset_index.T3.RTA] = detect(env_EMG.T3.RTA);
+for i = 1:length(fields)    
+    [onset_index.(fields{i}).EMG.LMG,offset_index.(fields{i}).EMG.LMG] = detect(env_EMG.(fields{i}).EMG.LMG);
+    [onset_index.(fields{i}).EMG.RMG,offset_index.(fields{i}).EMG.RMG] = detect(env_EMG.(fields{i}).EMG.RMG);
+    [onset_index.(fields{i}).EMG.LTA,offset_index.(fields{i}).EMG.LTA] = detect(env_EMG.(fields{i}).EMG.LTA);
+    [onset_index.(fields{i}).EMG.RTA,offset_index.(fields{i}).EMG.RTA] = detect(env_EMG.(fields{i}).EMG.RTA);
+end
 
 end
 

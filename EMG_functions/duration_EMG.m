@@ -5,13 +5,32 @@ function [duration] = duration_EMG(onset,offset)
 fields = fieldnames(onset);
 
 for i = 1:numel(fields)
-    fields2 = fieldnames(onset.(fields{i}));
-    for j = 1:numel(fields2)
-        if length(onset.(fields{i}).(fields2{j})) == length(offset.(fields{i}).(fields2{j}))
-            duration.(fields{i}).(fields2{j}) = offset.(fields{i}).(fields2{j}) - onset.(fields{i}).(fields2{j});
-        else
-            disp('Not the same number of onsets and offsets detected')
-        end
+    if ~isempty(offset.(fields{i}).EMG.LMG) && length(offset.(fields{i}).EMG.LMG) == length(onset.(fields{i}).EMG.LMG)
+        duration.(fields{i}).EMG.LMG = offset.(fields{i}).EMG.LMG - onset.(fields{i}).EMG.LMG;
+    else
+        duration.(fields{i}).EMG.LMG = [];
+        disp(['Not same number of off sets than onsets LMG'])
+    end
+    
+    if ~isempty(offset.(fields{i}).EMG.RMG) && length(offset.(fields{i}).EMG.RMG) == length(onset.(fields{i}).EMG.RMG)
+        duration.(fields{i}).EMG.RMG = offset.(fields{i}).EMG.RMG - onset.(fields{i}).EMG.RMG;
+    else
+        duration.(fields{i}).EMG.RMG = [];
+        disp(['Not same number of off sets than onsets RMG'])
+    end
+    
+    if ~isempty(offset.(fields{i}).EMG.LTA) && length(offset.(fields{i}).EMG.LTA) == length(onset.(fields{i}).EMG.LTA)
+        duration.(fields{i}).EMG.LTA = offset.(fields{i}).EMG.LTA - onset.(fields{i}).EMG.LTA;
+    else
+        duration.(fields{i}).EMG.LTA = [];
+        disp(['Not same number of off sets than onsets LTA'])
+    end
+    
+    if ~isempty(offset.(fields{i}).EMG.RTA) && length(offset.(fields{i}).EMG.RTA) == length(onset.(fields{i}).EMG.RTA)
+        duration.(fields{i}).EMG.RTA = offset.(fields{i}).EMG.RTA - onset.(fields{i}).EMG.RTA;
+    else
+        duration.(fields{i}).EMG.RTA = [];
+        disp(['Not same number of off sets than onsets RTA'])
     end
 end
 

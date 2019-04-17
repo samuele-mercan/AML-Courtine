@@ -2,7 +2,7 @@ function [onset_index,offset_index] = detect(data)
 %UNTITLED8 Summary of this function goes here
 %   Detailed explanation goes here
 
-threshold = mean(data) + std(data);
+threshold = mean(data) + 2*std(data);
 data(data >= threshold) =1;
 data(data ~= 1) =0;
 thresholded = diff(data);
