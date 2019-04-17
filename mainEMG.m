@@ -114,7 +114,7 @@ save([pwd,'/Healthy Recordings Denoised/Subject3_2018/FLOAT/S3_FLOAT.mat'],'S3_F
 [~, Float_FO_left_HR3, ~, noFloat_FO_right_HR3,~, Float_FO_left_HR3,~, Float_FO_right_HR3] = HealthySegmentation([pwd,'/Healthy Recordings Denoised/Subject3_2019/FLOAT/S3_FLOAT.mat'], ...
     [pwd,'/Healthy Recordings Denoised/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat']);
 
-%% 
+%% Loading and Denoising and Segmentation of all data 
 leftFoot = true;
 [SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation();
 
