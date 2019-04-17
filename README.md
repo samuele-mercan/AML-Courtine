@@ -20,6 +20,7 @@ Laure:
 - Create matrices for PCA
 
 Ludovica:
+- Report
 
 Alice:
 - EMG feature extraction
