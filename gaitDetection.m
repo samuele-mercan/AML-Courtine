@@ -165,7 +165,7 @@ for i = 1:length(y_ankle)
     
     drawnow
 end
-%% Logical Mask
+%% Logical Mask LEFT
 samplePointsVelocity = samplePoints;
 samplePointsVelocity(:,1)=[];
 
@@ -187,6 +187,29 @@ for i = 1:size(noCrutches_03_FS_left,2)
     logicalMaskFS = logicalMaskFS + tempLogical;
 end
 logicalMaskFS(logicalMaskFS==0) = nan;
+
+%% Logical Mask RIGHT
+samplePointsVelocity = samplePoints;
+samplePointsVelocity(:,1)=[];
+
+logicalMaskFORight = zeros(1,size(samplePointsVelocity,2));
+tempLogical = [];
+for i = 1:size(noCrutches_03_FO_right,2)
+    currentValue = round(noCrutches_03_FO_right(1,i),2);
+    tempLogical = (samplePointsVelocity == currentValue);
+    logicalMaskFORight = logicalMaskFORight + tempLogical;
+end
+logicalMaskFORight(logicalMask==0) = nan;
+
+logicalMaskFSRight = zeros(1,size(samplePointsVelocity,2));
+tempLogical = [];
+
+for i = 1:size(noCrutches_03_FS_right,2)
+    currentValue = round(noCrutches_03_FS_right(1,i),2);
+    tempLogical = (samplePointsVelocity == currentValue);
+    logicalMaskFSRight = logicalMaskFSRight + tempLogical;
+end
+logicalMaskFSRight(logicalMaskFS==0) = nan;
 
 %% Derivation of velocities and accelleration
 velocity_X = diff(FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LANK(:,1));
@@ -221,6 +244,9 @@ title('Accelleration');
 %% Hips 
 logicalMaskHips = [logicalMask NaN];
 logicalMaskHipsFS = [logicalMaskFS NaN];
+logicalMaskHipsFORight = [logicalMaskFORight NaN];
+logicalMaskHipsFSRight = [logicalMaskFSRight NaN];
+
 
 figure(1);
 plot(samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LASI(:,1)', '-r',...
@@ -270,12 +296,16 @@ plot(samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LKNE(:,2)', '-b',...
 figure(1);
 plot(samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,1)', '-r',...
     samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,3)', '-m',...
-    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,1)'.*logicalMaskHips, 'pr',...
-    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,3)'.*logicalMaskHips, 'pr',...
-    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,1)'.*logicalMaskHipsFS, 'pb',...
-    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,3)'.*logicalMaskHipsFS, 'pb');
+    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,1)'.*logicalMaskHipsFORight, 'pr',...
+    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,3)'.*logicalMaskHipsFORight, 'pr',...
+    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,1)'.*logicalMaskHipsFSRight, 'pb',...
+    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,3)'.*logicalMaskHipsFSRight, 'pb');
 
 figure(2);
 plot(samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,2)', '-b',...
-    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,2)'.*logicalMaskHips, 'pr',...
-    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,2)'.*logicalMaskHipsFS, 'pb')
+    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,2)'.*logicalMaskHipsFORight, 'pr',...
+    samplePoints, FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,2)'.*logicalMaskHipsFSRight, 'pb')
+
+%% 3D test
+
+plot(FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,1), FLOAT_NO_CRUTCHES.T_03.Raw.Kin.LTOE(:,2))
