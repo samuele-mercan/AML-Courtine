@@ -116,15 +116,14 @@
     data_03_FO_rightNoFloat9] = groundTruthTool('Healthy Recordings/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat');
 
 %% GAIT CYCLES SEGMENTATION
+leftFoot = true;
 
 % SCI SUBJECT
 
 % pour le moment left foot par defaut : A CHANGER !!!!!!
-[SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation();
+[SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation(leftFoot);
 
 % % HEALTHY SUBJECT
-
-leftFoot = true;
 
 [GaitCyclesFloat1,GaitCyclesNoFloat1] = HealthySegmentation1('Healthy Recordings/Subject1_2018/FLOAT/S1_FLOAT.mat', ...
     'Healthy Recordings/Subject1_2018/NO_FLOAT/S1_NO_FLOAT.mat',leftFoot);

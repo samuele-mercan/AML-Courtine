@@ -1,11 +1,9 @@
-function [SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation()
+function [SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation(leftFoot)
     %======================================================================
     % Load Data for SCI subject
     %======================================================================
     
     %% Load the data
-    
-    leftFoot=true;
     
     % Data with Float, no Crutches 
     
