@@ -116,7 +116,7 @@
     data_03_FO_rightNoFloat9] = groundTruthTool('Healthy Recordings/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat');
 
 %% GAIT CYCLES SEGMENTATION
-leftFoot = true;
+leftFoot = false;
 
 % SCI SUBJECT
 
@@ -150,15 +150,15 @@ leftFoot = true;
     'Healthy Recordings/Subject2_2019/NO_FLOAT/S2_NO_FLOAT.mat',leftFoot);
 
 [GaitCyclesFloat9,GaitCyclesNoFloat9] = HealthySegmentation1('Healthy Recordings/Subject3_2019/FLOAT/S3_FLOAT.mat', ...
-    'Healthy Recordings/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat',leftFoot);
+     'Healthy Recordings/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat',leftFoot);
 
 % exemple des features pour un gait cycle
-rightLeg = false;
+rightLeg = true;
 PCA_parameters_matrix = [];
-SCI = true;
+SCI = false;
 number_subjects = 10;
 
-result = initialize_matrix(SCI_GaitCycles_Float.GC1,SCI,rightLeg);
+result = initialize_matrix(GaitCyclesNoFloat8.GC1,SCI,rightLeg);
 
 
 
@@ -173,14 +173,14 @@ result = initialize_matrix(SCI_GaitCycles_Float.GC1,SCI,rightLeg);
 function parameters = initialize_matrix(GaitCycle, SCI, rightLeg)
     
     %kinematic parameters
-    [angle_HIP_right, angle_KNE_right, angle_ANK_right,...
+    [max_angle_HIP_right, max_angle_KNE_right, max_angle_ANK_right,...
         max_vAng_ANK_right] = calculate_jointAngles(GaitCycle, 1, SCI);
-    [angle_HIP_left, angle_KNE_left, angle_ANK_left,...
+    [max_angle_HIP_left, max_angle_KNE_left, max_angle_ANK_left,...
         max_vAng_ANK_left]= calculate_jointAngles(GaitCycle, 0, SCI);
-    [elevationangle_THIGH_right, elevationangle_SHANK_right,...
-        elevationangle_FOOT_right] = calculate_elevationAngles(GaitCycle, 1, SCI);
-    [elevationangle_THIGH_left, elevationangle_SHANK_left,...
-        elevationangle_FOOT_left] = calculate_elevationAngles(GaitCycle, 0, SCI);
+    [max_elevationangle_THIGH_right, max_elevationangle_SHANK_right,...
+        max_elevationangle_FOOT_right] = calculate_elevationAngles(GaitCycle, 1, SCI);
+    [max_elevationangle_THIGH_left, max_elevationangle_SHANK_left,...
+        max_elevationangle_FOOT_left] = calculate_elevationAngles(GaitCycle, 0, SCI);
     strideLength_right = calculate_strideLength(GaitCycle, 1);
     strideLength_left = calculate_strideLength(GaitCycle, 0);
     [peakSwingVelocity_right, peakSwingAcceleration_right] = calculate_peakSwing (GaitCycle, 1);
@@ -213,16 +213,21 @@ function parameters = initialize_matrix(GaitCycle, SCI, rightLeg)
     
     
     %collect all calculated parameters into one vector
-    parameters = [max_vAng_ANK_right, strideLength_right, peakSwingVelocity_right,...
-        peakSwingAcceleration_right,...
-        max_vAng_ANK_left, strideLength_left, peakSwingVelocity_left,...
-        peakSwingAcceleration_left, ...
-        swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_SR, step_length_SI, step_length_SR, ...
-        max_clearance_toe_SI, max_clearance_toe_SR, max_clearance_heel_SI, max_clearance_heel_SR, ...
-        step_width_SI, step_width_SR, ...
+    parameters = [max_angle_HIP_right, max_angle_KNE_right, max_angle_ANK_right,...
+        max_vAng_ANK_right, ...
+        max_angle_HIP_left, max_angle_KNE_left, max_angle_ANK_left, ...
+        max_vAng_ANK_left, ...
+        max_elevationangle_THIGH_right, max_elevationangle_SHANK_right, max_elevationangle_FOOT_right, ...
+        max_elevationangle_THIGH_left, max_elevationangle_SHANK_left, max_elevationangle_FOOT_left, ...
+        strideLength_right, strideLength_left, ...
+        peakSwingVelocity_right, peakSwingAcceleration_right,...
+        peakSwingVelocity_left, peakSwingAcceleration_left, ...
         right_step_width,left_step_width, ...
         max_clearance_toe_right, max_clearance_toe_left, max_clearance_heel_right, max_clearance_heel_left, ...
         step_length_right, step_length_left, ...
+        swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_SR, step_length_SI, step_length_SR, ...
+        max_clearance_toe_SI, max_clearance_toe_SR, max_clearance_heel_SI, max_clearance_heel_SR, ...
+        step_width_SI, step_width_SR, ...        
         step_period_left, step_period_right, ...
         initial_double_support, terminal_double_support, ...
         stance_left, stance_right, ...
@@ -232,7 +237,7 @@ function parameters = initialize_matrix(GaitCycle, SCI, rightLeg)
 end
 
 %% calculate different angles
-function [angle_HIP, angle_KNE, angle_ANK, max_vAng_ANK] = calculate_jointAngles(data,rightLeg, SCI)
+function [max_angle_HIP, max_angle_KNE, max_angle_ANK, max_vAng_ANK] = calculate_jointAngles(data,rightLeg, SCI)
     %calculates hip, knee and ankle angle from a given kinematic data structure
     %and max angular velocity of angle
     if rightLeg
@@ -281,12 +286,15 @@ function [angle_HIP, angle_KNE, angle_ANK, max_vAng_ANK] = calculate_jointAngles
         angle_ANK(i) = acosd((a*a + c*c -b*b)/(2*a*c));
     end
     
+    max_angle_HIP = max(angle_HIP);
+    max_angle_KNE = max(angle_KNE);
+    max_angle_ANK = max(angle_ANK);
     max_vAng_ANK = max(diff(angle_ANK));
 end
 
 %% calculate elevation angles 
-function [elevationangle_THIGH, elevationangle_SHANK,...
-    elevationangle_FOOT] = calculate_elevationAngles(data,rightLeg, SCI)
+function [max_elevationangle_THIGH, max_elevationangle_SHANK,...
+    max_elevationangle_FOOT] = calculate_elevationAngles(data,rightLeg, SCI)
     %calculates knee and ankle angle from a given kinematic data structure
     if rightLeg
         if SCI
@@ -330,6 +338,9 @@ function [elevationangle_THIGH, elevationangle_SHANK,...
         elevationangle_FOOT(i)     = acosd(g/c);
     end
     
+    max_elevationangle_THIGH = max(elevationangle_THIGH);
+    max_elevationangle_SHANK = max(elevationangle_SHANK);
+    max_elevationangle_FOOT = max(elevationangle_FOOT);
 end
 
 %% calculate elevation angles 
@@ -466,13 +477,13 @@ function [initial_double_support,terminal_double_support] = calculate_double_sup
         if ~  isempty(GaitCycle.FO_left)
             initial_double_support = GaitCycle.FO_left;
         else
-            initial_double_support = []
+            initial_double_support = [];
         end
         
         if ~  isempty(GaitCycle.FS_left) && ~  isempty(GaitCycle.FO_right)
             terminal_double_support = GaitCycle.FO_right - GaitCycle.FS_left;
         else
-            terminal_double_support = []
+            terminal_double_support = [];
         end
         
     else % left foot is the reference
