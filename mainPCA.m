@@ -88,6 +88,7 @@ ylabel('Loading of feature')
 %you have to create a matrix containing 2 or more columns, each column is
 %data for SCI or healthy, then you enter this matrix into anova1() and it
 %will give you a p-value
+%example: p =  anova1(data_for_swing_time)
 
 %% PCA: segmentation with respect to right foot
 
