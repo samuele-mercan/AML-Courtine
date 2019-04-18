@@ -83,6 +83,12 @@ ylabel('Loading of feature')
 % T8 = ones(1, length(idx8))
 % [Acc8,rand_index8,match8]=AccMeasure(T8,idx8)
 
+%anova1 to compare if a feature is significantly different between SCI and
+%healthy
+%you have to create a matrix containing 2 or more columns, each column is
+%data for SCI or healthy, then you enter this matrix into anova1() and it
+%will give you a p-value
+
 %% PCA: segmentation with respect to right foot
 
 %% PCA: taking the average of the two legs
