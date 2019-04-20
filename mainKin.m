@@ -1,166 +1,229 @@
-
-    close all; clear all; 
-    %======================================================================
-    % Load Data for SCI subject
-    %======================================================================
-    % Data with no Crutches 
-    
-    datasetName1 = 'Exercise - Material - SCI Subject/FLOAT_NO_CRUTCHES/MAT/FLOAT_NO_CRUTCHES.mat';
-    load(datasetName1); % load data structure   
-    
-    noCrutches_01 = readtable('Exercise - Material - SCI Subject/FLOAT_NO_CRUTCHES/GAIT FILES/SCI_HCU_20150505_04OVGb_45BWS_vFWD_noAD_03_GAIT.csv');
-    noCrutches_02 = readtable('Exercise - Material - SCI Subject/FLOAT_NO_CRUTCHES/GAIT FILES/SCI_HCU_20150505_04OVGb_45BWS_vFWD_noAD_04_GAIT.csv');
-    noCrutches_03 = readtable('Exercise - Material - SCI Subject/FLOAT_NO_CRUTCHES/GAIT FILES/SCI_HCU_20150505_04OVGb_45BWS_vFWD_noAD_05_GAIT.csv');
-    
-    % Data with Crutches
-    
-    datasetName2 = 'Exercise - Material - SCI Subject/NO_FLOAT_CRUTCHES/MAT/NO_FLOAT_CRUTCHES.mat';
-    load(datasetName2); % load data structure   
-    
-    Crutches_01 = readtable('Exercise - Material - SCI Subject/NO_FLOAT_CRUTCHES/GAIT FILES/SCI_HCU_20150505_02OVGa_AD_01_GAIT.csv');
-    Crutches_02 = readtable('Exercise - Material - SCI Subject/NO_FLOAT_CRUTCHES/GAIT FILES/SCI_HCU_20150505_02OVGa_AD_02_GAIT.csv');
-    Crutches_03 = readtable('Exercise - Material - SCI Subject/NO_FLOAT_CRUTCHES/GAIT FILES/SCI_HCU_20150505_02OVGa_AD_03_GAIT.csv');
-     
-   
-    
-%% Grand truth gait events detection
-
-[data_01_FS_leftFloat1, data_01_FS_rightFloat1,data_01_FO_leftFloat1, data_01_FO_rightFloat1, ...
-    data_02_FS_leftFloat1, data_02_FS_rightFloat1, data_02_FO_leftFloat1, data_02_FO_rightFloat1, ...
-    data_03_FS_leftFloat1, data_03_FS_rightFloat1,data_03_FO_leftFloat1, ...
-    data_03_FO_rightFloat1] = groundTruthTool('Healthy Recordings/Subject1_2018/FLOAT/S1_FLOAT.mat');
-
-[data_01_FS_leftNoFloat1, data_01_FS_rightNoFloat1, data_01_FO_leftNoFloat1, data_01_FO_rightNoFloat1, ...
-    data_02_FS_leftNoFloat1, data_02_FS_rightNoFloat1, data_02_FO_leftNoFloat1, data_02_FO_rightNoFloat1, ...
-    data_03_FS_leftNoFloat1, data_03_FS_rightNoFloat1, data_03_FO_leftNoFloat1,...
-    data_03_FO_rightNoFloat1] = groundTruthTool('Healthy Recordings/Subject1_2018/NO_FLOAT/S1_NO_FLOAT.mat');
-
-[data_01_FS_leftFloat2, data_01_FS_rightFloat2,data_01_FO_leftFloat2, data_01_FO_rightFloat2, ...
-    data_02_FS_leftFloat2, data_02_FS_rightFloat2, data_02_FO_leftFloat2, data_02_FO_rightFloat2, ...
-    data_03_FS_leftFloat2, data_03_FS_rightFloat2,data_03_FO_leftFloat2, ...
-    data_03_FO_rightFloat2] = groundTruthTool('Healthy Recordings/Subject2_2018/FLOAT/S2_FLOAT.mat');
-
-[data_01_FS_leftNoFloat2, data_01_FS_rightNoFloat2, data_01_FO_leftNoFloat2, data_01_FO_rightNoFloat2, ...
-    data_02_FS_leftNoFloat2, data_02_FS_rightNoFloat2, data_02_FO_leftNoFloat2, data_02_FO_rightNoFloat2, ...
-    data_03_FS_leftNoFloat2, data_03_FS_rightNoFloat2, data_03_FO_leftNoFloat2,...
-    data_03_FO_rightNoFloat2] = groundTruthTool('Healthy Recordings/Subject2_2018/NO_FLOAT/S2_NO_FLOAT.mat');
-
-[data_01_FS_leftFloat3, data_01_FS_rightFloat3,data_01_FO_leftFloat3, data_01_FO_rightFloat3, ...
-    data_02_FS_leftFloat3, data_02_FS_rightFloat3, data_02_FO_leftFloat3, data_02_FO_rightFloat3, ...
-    data_03_FS_leftFloat3, data_03_FS_rightFloat3,data_03_FO_leftFloat3, ...
-    data_03_FO_rightFloat3] = groundTruthTool('Healthy Recordings/Subject3_2018/FLOAT/S3_FLOAT.mat');
-
-[data_01_FS_leftNoFloat3, data_01_FS_rightNoFloat3, data_01_FO_leftNoFloat3, data_01_FO_rightNoFloat3, ...
-    data_02_FS_leftNoFloat3, data_02_FS_rightNoFloat3, data_02_FO_leftNoFloat3, data_02_FO_rightNoFloat3, ...
-    data_03_FS_leftNoFloat3, data_03_FS_rightNoFloat3, data_03_FO_leftNoFloat3,...
-    data_03_FO_rightNoFloat3] = groundTruthTool('Healthy Recordings/Subject3_2018/NO_FLOAT/S3_NO_FLOAT.mat');
-
-[data_01_FS_leftFloat4, data_01_FS_rightFloat4,data_01_FO_leftFloat4, data_01_FO_rightFloat4, ...
-    data_02_FS_leftFloat4, data_02_FS_rightFloat4, data_02_FO_leftFloat4, data_02_FO_rightFloat4, ...
-    data_03_FS_leftFloat4, data_03_FS_rightFloat4,data_03_FO_leftFloat4, ...
-    data_03_FO_rightFloat4] = groundTruthTool('Healthy Recordings/Subject4_2018/FLOAT/S4_FLOAT.mat');
-
-[data_01_FS_leftNoFloat4, data_01_FS_rightNoFloat4, data_01_FO_leftNoFloat4, data_01_FO_rightNoFloat4, ...
-    data_02_FS_leftNoFloat4, data_02_FS_rightNoFloat4, data_02_FO_leftNoFloat4, data_02_FO_rightNoFloat4, ...
-    data_03_FS_leftNoFloat4, data_03_FS_rightNoFloat4, data_03_FO_leftNoFloat4,...
-    data_03_FO_rightNoFloat4] = groundTruthTool('Healthy Recordings/Subject4_2018/NO_FLOAT/S4_NO_FLOAT.mat');
-
-[data_01_FS_leftFloat5, data_01_FS_rightFloat5,data_01_FO_leftFloat5, data_01_FO_rightFloat5, ...
-    data_02_FS_leftFloat5, data_02_FS_rightFloat5, data_02_FO_leftFloat5, data_02_FO_rightFloat5, ...
-    data_03_FS_leftFloat5, data_03_FS_rightFloat5,data_03_FO_leftFloat5, ...
-    data_03_FO_rightFloat5] = groundTruthTool('Healthy Recordings/Subject5_2018/FLOAT/S5_FLOAT.mat');
-
-[data_01_FS_leftNoFloat5, data_01_FS_rightNoFloat5, data_01_FO_leftNoFloat5, data_01_FO_rightNoFloat5, ...
-    data_02_FS_leftNoFloat5, data_02_FS_rightNoFloat5, data_02_FO_leftNoFloat5, data_02_FO_rightNoFloat5, ...
-    data_03_FS_leftNoFloat5, data_03_FS_rightNoFloat5, data_03_FO_leftNoFloat5,...
-    data_03_FO_rightNoFloat5] = groundTruthTool('Healthy Recordings/Subject5_2018/NO_FLOAT/S5_NO_FLOAT.mat');
-
-[data_01_FS_leftFloat6, data_01_FS_rightFloat6,data_01_FO_leftFloat6, data_01_FO_rightFloat6, ...
-    data_02_FS_leftFloat6, data_02_FS_rightFloat6, data_02_FO_leftFloat6, data_02_FO_rightFloat6, ...
-    data_03_FS_leftFloat6, data_03_FS_rightFloat6,data_03_FO_leftFloat6, ...
-    data_03_FO_rightFloat6] = groundTruthTool('Healthy Recordings/Subject6_2018/FLOAT/S6_FLOAT.mat');
-
-[data_01_FS_leftNoFloat6, data_01_FS_rightNoFloat6, data_01_FO_leftNoFloat6, data_01_FO_rightNoFloat6, ...
-    data_02_FS_leftNoFloat6, data_02_FS_rightNoFloat6, data_02_FO_leftNoFloat6, data_02_FO_rightNoFloat6, ...
-    data_03_FS_leftNoFloat6, data_03_FS_rightNoFloat6, data_03_FO_leftNoFloat6,...
-    data_03_FO_rightNoFloat6] = groundTruthTool('Healthy Recordings/Subject6_2018/NO_FLOAT/S6_NO_FLOAT.mat');
-
-[data_01_FS_leftFloat7, data_01_FS_rightFloat7,data_01_FO_leftFloat7, data_01_FO_rightFloat7, ...
-    data_02_FS_leftFloat7, data_02_FS_rightFloat7, data_02_FO_leftFloat7, data_02_FO_rightFloat7, ...
-    data_03_FS_leftFloat7, data_03_FS_rightFloat7,data_03_FO_leftFloat7, ...
-    data_03_FO_rightFloat7] = groundTruthTool('Healthy Recordings/Subject1_2019/FLOAT/S1_FLOAT.mat');
-
-[data_01_FS_leftNoFloat7, data_01_FS_rightNoFloat7, data_01_FO_leftNoFloat7, data_01_FO_rightNoFloat7, ...
-    data_02_FS_leftNoFloat7, data_02_FS_rightNoFloat7, data_02_FO_leftNoFloat7, data_02_FO_rightNoFloat7, ...
-    data_03_FS_leftNoFloat7, data_03_FS_rightNoFloat7, data_03_FO_leftNoFloat7,...
-    data_03_FO_rightNoFloat7] = groundTruthTool('Healthy Recordings/Subject1_2019/NO_FLOAT/S1_NO_FLOAT.mat');
-
-[data_01_FS_leftFloat8, data_01_FS_rightFloat8,data_01_FO_leftFloat8, data_01_FO_rightFloat8, ...
-    data_02_FS_leftFloat8, data_02_FS_rightFloat8, data_02_FO_leftFloat8, data_02_FO_rightFloat8, ...
-    data_03_FS_leftFloat8, data_03_FS_rightFloat8,data_03_FO_leftFloat8, ...
-    data_03_FO_rightFloat8] = groundTruthTool('Healthy Recordings/Subject2_2019/FLOAT/S2_FLOAT.mat');
-
-[data_01_FS_leftNoFloat8, data_01_FS_rightNoFloat8, data_01_FO_leftNoFloat8, data_01_FO_rightNoFloat8, ...
-    data_02_FS_leftNoFloat8, data_02_FS_rightNoFloat8, data_02_FO_leftNoFloat8, data_02_FO_rightNoFloat8, ...
-    data_03_FS_leftNoFloat8, data_03_FS_rightNoFloat8, data_03_FO_leftNoFloat8,...
-    data_03_FO_rightNoFloat8] = groundTruthTool('Healthy Recordings/Subject2_2019/NO_FLOAT/S2_NO_FLOAT.mat');
-
-[data_01_FS_leftFloat9, data_01_FS_rightFloat9,data_01_FO_leftFloat9, data_01_FO_rightFloat9, ...
-    data_02_FS_leftFloat9, data_02_FS_rightFloat9, data_02_FO_leftFloat9, data_02_FO_rightFloat9, ...
-    data_03_FS_leftFloat9, data_03_FS_rightFloat9,data_03_FO_leftFloat9, ...
-    data_03_FO_rightFloat9] = groundTruthTool('Healthy Recordings/Subject3_2019/FLOAT/S3_FLOAT.mat');
-
-[data_01_FS_leftNoFloat9, data_01_FS_rightNoFloat9, data_01_FO_leftNoFloat9, data_01_FO_rightNoFloat9, ...
-    data_02_FS_leftNoFloat9, data_02_FS_rightNoFloat9, data_02_FO_leftNoFloat9, data_02_FO_rightNoFloat9, ...
-    data_03_FS_leftNoFloat9, data_03_FS_rightNoFloat9, data_03_FO_leftNoFloat9,...
-    data_03_FO_rightNoFloat9] = groundTruthTool('Healthy Recordings/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat');
+close all; clear all; 
 
 %% GAIT CYCLES SEGMENTATION
+
+% LEFT FOOT
+leftFoot = true;
+HealthySubjectsGaitCyclesLeft = struct();
+
+% Healthy subject
+[HealthySubjectsGaitCyclesLeft.Subject1.FLOAT, HealthySubjectsGaitCyclesLeft.Subject1.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject1_2018/FLOAT/S1_FLOAT.mat', ...
+    'Healthy Recordings/Subject1_2018/NO_FLOAT/S1_NO_FLOAT.mat',...
+    'HealthyGaitEvents/2018_S1_FLOAT.mat', 'HealthyGaitEvents/2018_S1_NO_FLOAT.mat',leftFoot);
+
+[HealthySubjectsGaitCyclesLeft.Subject2.FLOAT, HealthySubjectsGaitCyclesLeft.Subject2.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject2_2018/FLOAT/S2_FLOAT.mat', ...
+    'Healthy Recordings/Subject2_2018/NO_FLOAT/S2_NO_FLOAT.mat', ...
+    'HealthyGaitEvents/2018_S2_FLOAT.mat', 'HealthyGaitEvents/2018_S2_NO_FLOAT.mat',leftFoot);
+
+[HealthySubjectsGaitCyclesLeft.Subject3.FLOAT,HealthySubjectsGaitCyclesLeft.Subject3.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject3_2018/FLOAT/S3_FLOAT.mat', ...
+    'Healthy Recordings/Subject3_2018/NO_FLOAT/S3_NO_FLOAT.mat', ...
+    'HealthyGaitEvents/2018_S3_FLOAT.mat', 'HealthyGaitEvents/2018_S3_NO_FLOAT.mat', leftFoot);
+
+[HealthySubjectsGaitCyclesLeft.Subject4.FLOAT,HealthySubjectsGaitCyclesLeft.Subject4.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject4_2018/FLOAT/S4_FLOAT.mat', ...
+    'Healthy Recordings/Subject4_2018/NO_FLOAT/S4_NO_FLOAT.mat', ...
+    'HealthyGaitEvents/2018_S4_FLOAT.mat', 'HealthyGaitEvents/2018_S4_NO_FLOAT.mat',leftFoot);
+
+[HealthySubjectsGaitCyclesLeft.Subject5.FLOAT,HealthySubjectsGaitCyclesLeft.Subject5.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject5_2018/FLOAT/S5_FLOAT.mat', ...
+    'Healthy Recordings/Subject5_2018/NO_FLOAT/S5_NO_FLOAT.mat',...
+    'HealthyGaitEvents/2018_S5_FLOAT.mat', 'HealthyGaitEvents/2018_S5_NO_FLOAT.mat',leftFoot);
+
+[HealthySubjectsGaitCyclesLeft.Subject6.FLOAT,HealthySubjectsGaitCyclesLeft.Subject6.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject6_2018/FLOAT/S6_FLOAT.mat', ...
+    'Healthy Recordings/Subject6_2018/NO_FLOAT/S6_NO_FLOAT.mat',...
+    'HealthyGaitEvents/2018_S6_FLOAT.mat', 'HealthyGaitEvents/2018_S6_NO_FLOAT.mat',leftFoot);
+
+[HealthySubjectsGaitCyclesLeft.Subject7.FLOAT,HealthySubjectsGaitCyclesLeft.Subject7.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject1_2019/FLOAT/S1_FLOAT.mat', ...
+    'Healthy Recordings/Subject1_2019/NO_FLOAT/S1_NO_FLOAT.mat',...
+    'HealthyGaitEvents/2019_S1_FLOAT.mat', 'HealthyGaitEvents/2019_S1_NO_FLOAT.mat',leftFoot);
+
+[HealthySubjectsGaitCyclesLeft.Subject8.FLOAT,HealthySubjectsGaitCyclesLeft.Subject8.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject2_2019/FLOAT/S2_FLOAT.mat', ...
+    'Healthy Recordings/Subject2_2019/NO_FLOAT/S2_NO_FLOAT.mat',...
+    'HealthyGaitEvents/2019_S2_FLOAT.mat', 'HealthyGaitEvents/2019_S2_NO_FLOAT.mat',leftFoot);
+
+[HealthySubjectsGaitCyclesLeft.Subject9.FLOAT,HealthySubjectsGaitCyclesLeft.Subject9.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject3_2019/FLOAT/S3_FLOAT.mat', ...
+     'Healthy Recordings/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat',...
+     'HealthyGaitEvents/2019_S3_FLOAT.mat', 'HealthyGaitEvents/2019_S3_NO_FLOAT.mat',leftFoot);
+ 
+% SCI subject
+[SCI_GaitCycles_Float_Left, SCI_GaitCycles_NoFloat_Left] = SCIsegmentation(leftFoot);
+
+ 
+% RIGHT FOOT
 leftFoot = false;
+HealthySubjectsGaitCyclesRight = struct();
 
-% SCI SUBJECT
+% healthy subject
 
-% pour le moment left foot par defaut : A CHANGER !!!!!!
-[SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation(leftFoot);
+[HealthySubjectsGaitCyclesRight.Subject1.FLOAT, HealthySubjectsGaitCyclesRight.Subject1.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject1_2018/FLOAT/S1_FLOAT.mat', ...
+    'Healthy Recordings/Subject1_2018/NO_FLOAT/S1_NO_FLOAT.mat',...
+    'HealthyGaitEvents/2018_S1_FLOAT.mat', 'HealthyGaitEvents/2018_S1_NO_FLOAT.mat',leftFoot);
+ 
+[HealthySubjectsGaitCyclesRight.Subject2.FLOAT, HealthySubjectsGaitCyclesRight.Subject2.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject2_2018/FLOAT/S2_FLOAT.mat', ...
+    'Healthy Recordings/Subject2_2018/NO_FLOAT/S2_NO_FLOAT.mat', ...
+    'HealthyGaitEvents/2018_S2_FLOAT.mat', 'HealthyGaitEvents/2018_S2_NO_FLOAT.mat',leftFoot);
 
-% % HEALTHY SUBJECT
+[HealthySubjectsGaitCyclesRight.Subject3.FLOAT,HealthySubjectsGaitCyclesRight.Subject3.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject3_2018/FLOAT/S3_FLOAT.mat', ...
+    'Healthy Recordings/Subject3_2018/NO_FLOAT/S3_NO_FLOAT.mat', ...
+    'HealthyGaitEvents/2018_S3_FLOAT.mat', 'HealthyGaitEvents/2018_S3_NO_FLOAT.mat', leftFoot);
 
-[GaitCyclesFloat1,GaitCyclesNoFloat1] = HealthySegmentation1('Healthy Recordings/Subject1_2018/FLOAT/S1_FLOAT.mat', ...
-    'Healthy Recordings/Subject1_2018/NO_FLOAT/S1_NO_FLOAT.mat',leftFoot);
+[HealthySubjectsGaitCyclesRight.Subject4.FLOAT,HealthySubjectsGaitCyclesRight.Subject4.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject4_2018/FLOAT/S4_FLOAT.mat', ...
+    'Healthy Recordings/Subject4_2018/NO_FLOAT/S4_NO_FLOAT.mat', ...
+    'HealthyGaitEvents/2018_S4_FLOAT.mat', 'HealthyGaitEvents/2018_S4_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat2,GaitCyclesNoFloat2] = HealthySegmentation1('Healthy Recordings/Subject2_2018/FLOAT/S2_FLOAT.mat', ...
-    'Healthy Recordings/Subject2_2018/NO_FLOAT/S2_NO_FLOAT.mat',leftFoot);
+[HealthySubjectsGaitCyclesRight.Subject5.FLOAT,HealthySubjectsGaitCyclesRight.Subject5.NOFLOAT] = ...
+    HealthySubjectSegmentation('Healthy Recordings/Subject5_2018/FLOAT/S5_FLOAT.mat', ...
+    'Healthy Recordings/Subject5_2018/NO_FLOAT/S5_NO_FLOAT.mat',...
+    'HealthyGaitEvents/2018_S5_FLOAT.mat', 'HealthyGaitEvents/2018_S5_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat3,GaitCyclesNoFloat3] = HealthySegmentation1('Healthy Recordings/Subject3_2018/FLOAT/S3_FLOAT.mat', ...
-    'Healthy Recordings/Subject3_2018/NO_FLOAT/S3_NO_FLOAT.mat',leftFoot);
+[HealthySubjectsGaitCyclesRight.Subject6.FLOAT,HealthySubjectsGaitCyclesRight.Subject6.NOFLOAT] = HealthySubjectSegmentation('Healthy Recordings/Subject6_2018/FLOAT/S6_FLOAT.mat', ...
+    'Healthy Recordings/Subject6_2018/NO_FLOAT/S6_NO_FLOAT.mat',...
+    'HealthyGaitEvents/2018_S6_FLOAT.mat', 'HealthyGaitEvents/2018_S6_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat4,GaitCyclesNoFloat4] = HealthySegmentation1('Healthy Recordings/Subject4_2018/FLOAT/S4_FLOAT.mat', ...
-    'Healthy Recordings/Subject4_2018/NO_FLOAT/S4_NO_FLOAT.mat',leftFoot);
+[HealthySubjectsGaitCyclesRight.Subject7.FLOAT,HealthySubjectsGaitCyclesRight.Subject7.NOFLOAT] = HealthySubjectSegmentation('Healthy Recordings/Subject1_2019/FLOAT/S1_FLOAT.mat', ...
+    'Healthy Recordings/Subject1_2019/NO_FLOAT/S1_NO_FLOAT.mat',...
+    'HealthyGaitEvents/2019_S1_FLOAT.mat', 'HealthyGaitEvents/2019_S1_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat5,GaitCyclesNoFloat5] = HealthySegmentation1('Healthy Recordings/Subject5_2018/FLOAT/S5_FLOAT.mat', ...
-    'Healthy Recordings/Subject5_2018/NO_FLOAT/S5_NO_FLOAT.mat',leftFoot);
+[HealthySubjectsGaitCyclesRight.Subject8.FLOAT,HealthySubjectsGaitCyclesRight.Subject8.NOFLOAT] = HealthySubjectSegmentation('Healthy Recordings/Subject2_2019/FLOAT/S2_FLOAT.mat', ...
+    'Healthy Recordings/Subject2_2019/NO_FLOAT/S2_NO_FLOAT.mat',...
+    'HealthyGaitEvents/2019_S2_FLOAT.mat', 'HealthyGaitEvents/2019_S2_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat6,GaitCyclesNoFloat6] = HealthySegmentation1('Healthy Recordings/Subject6_2018/FLOAT/S6_FLOAT.mat', ...
-    'Healthy Recordings/Subject6_2018/NO_FLOAT/S6_NO_FLOAT.mat',leftFoot);
+[HealthySubjectsGaitCyclesRight.Subject9.FLOAT,HealthySubjectsGaitCyclesRight.Subject9.NOFLOAT] = HealthySubjectSegmentation('Healthy Recordings/Subject3_2019/FLOAT/S3_FLOAT.mat', ...
+     'Healthy Recordings/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat',...
+     'HealthyGaitEvents/2019_S3_FLOAT.mat', 'HealthyGaitEvents/2019_S3_NO_FLOAT.mat',leftFoot);
+ 
+% SCI subject
 
-[GaitCyclesFloat7,GaitCyclesNoFloat7] = HealthySegmentation1('Healthy Recordings/Subject1_2019/FLOAT/S1_FLOAT.mat', ...
-    'Healthy Recordings/Subject1_2019/NO_FLOAT/S1_NO_FLOAT.mat',leftFoot);
+[SCI_GaitCycles_Float_Right, SCI_GaitCycles_NoFloat_Right] = SCIsegmentation(leftFoot);
 
-[GaitCyclesFloat8,GaitCyclesNoFloat8] = HealthySegmentation1('Healthy Recordings/Subject2_2019/FLOAT/S2_FLOAT.mat', ...
-    'Healthy Recordings/Subject2_2019/NO_FLOAT/S2_NO_FLOAT.mat',leftFoot);
 
-[GaitCyclesFloat9,GaitCyclesNoFloat9] = HealthySegmentation1('Healthy Recordings/Subject3_2019/FLOAT/S3_FLOAT.mat', ...
-     'Healthy Recordings/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat',leftFoot);
+%%
+%  AllSubjectsGaitCycles - Subject1 - FLOAT / NO FLOAT - GC1
 
-% exemple des features pour un gait cycle
-rightLeg = true;
-PCA_parameters_matrix = [];
 SCI = false;
-number_subjects = 10;
 
-result = initialize_matrix(GaitCyclesNoFloat8.GC1,SCI,rightLeg);
+% Left healthy
+Param_Healthy_Float_Left = [];
+Param_Healthy_NoFloat_Left = [];
+rightLeg = false;
+
+for i=1:length(fieldnames(HealthySubjectsGaitCyclesLeft)) % for each subject
+   for j=1:length(fieldnames(HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).FLOAT)) % for each GC
+   
+       GaitCycle = HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).FLOAT.(strcat('GC',num2str(j)));
+       if GaitEventsDetectionCheck(GaitCycle) % check for correct gait events detection
+           Param_Healthy_Float_Left = [Param_Healthy_Float_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
+       else
+           Param_Healthy_Float_Left = [Param_Healthy_Float_Left; NaN(1,51)];
+       end
+   end
+   
+   for j=1:length(fieldnames(HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).NOFLOAT))
+       
+       GaitCycle = HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
+       if GaitEventsDetectionCheck(GaitCycle)
+            Param_Healthy_NoFloat_Left = [Param_Healthy_NoFloat_Left;initialize_matrix(GaitCycle, SCI, rightLeg)];
+       else
+           Param_Healthy_NoFloat_Left = [Param_Healthy_NoFloat_Left; NaN(1,51)];
+       end
+   end
+end
+
+% Right healthy
+Param_Healthy_Float_Right = [];
+Param_Healthy_NoFloat_Right = [];
+rightLeg = true;
+
+for i=1:length(fieldnames(HealthySubjectsGaitCyclesRight)) % for each subject
+   for j=1:length(fieldnames(HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).FLOAT)) % for each GC
+       
+       GaitCycle = HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).FLOAT.(strcat('GC',num2str(j)));
+       if GaitEventsDetectionCheck(GaitCycle)
+            Param_Healthy_Float_Right = [Param_Healthy_Float_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
+       else
+           Param_Healthy_Float_Right = [Param_Healthy_Float_Right; NaN(1,51)];
+       end
+   end
+   
+   for j=1:length(fieldnames(HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).NOFLOAT))
+       
+       GaitCycle = HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
+       if GaitEventsDetectionCheck(GaitCycle)
+            Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
+       else
+           Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right; NaN(1,51)];
+       end
+   end
+end
+
+SCI = true;
+
+% SCI Left 
+Param_SCI_Float_Left = [];
+Param_SCI_NoFloat_Left = [];
+rightLeg = false;
+
+for i=1:length(fieldnames(SCI_GaitCycles_Float_Left))
+    
+    GaitCycle = SCI_GaitCycles_Float_Left.(strcat('GC',num2str(i)));
+    Param_SCI_Float_Left = [Param_SCI_Float_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
+    
+end
+
+for i=1:length(fieldnames(SCI_GaitCycles_NoFloat_Left))
+    
+    GaitCycle = SCI_GaitCycles_NoFloat_Left.(strcat('GC',num2str(i)));
+    Param_SCI_NoFloat_Left = [Param_SCI_NoFloat_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
+    
+end
 
 
+% SCI right
+Param_SCI_Float_Right = [];
+Param_SCI_NoFloat_Right = [];
+rightLeg = true;
+
+for i=1:length(fieldnames(SCI_GaitCycles_Float_Right))
+    
+    GaitCycle = SCI_GaitCycles_Float_Right.(strcat('GC',num2str(i)));
+    Param_SCI_Float_Right = [Param_SCI_Float_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
+    
+end
+
+for i=1:length(fieldnames(SCI_GaitCycles_NoFloat_Right))
+    
+    GaitCycle = SCI_GaitCycles_NoFloat_Right.(strcat('GC',num2str(i)));
+    Param_SCI_NoFloat_Right = [Param_SCI_NoFloat_Right;initialize_matrix(GaitCycle, SCI, rightLeg)];
+    
+end
+
+
+%% Check detection
+% Check that the gait events detection retained a single FO_left,FS_left,
+% FO_right,FO_left for each gait cycle
+
+function [correct] = GaitEventsDetectionCheck(GaitCycle)
+
+    if length(GaitCycle.FS_left)==1 && length(GaitCycle.FO_left)==1 ...
+            && length(GaitCycle.FS_right)==1 && length(GaitCycle.FO_right)==1
+        
+        correct = true;        
+    else
+        correct = false;
+    end
+
+end
 
 %% calculate all parameters for all gait cycles
 
@@ -201,19 +264,11 @@ function parameters = initialize_matrix(GaitCycle, SCI, rightLeg)
         step_length_SI, step_length_SR, max_clearance_toe_SI,max_clearance_toe_SR, ...
         max_clearance_heel_SI,max_clearance_heel_SR, step_width_SI,step_width_SR] = ...
         calculate_gait_cycle_symmetry(GaitCycle, rightLeg);
-
-
-    %emg parameters
-    
-    % CHOISIR UNE SEULE VALEUR DANS LE VECTEUR DE VALEURS !!!!!
-    % angle_HIP_right, angle_KNE_right, angle_ANK_right
-    % elevationangle_THIGH_right, elevationangle_SHANK_right, elevationangle_FOOT_right
-    % angle_HIP_left, angle_KNE_left, angle_ANK_left
-    % elevationangle_THIGH_left, elevationangle_SHANK_left, elevationangle_FOOT_left
     
     
     %collect all calculated parameters into one vector
-    parameters = [max_angle_HIP_right, max_angle_KNE_right, max_angle_ANK_right,...
+    parameters = [...
+        max_angle_HIP_right, max_angle_KNE_right, max_angle_ANK_right,...
         max_vAng_ANK_right, ...
         max_angle_HIP_left, max_angle_KNE_left, max_angle_ANK_left, ...
         max_vAng_ANK_left, ...
@@ -393,13 +448,13 @@ function [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg)
         if ~  isempty(GaitCycle.FS_left) && ~  isempty(GaitCycle.FO_left)
             swing_left = GaitCycle.FS_left - GaitCycle.FO_left ;
         else
-            swing_left = [];
+            swing_left = nan;
         end
         
         if ~  isempty(GaitCycle.FO_right)
             swing_right = FS_right - GaitCycle.FO_right;
         else
-            swing_right = [];
+            swing_right = nan;
         end
         
     else  % reference is the left foot
@@ -408,13 +463,13 @@ function [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg)
         if ~  isempty(GaitCycle.FS_right) && ~  isempty(GaitCycle.FO_right)
             swing_right = GaitCycle.FS_right - GaitCycle.FO_right;
         else
-            swing_right = [];
+            swing_right = nan;
         end
         
         if ~  isempty(GaitCycle.FO_left)
             swing_left = FS_left - GaitCycle.FO_left;
         else
-            swing_left = [];
+            swing_left = nan;
         end
     end
 end
@@ -437,13 +492,13 @@ function [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg)
         if ~  isempty(GaitCycle.FO_right)
            stance_right = GaitCycle.FO_right;
         else
-            stance_right = [];
+            stance_right = nan;
         end
         
         if ~  isempty(GaitCycle.FO_left) && ~  isempty(GaitCycle.FS_left)
             stance_left = GaitCycle.FO_left + (reference_foot_strike - GaitCycle.FS_left);
         else
-            stance_left = [];
+            stance_left = nan;
         end
         
         
@@ -452,13 +507,13 @@ function [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg)
         if ~  isempty(GaitCycle.FO_left)
             stance_left = GaitCycle.FO_left;
         else
-            stance_left = [];
+            stance_left = nan;
         end
         
         if ~  isempty(GaitCycle.FO_right) && ~  isempty(GaitCycle.FS_right)
             stance_right = GaitCycle.FO_right + (reference_foot_strike - GaitCycle.FS_right);
         else
-            stance_right = [];
+            stance_right = nan;
         end
     end
 
@@ -477,13 +532,13 @@ function [initial_double_support,terminal_double_support] = calculate_double_sup
         if ~  isempty(GaitCycle.FO_left)
             initial_double_support = GaitCycle.FO_left;
         else
-            initial_double_support = [];
+            initial_double_support = nan;
         end
         
         if ~  isempty(GaitCycle.FS_left) && ~  isempty(GaitCycle.FO_right)
             terminal_double_support = GaitCycle.FO_right - GaitCycle.FS_left;
         else
-            terminal_double_support = [];
+            terminal_double_support = nan;
         end
         
     else % left foot is the reference
@@ -491,13 +546,13 @@ function [initial_double_support,terminal_double_support] = calculate_double_sup
         if ~  isempty(GaitCycle.FO_right)
             initial_double_support = GaitCycle.FO_right;
         else
-            initial_double_support = [];
+            initial_double_support = nan;
         end
         
         if ~  isempty(GaitCycle.FS_right) && ~  isempty(GaitCycle.FO_left)
             terminal_double_support = GaitCycle.FO_left - GaitCycle.FS_right;
         else
-           terminal_double_support = []; 
+           terminal_double_support = nan; 
         end
         
     end
@@ -521,8 +576,8 @@ function [step_period_left,step_period_right] = calculate_step_period(GaitCycle,
             step_period_left = GaitCycle.FS_left;
             step_period_right = reference_foot_strike - GaitCycle.FS_left;
         else
-            step_period_left = [];
-            step_period_right = [];
+            step_period_left = nan;
+            step_period_right = nan;
         end
         
     else
@@ -531,8 +586,8 @@ function [step_period_left,step_period_right] = calculate_step_period(GaitCycle,
             step_period_right = GaitCycle.FS_right;
             step_period_left = reference_foot_strike - GaitCycle.FS_right;
         else
-            step_period_right = [];
-            step_period_left = [];
+            step_period_right = nan;
+            step_period_left = nan;
         end
         
     end
@@ -559,8 +614,8 @@ function [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg)
             step_length_left = abs(FS_left-FS_right1);
             step_length_right = abs(FS_right2-FS_left);
         else
-            step_length_right = [];
-            step_length_left = [];
+            step_length_right = nan;
+            step_length_left = nan;
         end
         
     else
@@ -574,8 +629,8 @@ function [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg)
             step_length_right = abs(FS_right - FS_left1);
             step_length_left = abs(FS_left2 - FS_right);
         else
-            step_length_right = [];
-            step_length_left = [];
+            step_length_right = nan;
+            step_length_left = nan;
         end
        
     end
@@ -587,15 +642,10 @@ end
 function [max_clearance_toe_right, max_clearance_toe_left, max_clearance_heel_right, ...
     max_clearance_heel_left] = calculate_max_clearance(GaitCycle)
     
-    GaitCycle_heel_left = GaitCycle.Kin.LANK(:,3);
-    GaitCycle_toe_left = GaitCycle.Kin.LTOE(:,3);
-    GaitCycle_heel_right = GaitCycle.Kin.RANK(:,3);
-    GaitCycle_toe_right = GaitCycle.Kin.RTOE(:,3);
-    
-    max_clearance_heel_left = max(GaitCycle_heel_left);
-    max_clearance_toe_left = max(GaitCycle_toe_left);
-    max_clearance_heel_right = max(GaitCycle_heel_right);
-    max_clearance_toe_right = max(GaitCycle_toe_right);
+    max_clearance_heel_left = max(GaitCycle.Kin.LANK(:,3));
+    max_clearance_toe_left = max(GaitCycle.Kin.LTOE(:,3));
+    max_clearance_heel_right = max(GaitCycle.Kin.RANK(:,3));
+    max_clearance_toe_right = max(GaitCycle.Kin.RTOE(:,3));
 
     
 end
@@ -618,8 +668,8 @@ function [right_step_width,left_step_width] = calculate_step_width(GaitCycle,rig
             left_step_width = abs(FS_left-FS_right1);
             right_step_width = abs(FS_right2-FS_left);
         else
-            right_step_width = [];
-            left_step_width = [];
+            right_step_width = nan;
+            left_step_width = nan;
         end
         
     else
@@ -633,8 +683,8 @@ function [right_step_width,left_step_width] = calculate_step_width(GaitCycle,rig
             right_step_width = abs(FS_right - FS_left1);
             left_step_width = abs(FS_left2 - FS_right);
         else
-            right_step_width = [];
-            left_step_width = [];
+            right_step_width = nan;
+            left_step_width = nan;
         end
        
     end
@@ -652,8 +702,8 @@ function [symmetry_index,symmetry_ratio] = calculate_symmetry_param(right_param,
         symmetry_index = 100*(right_param - left_param)/(0.5*(right_param + left_param));
         symmetry_ratio = 100*right_param/left_param;
     else
-        symmetry_index = [];
-        symmetry_ratio = [];
+        symmetry_index = nan;
+        symmetry_ratio = nan;
     end
 
 end
@@ -667,25 +717,26 @@ function [swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_
     step_width_SI,step_width_SR] = ...
     calculate_gait_cycle_symmetry(GaitCycle, rightLeg)
 
+    % SWING
     [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg);
     [swing_SI,swing_SR] = calculate_symmetry_param(swing_right,swing_left);
-
+    % STANCE
     [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg);
     [stance_SI,stance_SR] = calculate_symmetry_param(stance_right,stance_left);
-    
+    % STEP PERIOD
     [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg);
     [step_period_SI,step_period_SR] = calculate_symmetry_param(step_period_right,step_period_left);
-    
+    % STEP LENGTH
     [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg);
     [step_length_SI,step_length_SR] = calculate_symmetry_param(step_length_right,step_length_left);
-    
+    % MAX CLEARANCE : TOE AND HEEL
     [max_clearance_toe_right, max_clearance_toe_left, max_clearance_heel_right, ...
         max_clearance_heel_left] = calculate_max_clearance(GaitCycle);
     [max_clearance_toe_SI,max_clearance_toe_SR] = calculate_symmetry_param(...
         max_clearance_toe_right,max_clearance_toe_left);
     [max_clearance_heel_SI,max_clearance_heel_SR] = calculate_symmetry_param(...
         max_clearance_heel_right,max_clearance_heel_left);
-    
+    % STEP WIDTH
     [right_step_width,left_step_width] = calculate_step_width(GaitCycle, ...
         rightLeg);
     [step_width_SI,step_width_SR] = calculate_symmetry_param(right_step_width, ...
