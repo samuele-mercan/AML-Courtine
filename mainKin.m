@@ -208,6 +208,11 @@ for i=1:length(fieldnames(SCI_GaitCycles_NoFloat_Right))
     
 end
 
+save('parametersKin.mat', 'Param_Healthy_Float_Left', 'Param_Healthy_Float_Right',...
+    'Param_Healthy_NoFloat_Left', 'Param_Healthy_NoFloat_Right',...
+    'Param_SCI_Float_Left', 'Param_SCI_Float_Right',...
+    'Param_SCI_NoFloat_Left', 'Param_SCI_NoFloat_Right');
+
 
 %% Check detection
 % Check that the gait events detection retained a single FO_left,FS_left,
