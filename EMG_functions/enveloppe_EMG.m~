@@ -6,27 +6,24 @@ window = 400;
 
 
 for i = 1:length(fields)
-    
-    plot(denoised_emg.(fields{i}).EMG.LMG)
 
     denoised_emg.(fields{i}).EMG.LMG = abs(denoised_emg.(fields{i}).EMG.LMG ... 
         - mean(denoised_emg.(fields{i}).EMG.LMG));
     denoised_emg.(fields{i}).EMG.RMG = abs(denoised_emg.(fields{i}).EMG.RMG ...
         - mean(denoised_emg.(fields{i}).EMG.RMG));
-    denoised_emg.(fields{i}).EMG.LTA = abs(denoised_emg.(fields{i}).EMG.LTA ... 
+    denoised_emg.(fields{i}).T1.LTA = abs(denoised_emg.(fields{i}).EMG.LTA ... 
         - mean(denoised_emg.(fields{i}).EMG.LTA));
     denoised_emg.(fields{i}).EMG.RTA = abs(denoised_emg.(fields{i}).EMG.RTA ...
         - mean(denoised_emg.(fields{i}).EMG.RTA));
 
     % RMS enveloppe
-
     [~,index] = max(pwelch(denoised_emg.(fields{i}).EMG.LMG));
     if index <= 53 && index >= 50
         env1.(fields{i}).EMG.LMG = [];
         env2.(fields{i}).EMG.LMG = [];
     else
         [env1.(fields{i}).EMG.LMG,~] = envelope(denoised_emg.(fields{i}).EMG.LMG,window,'rms');
-        [env2.(fields{i}).EMG.LMG] = hand_RMS(denoised_emg.(fields{i}).EMG.LMG,window);
+        [env2.(fields{i}).EMG.LMG] = hand_RMS(denoised_emg.(fields{i}).EMG.LMG,window);% problem is that we have upper and lower enveloppe
     end
 
     [~,index] = max(pwelch(denoised_emg.(fields{i}).EMG.RMG));
@@ -35,27 +32,26 @@ for i = 1:length(fields)
         env2.(fields{i}).EMG.RMG = [];
     else
         [env1.(fields{i}).EMG.RMG,~] = envelope(denoised_emg.(fields{i}).EMG.RMG,window,'rms');
-        [env2.(fields{i}).EMG.RMG] = hand_RMS(denoised_emg.(fields{i}).EMG.RMG,window);
+        [env2.(fields{i}).EMG.RMG] = hand_RMS(denoised_emg.(fields{i}).EMG.RMG,window);% problem is that we have upper and lower enveloppe
     end
-
+    
     [~,index] = max(pwelch(denoised_emg.(fields{i}).EMG.LTA));
     if index <= 53 && index >= 50
         env1.(fields{i}).EMG.LTA = [];
         env2.(fields{i}).EMG.LTA = [];
     else
         [env1.(fields{i}).EMG.LTA,~] = envelope(denoised_emg.(fields{i}).EMG.LTA,window,'rms');
-        [env2.(fields{i}).EMG.LTA] = hand_RMS(denoised_emg.(fields{i}).EMG.LTA,window);
+        [env2.(fields{i}).EMG.LTA] = hand_RMS(denoised_emg.(fields{i}).EMG.LMG,window);% problem is that we have upper and lower enveloppe
     end
-
-    [~,index] = max(pwelch(denoised_emg.(fields{i}).EMG.RTA));
+    
+    [~,index] = max(pwelch(denoised_emg.(fields{i}).EMG.LMG));
     if index <= 53 && index >= 50
-        env1.(fields{i}).EMG.RTA = [];
-        env2.(fields{i}).EMG.RTA = [];
+        env1.(fields{i}).EMG.LMG = [];
+        env2.(fields{i}).EMG.LMG = [];
     else
-        [env1.(fields{i}).EMG.RTA,~] = envelope(denoised_emg.(fields{i}).EMG.RTA,window,'rms');
-        [env2.(fields{i}).EMG.RTA] = hand_RMS(denoised_emg.(fields{i}).EMG.RTA,window);
+        [env1.(fields{i}).EMG.LMG,~] = envelope(denoised_emg.(fields{i}).EMG.LMG,window,'rms');
+        [env2.(fields{i}).EMG.LMG] = hand_RMS(denoised_emg.(fields{i}).EMG.LMG,window);% problem is that we have upper and lower enveloppe
     end
-
 
 end
 end

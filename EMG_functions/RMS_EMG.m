@@ -1,4 +1,4 @@
-function [rms_val] = RMS_EMG(onset,offset,gait)
+function [rms_val] = rms_EMG(onset,offset,gait)
 %UNTITLED6 Summary of this function goes here
 %   Detailed explanation goes here
 
