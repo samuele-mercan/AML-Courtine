@@ -1,119 +1,3 @@
-
-%% EMG Loading 
-
-% SCI Patients 
-file = fullfile([pwd,'/Exercise - Material - SCI Subject Raw/FLOAT_NO_CRUTCHES_NEW/MAT'],'FLOAT_NO_CRUTCHES_NEW.mat');
-data_float = load(file);
-file = fullfile([pwd,'/Exercise - Material - SCI Subject Raw/NO_FLOAT_CRUTCHES_NEW/MAT'],'NO_FLOAT_CRUTCHES_NEW.mat');
-data_no_float = load(file);
-
-% No float - Healthy Subject 
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject1_2018/NO_FLOAT'],'S1_NO_FLOAT.mat');
-data_healthy1 = load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject2_2018/NO_FLOAT'],'S2_NO_FLOAT.mat');
-data_healthy2 = load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject3_2018/NO_FLOAT'],'S3_NO_FLOAT.mat');
-data_healthy3 = load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject4_2018/NO_FLOAT'],'S4_NO_FLOAT.mat');
-data_healthy4 = load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject5_2018/NO_FLOAT'],'S5_NO_FLOAT.mat');
-data_healthy5 = load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject6_2018/NO_FLOAT'],'S6_NO_FLOAT.mat');
-data_healthy6 = load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject1_2019/NO_FLOAT'],'S1_NO_FLOAT.mat');
-data_healthy7 = load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject2_2019/NO_FLOAT'],'S2_NO_FLOAT.mat');
-data_healthy8 = load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject3_2019/NO_FLOAT'],'S3_NO_FLOAT.mat');
-data_healthy9 = load(file);
-
-% Float - Healthy Subject
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject1_2018/FLOAT'],'S1_FLOAT.mat');
-data_healthy10 = load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject2_2018/FLOAT'],'S2_FLOAT.mat');
-data_healthy11 = load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject3_2018/FLOAT'],'S3_FLOAT.mat');
-data_healthy12= load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject4_2018/FLOAT'],'S4_FLOAT.mat');
-data_healthy13= load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject5_2018/FLOAT'],'S5_FLOAT.mat');
-data_healthy14= load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject6_2018/FLOAT'],'S6_FLOAT.mat');
-data_healthy15= load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject1_2019/FLOAT'],'S1_FLOAT.mat');
-data_healthy16= load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject2_2019/FLOAT'],'S2_FLOAT.mat');
-data_healthy17= load(file);
-file = fullfile([pwd,'/Healthy Recordings Raw/Subject3_2019/FLOAT'],'S3_FLOAT.mat');
-data_healthy18= load(file);
-
-%% EMG Denoising & Saving
-
-FLOAT_NO_CRUTCHES_NEW = denoising_EMG(data_float.FLOAT_NO_CRUTCHES_NEW,10);
-save([pwd,'/Exercise - Material - SCI Subject Denoised/FLOAT_NO_CRUTCHES_NEW/MAT/FLOAT_NO_CRUTCHES_NEW.mat'],'FLOAT_NO_CRUTCHES_NEW')
-NO_FLOAT_CRUTCHES_NEW = denoising_EMG(data_no_float.NO_FLOAT_CRUTCHES_NEW,10);
-save([pwd,'/Exercise - Material - SCI Subject Denoised/NO_FLOAT_CRUTCHES_NEW/MAT/NO_FLOAT_CRUTCHES_NEW.mat'],'NO_FLOAT_CRUTCHES_NEW')
-
-S1_NO_FLOAT = denoising_EMG(data_healthy1.S1_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject1_2018/NO_FLOAT/S1_NO_FLOAT.mat'],'S1_NO_FLOAT');
-S2_NO_FLOAT = denoising_EMG(data_healthy2.S2_NO_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject2_2018/NO_FLOAT/S2_NO_FLOAT.mat'],'S2_NO_FLOAT');
-S3_NO_FLOAT = denoising_EMG(data_healthy3.S3_NO_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject3_2018/NO_FLOAT/S3_NO_FLOAT.mat'],'S3_NO_FLOAT');
-S4_NO_FLOAT = denoising_EMG(data_healthy4.S4_NO_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject4_2018/NO_FLOAT/S4_NO_FLOAT.mat'],'S4_NO_FLOAT');
-S5_NO_FLOAT = denoising_EMG(data_healthy5.S5_NO_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject5_2018/NO_FLOAT/S5_NO_FLOAT.mat'],'S5_NO_FLOAT');
-S6_NO_FLOAT = denoising_EMG(data_healthy6.S6_NO_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject6_2018/NO_FLOAT/S6_NO_FLOAT.mat'],'S6_NO_FLOAT');
-S1_NO_FLOAT = denoising_EMG(data_healthy7.S1_NO_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject1_2018/NO_FLOAT/S1_NO_FLOAT.mat'],'S1_NO_FLOAT');
-S2_NO_FLOAT = denoising_EMG(data_healthy8.S2_NO_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject2_2018/NO_FLOAT/S2_NO_FLOAT.mat'],'S2_NO_FLOAT');
-S3_NO_FLOAT = denoising_EMG(data_healthy9.S3_NO_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject3_2018/NO_FLOAT/S3_NO_FLOAT.mat'],'S3_NO_FLOAT');
-
-S1_FLOAT = denoising_EMG(data_healthy10.S1_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject1_2018/FLOAT/S1_FLOAT.mat'],'S1_FLOAT');
-S2_FLOAT = denoising_EMG(data_healthy11.S2_NO_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject2_2018/FLOAT/S2_FLOAT.mat'],'S2_FLOAT');
-S3_FLOAT = denoising_EMG(data_healthy12.S3_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject3_2018/FLOAT/S3_FLOAT.mat'],'S3_FLOAT');
-S4_FLOAT = denoising_EMG(data_healthy13.S4_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject4_2018/FLOAT/S4_FLOAT.mat'],'S4_FLOAT');
-S5_FLOAT = denoising_EMG(data_healthy14.S5_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject5_2018/FLOAT/S5_FLOAT.mat'],'S5_FLOAT');
-S6_FLOAT = denoising_EMG(data_healthy15.S6_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject6_2018/FLOAT/S6_FLOAT.mat'],'S6_FLOAT');
-S1_FLOAT = denoising_EMG(data_healthy16.S1_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject1_2018/FLOAT/S1_FLOAT.mat'],'S1_FLOAT');
-S2_FLOAT = denoising_EMG(data_healthy17.S2_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject2_2018/FLOAT/S2_FLOAT.mat'],'S2_FLOAT');
-S3_FLOAT = denoising_EMG(data_healthy18.S3_FLOAT,10);
-save([pwd,'/Healthy Recordings Denoised/Subject3_2018/FLOAT/S3_FLOAT.mat'],'S3_FLOAT');
-
-%% Getting gait cycles
-[~, noFloat_FO_left_SCI, ~, noFloat_FO_right_SCI,~, Float_FO_left_SCI,~, Float_FO_right_SCI] = HealthySegmentation([pwd,'/Exercise - Material - SCI Subject Denoised/FLOAT_NO_CRUTCHES_NEW/MAT/FLOAT_NO_CRUTCHES_NEW.mat'], ...
-    [pwd,'/Exercise - Material - SCI Subject Denoised/NO_FLOAT_CRUTCHES_NEW/MAT/NO_FLOAT_CRUTCHES_NEW.mat']);
-[~, Float_FO_left_HR1, ~, noFloat_FO_right_HR1,~, Float_FO_left_HR1,~, Float_FO_right_HR1] = HealthySegmentation([pwd,'/Healthy Recordings Denoised/Subject1_2018/FLOAT/S1_FLOAT.mat'], ...
-    [pwd,'/Healthy Recordings Denoised/Subject1_2018/NO_FLOAT/S1_NO_FLOAT.mat']);
-[~, Float_FO_left_HR2, ~, noFloat_FO_right_HR2,~, Float_FO_left_HR2,~, Float_FO_right_HR2] = HealthySegmentation([pwd,'/Healthy Recordings Denoised/Subject2_2018/FLOAT/S2_FLOAT.mat'], ...
-    [pwd,'/Healthy Recordings Denoised/Subject2_2018/NO_FLOAT/S2_NO_FLOAT.mat']);
-[~, Float_FO_left_HR3, ~, noFloat_FO_right_HR3,~, Float_FO_left_HR3,~, Float_FO_right_HR3] = HealthySegmentation([pwd,'/Healthy Recordings Denoised/Subject3_2018/FLOAT/S3_FLOAT.mat'], ...
-    [pwd,'/Healthy Recordings Denoised/Subject3_2018/NO_FLOAT/S3_NO_FLOAT.mat']);
-[~, Float_FO_left_HR4, ~, noFloat_FO_right_HR4,~, Float_FO_left_HR4,~, Float_FO_right_HR4] = HealthySegmentation([pwd,'/Healthy Recordings Denoised/Subject4_2018/FLOAT/S4_FLOAT.mat'], ...
-    [pwd,'/Healthy Recordings Denoised/Subject4_2018/NO_FLOAT/S4_NO_FLOAT.mat']);
-[~, Float_FO_left_HR5, ~, noFloat_FO_right_HR5,~, Float_FO_left_HR5,~, Float_FO_right_HR5] = HealthySegmentation([pwd,'/Healthy Recordings Denoised/Subject5_2018/FLOAT/S5_FLOAT.mat'], ...
-    [pwd,'/Healthy Recordings Denoised/Subject5_2018/NO_FLOAT/S5_NO_FLOAT.mat']);
-[~, Float_FO_left_HR6, ~, noFloat_FO_right_HR6,~, Float_FO_left_HR6,~, Float_FO_right_HR6] = HealthySegmentation([pwd,'/Healthy Recordings Denoised/Subject6_2018/FLOAT/S6_FLOAT.mat'], ...
-    [pwd,'/Healthy Recordings Denoised/Subject6_2018/NO_FLOAT/S6_NO_FLOAT.mat']);
-[~, Float_FO_left_HR1, ~, noFloat_FO_right_HR1,~, Float_FO_left_HR1,~, Float_FO_right_HR1] = HealthySegmentation([pwd,'/Healthy Recordings Denoised/Subject1_2019/FLOAT/S1_FLOAT.mat'], ...
-    [pwd,'/Healthy Recordings Denoised/Subject1_2019/NO_FLOAT/S1_NO_FLOAT.mat']);
-[~, Float_FO_left_HR2, ~, noFloat_FO_right_HR2,~, Float_FO_left_HR2,~, Float_FO_right_HR2] = HealthySegmentation([pwd,'/Healthy Recordings Denoised/Subject2_2019/FLOAT/S2_FLOAT.mat'], ...
-    [pwd,'/Healthy Recordings Denoised/Subject2_2019/NO_FLOAT/S2_NO_FLOAT.mat']);
-[~, Float_FO_left_HR3, ~, noFloat_FO_right_HR3,~, Float_FO_left_HR3,~, Float_FO_right_HR3] = HealthySegmentation([pwd,'/Healthy Recordings Denoised/Subject3_2019/FLOAT/S3_FLOAT.mat'], ...
-    [pwd,'/Healthy Recordings Denoised/Subject3_2019/NO_FLOAT/S3_NO_FLOAT.mat']);
-
 %% Loading and Denoising and Segmentation of all data 
 leftFoot = true;
 [SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation(leftFoot);
@@ -220,110 +104,104 @@ clear leftFoot
 %% Automatic EMG Onset & Offset Detection 
 
 % SCI
-[onset_SCI_float1,offset_SCI_float1]=detection_burst(env_SCI_float1);
-[onset_SCI_float2,offset_SCI_float2]=detection_burst(env_SCI_float2);
+% [onset_SCI_float1,offset_SCI_float1]=detection_burst(env_SCI_float1);
+% [onset_SCI_float2,offset_SCI_float2]=detection_burst(env_SCI_float2);
 
 % HP No Float
-
-[onset_SCI_nofloat1,offset_SCI_nofloat1]=detection_burst(env_SCI_nofloat1);
-[onset_SCI_nofloat2,offset_SCI_nofloat2]=detection_burst(env_SCI_nofloat2);
 
 [onset_HP1_nofloat1,offset_HP1_nofloat1]=detection_burst(env_HP1_nofloat1);
 [onset_HP1_nofloat2,offset_HP1_nofloat2]=detection_burst(env_HP1_nofloat2);
 
-[onset_HP2_nofloat1,offset_HP2_nofloat1]=detection_burst(env_HP2_nofloat1);
-[onset_HP2_nofloat2,offset_HP2_nofloat2]=detection_burst(env_HP2_nofloat2);
+% [onset_HP2_nofloat1,offset_HP2_nofloat1]=detection_burst(env_HP2_nofloat1);
+% [onset_HP2_nofloat2,offset_HP2_nofloat2]=detection_burst(env_HP2_nofloat2);
+% 
+% [onset_HP3_nofloat1,offset_HP3_nofloat1]=detection_burst(env_HP3_nofloat1);
+% [onset_HP3_nofloat2,offset_HP3_nofloat2]=detection_burst(env_HP3_nofloat2);
+% 
+% [onset_HP4_nofloat1,offset_HP4_nofloat1]=detection_burst(env_HP4_nofloat1);
+% [onset_HP4_nofloat2,offset_HP4_nofloat2]=detection_burst(env_HP4_nofloat2);
+% 
+% [onset_HP5_nofloat1,offset_HP5_nofloat1]=detection_burst(env_HP5_nofloat1);
+% [onset_HP5_nofloat2,offset_HP5_nofloat2]=detection_burst(env_HP5_nofloat2);
+% 
+% [onset_HP6_nofloat1,offset_HP6_nofloat1]=detection_burst(env_HP6_nofloat1);
+% [onset_HP6_nofloat2,offset_HP6_nofloat2]=detection_burst(env_HP6_nofloat2);
+% 
+% [onset_HP7_nofloat1,offset_HP7_nofloat1]=detection_burst(env_HP7_nofloat1);
+% [onset_HP7_nofloat2,offset_HP7_nofloat2]=detection_burst(env_HP7_nofloat2);
+% 
+% [onset_HP8_nofloat1,offset_HP8_nofloat1]=detection_burst(env_HP8_nofloat1);
+% [onset_HP8_nofloat2,offset_HP8_nofloat2]=detection_burst(env_HP8_nofloat2);
+% 
+% [onset_HP9_nofloat1,offset_HP9_nofloat1]=detection_burst(env_HP9_nofloat1);
+% [onset_HP9_nofloat2,offset_HP9_nofloat2]=detection_burst(env_HP9_nofloat2);
+% 
+% % HP Float 
+% 
+% [onset_HP1_float1,offset_HP1_float1]=detection_burst(env_HP1_float1);
+% [onset_HP1_float2,offset_HP1_float2]=detection_burst(env_HP1_float2);
+% 
+% [onset_HP2_float1,offset_HP2_float1]=detection_burst(env_HP2_float1);
+% [onset_HP2_float2,offset_HP2_float2]=detection_burst(env_HP2_float2);
+% 
+% [onset_HP3_float1,offset_HP3_float1]=detection_burst(env_HP3_float1);
+% [onset_HP3_float2,offset_HP3_float2]=detection_burst(env_HP3_float2);
+% 
+% [onset_HP4_float1,offset_HP4_float1]=detection_burst(env_HP4_float1);
+% [onset_HP4_float2,offset_HP4_float2]=detection_burst(env_HP4_float2);
+% 
+% [onset_HP5_float1,offset_HP5_float1]=detection_burst(env_HP5_float1);
+% [onset_HP5_float2,offset_HP5_float2]=detection_burst(env_HP5_float2);
+% 
+% [onset_HP6_float1,offset_HP6_float1]=detection_burst(env_HP6_float1);
+% [onset_HP6_float2,offset_HP6_float2]=detection_burst(env_HP6_float2);
+% 
+% [onset_HP7_float1,offset_HP7_float1]=detection_burst(env_HP7_float1);
+% [onset_HP7_float2,offset_HP7_float2]=detection_burst(env_HP7_float2);
+% 
+% [onset_HP8_float1,offset_HP8_float1]=detection_burst(env_HP8_float1);
+% [onset_HP8_float2,offset_HP8_float2]=detection_burst(env_HP8_float2);
+% 
+% [onset_HP9_float1,offset_HP9_float1]=detection_burst(env_HP9_float1);
+% [onset_HP9_float2,offset_HP9_float2]=detection_burst(env_HP9_float2);
 
-[onset_HP3_nofloat1,offset_HP3_nofloat1]=detection_burst(env_HP3_nofloat1);
-[onset_HP3_nofloat2,offset_HP3_nofloat2]=detection_burst(env_HP3_nofloat2);
-
-[onset_HP4_nofloat1,offset_HP4_nofloat1]=detection_burst(env_HP4_nofloat1);
-[onset_HP4_nofloat2,offset_HP4_nofloat2]=detection_burst(env_HP4_nofloat2);
-
-[onset_HP5_nofloat1,offset_HP5_nofloat1]=detection_burst(env_HP5_nofloat1);
-[onset_HP5_nofloat2,offset_HP5_nofloat2]=detection_burst(env_HP5_nofloat2);
-
-[onset_HP6_nofloat1,offset_HP6_nofloat1]=detection_burst(env_HP6_nofloat1);
-[onset_HP6_nofloat2,offset_HP6_nofloat2]=detection_burst(env_HP6_nofloat2);
-
-[onset_HP7_nofloat1,offset_HP7_nofloat1]=detection_burst(env_HP7_nofloat1);
-[onset_HP7_nofloat2,offset_HP7_nofloat2]=detection_burst(env_HP7_nofloat2);
-
-[onset_HP8_nofloat1,offset_HP8_nofloat1]=detection_burst(env_HP8_nofloat1);
-[onset_HP8_nofloat2,offset_HP8_nofloat2]=detection_burst(env_HP8_nofloat2);
-
-[onset_HP9_nofloat1,offset_HP9_nofloat1]=detection_burst(env_HP9_nofloat1);
-[onset_HP9_nofloat2,offset_HP9_nofloat2]=detection_burst(env_HP9_nofloat2);
-
-% HP Float 
-
-[onset_SCI_float1,offset_SCI_float1]=detection_burst(env_SCI_float1);
-[onset_SCI_float2,offset_SCI_float2]=detection_burst(env_SCI_float2);
-
-[onset_HP1_float1,offset_HP1_float1]=detection_burst(env_HP1_float1);
-[onset_HP1_float2,offset_HP1_float2]=detection_burst(env_HP1_float2);
-
-[onset_HP2_float1,offset_HP2_float1]=detection_burst(env_HP2_float1);
-[onset_HP2_float2,offset_HP2_float2]=detection_burst(env_HP2_float2);
-
-[onset_HP3_float1,offset_HP3_float1]=detection_burst(env_HP3_float1);
-[onset_HP3_float2,offset_HP3_float2]=detection_burst(env_HP3_float2);
-
-[onset_HP4_float1,offset_HP4_float1]=detection_burst(env_HP4_float1);
-[onset_HP4_float2,offset_HP4_float2]=detection_burst(env_HP4_float2);
-
-[onset_HP5_float1,offset_HP5_float1]=detection_burst(env_HP5_float1);
-[onset_HP5_float2,offset_HP5_float2]=detection_burst(env_HP5_float2);
-
-[onset_HP6_float1,offset_HP6_float1]=detection_burst(env_HP6_float1);
-[onset_HP6_float2,offset_HP6_float2]=detection_burst(env_HP6_float2);
-
-[onset_HP7_float1,offset_HP7_float1]=detection_burst(env_HP7_float1);
-[onset_HP7_float2,offset_HP7_float2]=detection_burst(env_HP7_float2);
-
-[onset_HP8_float1,offset_HP8_float1]=detection_burst(env_HP8_float1);
-[onset_HP8_float2,offset_HP8_float2]=detection_burst(env_HP8_float2);
-
-[onset_HP9_float1,offset_HP9_float1]=detection_burst(env_HP9_float1);
-[onset_HP9_float2,offset_HP9_float2]=detection_burst(env_HP9_float2);
-
-clear env_HP1_float1 env_HP1_float2 env_HP2_float1 env_HP2_float2 env_HP3_float1 env_HP3_float2 ...
-     env_HP4_float1 env_HP4_float2 env_HP5_float1 env_HP5_float2 env_HP6_float1 env_HP6_float2 ...
-     env_HP7_float1  env_HP7_float2  env_HP8_float1  env_HP8_float2  env_HP9_float1 env_HP9_float2 ...
-     env_HP1_nofloat1 env_HP1_nofloat2 env_HP2_nofloat1 env_HP2_nofloat2 env_HP3_nofloat1 env_HP3_nofloat2 ...
-     env_HP4_nofloat1 env_HP4_nofloat2 env_HP5_nofloat1 env_HP5_nofloat2 env_HP6_nofloat1 env_HP6_nofloat2 ...
-     env_HP7_nofloat1  env_HP7_nofloat2  env_HP8_nofloat1  env_HP8_nofloat2  env_HP9_nofloat1 env_HP9_nofloat2 ...
-     env_SCI_float1 env_SCI_nofloat1 env_SCI_float2 env_SCI_nofloat2  ...
-     onset_SCI_float2 offset_SCI_float2 onset_SIC_nofloat2 offset_SCI_nofloat2 onset_HP1_float2 offset_HP1_float2 ...
-     onset_HP2_float2 offset_HP2_float2 onset_HP3_float2 offset_HP3_float2 onset_HP4_float2 offset_HP4_float2 ...
-     onset_HP5_float2 offset_HP5_float2 onset_HP6_float2 offset_HP6_float2 onset_HP7_float2 offset_HP7_float2 ...
-     onset_HP8_float2 offset_HP8_float2 onset_HP9_float2 offset_HP9_float2 onset_HP1_nofloat2 offset_HP1_nofloat2 ...
-     onset_HP2_nofloat2 offset_HP2_nofloat2 onset_HP3_nofloat2 offset_HP3_nofloat2 onset_HP4_nofloat2 offset_HP4_nofloat2 ...
-     onset_HP5_nofloat2 offset_HP5_nofloat2 onset_HP6_nofloat2 offset_HP6_nofloat2 onset_HP7_nofloat2 offset_HP7_nofloat2 ...
-     onset_HP8_nofloat2 offset_HP8_nofloat2 onset_HP9_nofloat2 offset_HP9_nofloat2 env_HP1_float2 env_HP1_nofloat2 ...
-     env_HP2_float2 env_HP2_nofloat2 env_HP3_float2 env_HP3_nofloat2 env_HP4_float2 env_HP4_nofloat2 env_HP5_float2 ...
-     env_HP5_nofloat2 env_HP6_float2 env_HP6_nofloat2 env_HP7_float2 env_HP7_nofloat2 env_HP8_float2 env_HP8_nofloat2 ...
-     env_HP1_float9 env_HP1_nofloat9
+% clear env_HP1_float1 env_HP1_float2 env_HP2_float1 env_HP2_float2 env_HP3_float1 env_HP3_float2 ...
+%      env_HP4_float1 env_HP4_float2 env_HP5_float1 env_HP5_float2 env_HP6_float1 env_HP6_float2 ...
+%      env_HP7_float1  env_HP7_float2  env_HP8_float1  env_HP8_float2  env_HP9_float1 env_HP9_float2 ...
+%      env_HP1_nofloat1 env_HP1_nofloat2 env_HP2_nofloat1 env_HP2_nofloat2 env_HP3_nofloat1 env_HP3_nofloat2 ...
+%      env_HP4_nofloat1 env_HP4_nofloat2 env_HP5_nofloat1 env_HP5_nofloat2 env_HP6_nofloat1 env_HP6_nofloat2 ...
+%      env_HP7_nofloat1  env_HP7_nofloat2  env_HP8_nofloat1  env_HP8_nofloat2  env_HP9_nofloat1 env_HP9_nofloat2 ...
+%      env_SCI_float1 env_SCI_nofloat1 env_SCI_float2 env_SCI_nofloat2  ...
+%      onset_SCI_float2 offset_SCI_float2 onset_SIC_nofloat2 offset_SCI_nofloat2 onset_HP1_float2 offset_HP1_float2 ...
+%      onset_HP2_float2 offset_HP2_float2 onset_HP3_float2 offset_HP3_float2 onset_HP4_float2 offset_HP4_float2 ...
+%      onset_HP5_float2 offset_HP5_float2 onset_HP6_float2 offset_HP6_float2 onset_HP7_float2 offset_HP7_float2 ...
+%      onset_HP8_float2 offset_HP8_float2 onset_HP9_float2 offset_HP9_float2 onset_HP1_nofloat2 offset_HP1_nofloat2 ...
+%      onset_HP2_nofloat2 offset_HP2_nofloat2 onset_HP3_nofloat2 offset_HP3_nofloat2 onset_HP4_nofloat2 offset_HP4_nofloat2 ...
+%      onset_HP5_nofloat2 offset_HP5_nofloat2 onset_HP6_nofloat2 offset_HP6_nofloat2 onset_HP7_nofloat2 offset_HP7_nofloat2 ...
+%      onset_HP8_nofloat2 offset_HP8_nofloat2 onset_HP9_nofloat2 offset_HP9_nofloat2 env_HP1_float2 env_HP1_nofloat2 ...
+%      env_HP2_float2 env_HP2_nofloat2 env_HP3_float2 env_HP3_nofloat2 env_HP4_float2 env_HP4_nofloat2 env_HP5_float2 ...
+%      env_HP5_nofloat2 env_HP6_float2 env_HP6_nofloat2 env_HP7_float2 env_HP7_nofloat2 env_HP8_float2 env_HP8_nofloat2 ...
+%      env_HP1_float9 env_HP1_nofloat9
      
 %% By Hand EMG Onset & Offset Detection - NOT CHANGED YET
 
-onset_SCI_float = hand_detection(SCI_float,denoised_SCI_float);
-onset_SCI_no_float = hand_detection(SCI_no_float,denoised_SCI_no_float);
-onset_HP_no_float_1 = hand_detection(HP_no_float1,denoised_HO_no_float1);
-onset_HP_no_float_2 = hand_detection(HP_no_float2,denoised_HO_no_float2);
-onset_HP_no_float_3 = hand_detection(HP_no_float3,denoised_HO_no_float3);
-
-offset_SCI_float = hand_detection(SCI_float,denoised_SCI_float);
-offset_SCI_no_float = hand_detection(SCI_no_float,denoised_SCI_no_float);
-offset_HP_no_float_1 = hand_detection(HP_no_float1,denoised_HO_no_float1);
-offset_HP_no_float_2 = hand_detection(HP_no_float2,denoised_HO_no_float2);
-offset_HP_no_float_3 = hand_detection(HP_no_float3,denoised_HO_no_float3);
+% onset_SCI_float = hand_detection(SCI_float,denoised_SCI_float);
+% onset_SCI_no_float = hand_detection(SCI_no_float,denoised_SCI_no_float);
+% onset_HP_no_float_1 = hand_detection(HP_no_float1,denoised_HO_no_float1);
+% onset_HP_no_float_2 = hand_detection(HP_no_float2,denoised_HO_no_float2);
+% onset_HP_no_float_3 = hand_detection(HP_no_float3,denoised_HO_no_float3);
+% 
+% offset_SCI_float = hand_detection(SCI_float,denoised_SCI_float);
+% offset_SCI_no_float = hand_detection(SCI_no_float,denoised_SCI_no_float);
+% offset_HP_no_float_1 = hand_detection(HP_no_float1,denoised_HO_no_float1);
+% offset_HP_no_float_2 = hand_detection(HP_no_float2,denoised_HO_no_float2);
+% offset_HP_no_float_3 = hand_detection(HP_no_float3,denoised_HO_no_float3);
 
 %% Clean Onset/Offsets
 
 % SCI
-offset_SCI_float = clean_offsets(onset_SCI_float1,offset_SCI_float1);
-offset_SCI_nofloat = clean_offsets(onset_SCI_nofloat1,offset_SCI_nofloat1);
+% offset_SCI_float = clean_offsets(onset_SCI_float1,offset_SCI_float1);
+% offset_SCI_nofloat = clean_offsets(onset_SCI_nofloat1,offset_SCI_nofloat1);
 
 % HP Float
 [onset_HP1_float1,offset_HP1_float1] = clean_offsets(onset_HP1_float1,offset_HP1_float1);
@@ -350,8 +228,8 @@ offset_SCI_nofloat = clean_offsets(onset_SCI_nofloat1,offset_SCI_nofloat1);
 %% Burst Duration - Still problem of detection 
 
 % SCI
-duration_SCI_float = duration_EMG(onset_SCI_float1,offset_SCI_float1); 
-duration_SCI_nofloat = duration_EMG(onset_SCI_nofloat1,offset_SCI_nofloat1); 
+% duration_SCI_float = duration_EMG(onset_SCI_float1,offset_SCI_float1); 
+% duration_SCI_nofloat = duration_EMG(onset_SCI_nofloat1,offset_SCI_nofloat1); 
 
 % HP Float
 duration_HP1_float = duration_EMG(onset_HP1_float1,offset_HP1_float1); 
@@ -378,8 +256,8 @@ duration_HP9_nofloat = duration_EMG(onset_HP9_nofloat1,offset_HP9_nofloat1);
 %% Max activation 
 
 % SCI
-max_SCI_float = max_EMG(onset_SCI_float1,offset_SCI_float1,SCI_GaitCycles_Float); 
-max_SCI_nofloat = max_EMG(onset_SCI_nofloat1,offset_SCI_nofloat1,SCI_GaitCycles_noFloat); 
+% max_SCI_float = max_EMG(onset_SCI_float1,offset_SCI_float1,SCI_GaitCycles_Float); 
+% max_SCI_nofloat = max_EMG(onset_SCI_nofloat1,offset_SCI_nofloat1,SCI_GaitCycles_noFloat); 
 
 % HP Float
 max_HP1_float = max_EMG(onset_HP1_float1,offset_HP1_float1,GaitCyclesFloat1); 
@@ -405,8 +283,8 @@ max_HP9_nofloat = max_EMG(onset_HP9_nofloat1,offset_HP9_nofloat1,GaitCyclesNoFlo
 
 %% Mean activation 
 % SCI
-mean_SCI_float = mean_EMG(onset_SCI_float1,offset_SCI_float1,SCI_GaitCycles_Float); 
-mean_SCI_nofloat = mean_EMG(onset_SCI_nofloat1,offset_SCI_nofloat1,SCI_GaitCycles_noFloat); 
+% mean_SCI_float = mean_EMG(onset_SCI_float1,offset_SCI_float1,SCI_GaitCycles_Float); 
+% mean_SCI_nofloat = mean_EMG(onset_SCI_nofloat1,offset_SCI_nofloat1,SCI_GaitCycles_noFloat); 
 
 % HP Float
 mean_HP1_float = mean_EMG(onset_HP1_float1,offset_HP1_float1,GaitCyclesFloat1); 
@@ -429,13 +307,38 @@ mean_HP6_nofloat = mean_EMG(onset_HP6_nofloat1,offset_HP6_nofloat1,GaitCyclesNoF
 mean_HP7_nofloat = mean_EMG(onset_HP7_nofloat1,offset_HP7_nofloat1,GaitCyclesNoFloat7); 
 mean_HP8_nofloat = mean_EMG(onset_HP8_nofloat1,offset_HP8_nofloat1,GaitCyclesNoFloat8); 
 mean_HP9_nofloat = mean_EMG(onset_HP9_nofloat1,offset_HP9_nofloat1,GaitCyclesNoFloat9); 
+
 %% Coactivation Percentage
-coactivation = arrayfun(@(x,y) arrayfun(@(z,a) rms(z(a(1):a(2))),x,y), denoised, sets);
+% SCI
+% coactivation_SCI_float = coactivation_EMG(onset_SCI_float1,offset_SCI_float1,SCI_GaitCycles_Float); 
+% coactivation_SCI_nofloat = coactivation_EMG(onset_SCI_nofloat1,offset_SCI_nofloat1,SCI_GaitCycles_noFloat); 
+
+% HP Float
+coactivation_HP1_float = coactivation_EMG(onset_HP1_float1,offset_HP1_float1,GaitCyclesFloat1); 
+coactivation_HP2_float = coactivation_EMG(onset_HP2_float1,offset_HP2_float1,GaitCyclesFloat2); 
+coactivation_HP3_float = coactivation_EMG(onset_HP3_float1,offset_HP3_float1,GaitCyclesFloat3); 
+coactivation_HP4_float = coactivation_EMG(onset_HP4_float1,offset_HP4_float1,GaitCyclesFloat4); 
+coactivation_HP5_float = coactivation_EMG(onset_HP5_float1,offset_HP5_float1,GaitCyclesFloat5); 
+coactivation_HP6_float = coactivation_EMG(onset_HP6_float1,offset_HP6_float1,GaitCyclesFloat6); 
+coactivation_HP7_float = coactivation_EMG(onset_HP7_float1,offset_HP7_float1,GaitCyclesFloat7); 
+coactivation_HP8_float = coactivation_EMG(onset_HP8_float1,offset_HP8_float1,GaitCyclesFloat8); 
+coactivation_HP9_float = coactivation_EMG(onset_HP9_float1,offset_HP9_float1,GaitCyclesFloat9); 
+
+% HP no float 
+coactivation_HP1_nofloat = coactivation_EMG(onset_HP1_nofloat1,offset_HP1_nofloat1,GaitCyclesNoFloat1); 
+coactivation_HP2_nofloat = coactivation_EMG(onset_HP2_nofloat1,offset_HP2_nofloat1,GaitCyclesNoFloat2); 
+coactivation_HP3_nofloat = coactivation_EMG(onset_HP3_nofloat1,offset_HP3_nofloat1,GaitCyclesNoFloat3); 
+coactivation_HP4_nofloat = coactivation_EMG(onset_HP4_nofloat1,offset_HP4_nofloat1,GaitCyclesNoFloat4); 
+coactivation_HP5_nofloat = coactivation_EMG(onset_HP5_nofloat1,offset_HP5_nofloat1,GaitCyclesNoFloat5); 
+coactivation_HP6_nofloat = coactivation_EMG(onset_HP6_nofloat1,offset_HP6_nofloat1,GaitCyclesNoFloat6); 
+coactivation_HP7_nofloat = coactivation_EMG(onset_HP7_nofloat1,offset_HP7_nofloat1,GaitCyclesNoFloat7); 
+coactivation_HP8_nofloat = coactivation_EMG(onset_HP8_nofloat1,offset_HP8_nofloat1,GaitCyclesNoFloat8); 
+coactivation_HP9_nofloat = coactivation_EMG(onset_HP9_nofloat1,offset_HP9_nofloat1,GaitCyclesNoFloat9); 
 
 %% RMS 
 % SCI
-rms_SCI_float = rms_EMG(onset_SCI_float1,offset_SCI_float1,SCI_GaitCycles_Float); 
-rms_SCI_nofloat = rms_EMG(onset_SCI_nofloat1,offset_SCI_nofloat1,SCI_GaitCycles_noFloat); 
+% rms_SCI_float = rms_EMG(onset_SCI_float1,offset_SCI_float1,SCI_GaitCycles_Float); 
+% rms_SCI_nofloat = rms_EMG(onset_SCI_nofloat1,offset_SCI_nofloat1,SCI_GaitCycles_noFloat); 
 
 % HP Float
 rms_HP1_float = rms_EMG(onset_HP1_float1,offset_HP1_float1,GaitCyclesFloat1); 
@@ -458,6 +361,36 @@ rms_HP6_nofloat = rms_EMG(onset_HP6_nofloat1,offset_HP6_nofloat1,GaitCyclesNoFlo
 rms_HP7_nofloat = rms_EMG(onset_HP7_nofloat1,offset_HP7_nofloat1,GaitCyclesNoFloat7); 
 rms_HP8_nofloat = rms_EMG(onset_HP8_nofloat1,offset_HP8_nofloat1,GaitCyclesNoFloat8); 
 rms_HP9_nofloat = rms_EMG(onset_HP9_nofloat1,offset_HP9_nofloat1,GaitCyclesNoFloat9); 
+
+
+%% Create Parameter matrix 
+
+params = [];
+
+params(end,:) = extract_EMG(duration_SCI_float,mean_SCI_float,max_SCI_float,rms_SCI_float,coactivation_SCI_float);
+params(end,:) = extract_EMG(duration_SCI_float,mean_SCI_no_float,max_SCI_no_float,rms_SCI_no_float,coactivation_SCI_nol_float);
+
+params(end,:) = extract_EMG(duration_HP1_float,mean_HP1_float,max_HP1_float,rms_HP1_float,coactivation_HP1_float);
+params(end,:) = extract_EMG(duration_HP2_float,mean_HP2_float,max_HP2_float,rms_HP2_float,coactivation_HP2_float);
+params(end,:) = extract_EMG(duration_HP3_float,mean_HP3_float,max_HP3_float,rms_HP3_float,coactivation_HP3_float);
+params(end,:) = extract_EMG(duration_HP4_float,mean_HP4_float,max_HP4_float,rms_HP4_float,coactivation_HP4_float);
+params(end,:) = extract_EMG(duration_HP5_float,mean_HP5_float,max_HP5_float,rms_HP5_float,coactivation_HP5_float);
+params(end,:) = extract_EMG(duration_HP6_float,mean_HP6_float,max_HP6_float,rms_HP6_float,coactivation_HP6_float);
+params(end,:) = extract_EMG(duration_HP7_float,mean_HP7_float,max_HP7_float,rms_HP7_float,coactivation_HP7_float);
+params(end,:) = extract_EMG(duration_HP8_float,mean_HP8_float,max_HP8_float,rms_HP8_float,coactivation_HP8_float);
+params(end,:) = extract_EMG(duration_HP9_float,mean_HP9_float,max_HP9_float,rms_HP9_float,coactivation_HP9_float);
+
+params(end,:) = extract_EMG(duration_HP1_nofloat,mean_HP1_nofloat,max_HP1_nofloat,rms_HP1_nofloat,coactivation_HP1_nofloat);
+params(end,:) = extract_EMG(duration_HP2_nofloat,mean_HP2_nofloat,max_HP2_nofloat,rms_HP2_nofloat,coactivation_HP2_nofloat);
+params(end,:) = extract_EMG(duration_HP3_nofloat,mean_HP3_nofloat,max_HP3_nofloat,rms_HP3_nofloat,coactivation_HP3_nofloat);
+params(end,:) = extract_EMG(duration_HP4_nofloat,mean_HP4_nofloat,max_HP4_nofloat,rms_HP4_nofloat,coactivation_HP4_nofloat);
+params(end,:) = extract_EMG(duration_HP5_nofloat,mean_HP5_nofloat,max_HP5_nofloat,rms_HP5_nofloat,coactivation_HP5_nofloat);
+params(end,:) = extract_EMG(duration_HP6_nofloat,mean_HP6_nofloat,max_HP6_nofloat,rms_HP6_nofloat,coactivation_HP6_nofloat);
+params(end,:) = extract_EMG(duration_HP7_nofloat,mean_HP7_nofloat,max_HP7_nofloat,rms_HP7_nofloat,coactivation_HP7_nofloat);
+params(end,:) = extract_EMG(duration_HP8_nofloat,mean_HP8_nofloat,max_HP8_nofloat,rms_HP8_nofloat,coactivation_HP8_nofloat);
+params(end,:) = extract_EMG(duration_HP9_nofloat,mean_HP9_nofloat,max_HP9_nofloat,rms_HP9_nofloat,coactivation_HP9_nofloat);
+
+
 
 
 
