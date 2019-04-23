@@ -5,15 +5,6 @@ clear all;close all;
 
 load('parametersKin.mat')
 
-% load('/Users/lenabruhin/Documents/School/EPFL/MA\ spring\ 2019/Analysis\ and\ Modeling\ of\ Locomotion/MATLAB/AML-Courtine/KinematicsParametersMatrix/Param_SCI_NoFloat_Right.mat');
-% load('\KinematicsParametersMatrix\Param_SCI_NoFloat_Left.mat');
-% load('\KinematicsParametersMatrix\Param_SCI_Float_Right.mat');
-% load('\KinematicsParametersMatrix\Param_SCI_Float_Left.mat');
-% load('\KinematicsParametersMatrix\Param_Healthy_NoFloat_Right.mat');
-% load('\KinematicsParametersMatrix\Param_Healthy_NoFloat_Left.mat');
-% load('\KinematicsParametersMatrix\Param_Healthy_Float_Right.mat');
-% load('\KinematicsParametersMatrix\Param_Healthy_Float_Left.mat');
-
 
 %% PCA: segmentation with respect to right foot
 
@@ -40,14 +31,18 @@ top10_loading = [];
 top10_features = [];
 
 for i=1:3
-    [loading, feature_index] = sort(coeff(:,i),'descend');
+    [loading, feature_index] = sort(coeff(:,i),'descend')
     top10_loading = [top10_loading, loading];
     top10_features = [top10_features, feature_index];
 end
 
-top10_features = [top10_loading(1:features_pc1,1);...
-    top10_loading(1:features_pc2,2); top10_loading(1:features_pc3,3)];
 
+
+top10_ = [top10_loading(1:features_pc1,1);...
+    top10_loading(1:features_pc2,2); top10_loading(1:features_pc3,3)];
+%add code for the labels of those features!!
+top10_labels = [top10_features(1:features_pc1,1);...
+    top10_features(1:features_pc2,2); top10_features(1:features_pc3,3)];
 
 HealthyNoFloat = 1:101;
 HealthyFloat = 102:202;
@@ -77,8 +72,13 @@ ylabel('Cumulative variance')
 legend('Cumulative variance', '95% threshold')
 
 figure('Name', 'Top10 features contributing to first 3 PCs')
-bar(1:10, top10_features)
+bar(1:10, top10_)
+hold on
 ylabel('Loading of feature')
+xticks(1:10)
+xtickangle(45)
+xticklabels(variableNames(top10_labels))
+
 
 % % kmeans into 4 clusters
 % idx4 = kmeans(score(1:2,:),4);
@@ -113,7 +113,9 @@ data = normalize(data);
 [coeff, score, ~, ~, explained] = pca(data);
 
 % find 10 most important features that contribute to the 3 first PCs
+%how much of the variance is explained by the first 3 PCs
 percentage_3_PCs = explained(1)+explained(2)+explained(3);
+%portion of features out of 10 according to explained varian
 features_pc1 = round(10*(explained(1)/percentage_3_PCs),0);
 features_pc2 = round(10*(explained(2)/percentage_3_PCs),0);
 features_pc3 = round(10*(explained(3)/percentage_3_PCs),0);
@@ -130,11 +132,11 @@ end
 top10_features = [top10_loading(1:features_pc1,1);...
     top10_loading(1:features_pc2,2); top10_loading(1:features_pc3,3)];
 
-
+%indeces of each "submatrix" that is put into the PCA function
 HealthyNoFloat = 1:100;
-HealthyFloat = 101:190;
-SCINoFloat = 191:212;
-SCIFloat = 213:228;
+HealthyFloat = 101:189;
+SCINoFloat = 190:211;
+SCIFloat = 212:227;
 
 figure('Name','PCA: segmentation with respect to left foot')
 %healthy no float
