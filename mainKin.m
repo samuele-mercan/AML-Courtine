@@ -119,23 +119,29 @@ Param_Healthy_NoFloat_Left = [];
 rightLeg = false;
 
 for i=1:length(fieldnames(HealthySubjectsGaitCyclesLeft)) % for each subject
-   for j=1:length(fieldnames(HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).FLOAT)) % for each GC
-   
-       GaitCycle = HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).FLOAT.(strcat('GC',num2str(j)));
-       if GaitEventsDetectionCheck(GaitCycle) % check for correct gait events detection
-           Param_Healthy_Float_Left = [Param_Healthy_Float_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
-       else
-           Param_Healthy_Float_Left = [Param_Healthy_Float_Left; NaN(1,51)];
-       end
-   end
-   
-   for j=1:length(fieldnames(HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).NOFLOAT))
-       
-       GaitCycle = HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
-       if GaitEventsDetectionCheck(GaitCycle)
-            Param_Healthy_NoFloat_Left = [Param_Healthy_NoFloat_Left;initialize_matrix(GaitCycle, SCI, rightLeg)];
-       else
-           Param_Healthy_NoFloat_Left = [Param_Healthy_NoFloat_Left; NaN(1,51)];
+    % FLOAT
+    if i ~ 2 % do not consider the float from subject 2 from 2018   
+        for j=1:length(fieldnames(HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).FLOAT)) % for each GC
+
+           GaitCycle = HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).FLOAT.(strcat('GC',num2str(j)));
+           if GaitEventsDetectionCheck(GaitCycle) % check for correct gait events detection
+               Param_Healthy_Float_Left = [Param_Healthy_Float_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
+           else
+               Param_Healthy_Float_Left = [Param_Healthy_Float_Left; NaN(1,51)];
+           end
+        end
+    end
+
+   % NO FLOAT
+   if i ~ 1 % do not consider the no float from subject 1 from 2018    
+       for j=1:length(fieldnames(HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).NOFLOAT))
+
+           GaitCycle = HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
+           if GaitEventsDetectionCheck(GaitCycle)
+                Param_Healthy_NoFloat_Left = [Param_Healthy_NoFloat_Left;initialize_matrix(GaitCycle, SCI, rightLeg)];
+           else
+               Param_Healthy_NoFloat_Left = [Param_Healthy_NoFloat_Left; NaN(1,51)];
+           end
        end
    end
 end
@@ -146,23 +152,29 @@ Param_Healthy_NoFloat_Right = [];
 rightLeg = true;
 
 for i=1:length(fieldnames(HealthySubjectsGaitCyclesRight)) % for each subject
-   for j=1:length(fieldnames(HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).FLOAT)) % for each GC
-       
-       GaitCycle = HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).FLOAT.(strcat('GC',num2str(j)));
-       if GaitEventsDetectionCheck(GaitCycle)
-            Param_Healthy_Float_Right = [Param_Healthy_Float_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
-       else
-           Param_Healthy_Float_Right = [Param_Healthy_Float_Right; NaN(1,51)];
-       end
-   end
-   
-   for j=1:length(fieldnames(HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).NOFLOAT))
-       
-       GaitCycle = HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
-       if GaitEventsDetectionCheck(GaitCycle)
-            Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
-       else
-           Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right; NaN(1,51)];
+    % FLOAT
+    if i ~ 2 % do not consider the float from subject 2 from 2018
+        for j=1:length(fieldnames(HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).FLOAT)) % for each GC
+
+           GaitCycle = HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).FLOAT.(strcat('GC',num2str(j)));
+           if GaitEventsDetectionCheck(GaitCycle)
+                Param_Healthy_Float_Right = [Param_Healthy_Float_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
+           else
+               Param_Healthy_Float_Right = [Param_Healthy_Float_Right; NaN(1,51)];
+           end
+        end
+    end
+    
+   % NO FLOAT
+   if i ~ 1 % do not consider the no float from subject 1 from 2018   
+       for j=1:length(fieldnames(HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).NOFLOAT))
+
+           GaitCycle = HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
+           if GaitEventsDetectionCheck(GaitCycle)
+                Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
+           else
+               Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right; NaN(1,51)];
+           end
        end
    end
 end
