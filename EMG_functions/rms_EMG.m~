@@ -34,7 +34,7 @@ for i = 1:numel(fields)
         rms_val.(fields{i}).EMG.RTA = rms(gait.(fields{i}).EMG.RTA(onset.(fields{i}).EMG.RTA(1): ...
             offset.(fields{i}).EMG.RTA(1)));
     else
-        rms_val.(fields{i}).EMG.RTA = NaN;
+        rms_val.(fields{i}).EMG.RTA = Na;
     end
     
 end

@@ -1,6 +1,8 @@
 function [onset_index,offset_index] = detect(data)
 %UNTITLED8 Summary of this function goes here
 %   Detailed explanation goes here
+onset_index = [];
+offset_index = [];
 
 if ~isempty(data)
     threshold = mean(data) + std(data);
@@ -9,11 +11,17 @@ if ~isempty(data)
     thresholded = diff(data);
     [onset_index] = find(thresholded == 1);
     [offset_index] = find(thresholded == -1);
-else
-    offset_index = [];
-    onset_index = [];
-end
     
+    if data(1) == 1
+        onset_index = [1 onset_index];
+    end
+    if data(end) == 1
+        offset_index = [offset_index length(data)];
+    end
+    
+    
+end
+  
 
 end
 
