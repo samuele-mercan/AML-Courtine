@@ -9,6 +9,9 @@ for i = 1:length(fields)
     
     % RMS enveloppe
 
+    %[max_vals,index] = maxk(pwelch(denoised_emg.(fields{i}).EMG.LMG),5)
+    %threshold = mean(pwelch(denoised_emg.(fields{i}).EMG.LMG)) + std(pwelch(denoised_emg.(fields{i}).EMG.LMG))
+    %index = index(max_vals >= threshold)
     [~,index] = max(pwelch(denoised_emg.(fields{i}).EMG.LMG));
     if index <= 53 && index >= 50
         env1.(fields{i}).EMG.LMG = [];
@@ -31,16 +34,16 @@ for i = 1:length(fields)
         [env2.(fields{i}).EMG.RMG] = hand_RMS(denoised_emg.(fields{i}).EMG.RMG,window);
     end
 
-    [~,index] = max(pwelch(denoised_emg.(fields{i}).EMG.LTA));
-    if index <= 53 && index >= 50
-        env1.(fields{i}).EMG.LTA = [];
-        env2.(fields{i}).EMG.LTA = [];
-    else
+    %[~,index] = max(pwelch(denoised_emg.(fields{i}).EMG.LTA));
+    %if index <= 53 && index >= 50
+    %    env1.(fields{i}).EMG.LTA = [];
+    %    env2.(fields{i}).EMG.LTA = [];
+    %else
         denoised_emg.(fields{i}).EMG.LTA = abs(denoised_emg.(fields{i}).EMG.LTA ... 
         - mean(denoised_emg.(fields{i}).EMG.LTA));
         [env1.(fields{i}).EMG.LTA,~] = envelope(denoised_emg.(fields{i}).EMG.LTA,window,'rms');
         [env2.(fields{i}).EMG.LTA] = hand_RMS(denoised_emg.(fields{i}).EMG.LTA,window);
-    end
+    %end
 
     [~,index] = max(pwelch(denoised_emg.(fields{i}).EMG.RTA));
     if index <= 53 && index >= 50
