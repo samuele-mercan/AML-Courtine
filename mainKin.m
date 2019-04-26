@@ -136,8 +136,8 @@ variableNames = {'max angle HIP right', 'max angle KNE right', 'max angle ANK ri
 SCI = false;
 
 % Left healthy
-Param_Healthy_Float_Left = [];
-Param_Healthy_NoFloat_Left = [];
+Kin_Healthy_Float_Left = [];
+Kin_Healthy_NoFloat_Left = [];
 rightLeg = false;
 
 for i=1:length(fieldnames(HealthySubjectsGaitCyclesLeft)) % for each subject
@@ -147,9 +147,9 @@ for i=1:length(fieldnames(HealthySubjectsGaitCyclesLeft)) % for each subject
 
            GaitCycle = HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).FLOAT.(strcat('GC',num2str(j)));
            if GaitEventsDetectionCheck(GaitCycle) % check for correct gait events detection
-               Param_Healthy_Float_Left = [Param_Healthy_Float_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
+               Kin_Healthy_Float_Left = [Kin_Healthy_Float_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
            else
-               Param_Healthy_Float_Left = [Param_Healthy_Float_Left; NaN(1,51)];
+               Kin_Healthy_Float_Left = [Kin_Healthy_Float_Left; NaN(1,51)];
            end
         end
     end
@@ -160,9 +160,9 @@ for i=1:length(fieldnames(HealthySubjectsGaitCyclesLeft)) % for each subject
 
            GaitCycle = HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
            if GaitEventsDetectionCheck(GaitCycle)
-                Param_Healthy_NoFloat_Left = [Param_Healthy_NoFloat_Left;initialize_matrix(GaitCycle, SCI, rightLeg)];
+                Kin_Healthy_NoFloat_Left = [Kin_Healthy_NoFloat_Left;initialize_matrix(GaitCycle, SCI, rightLeg)];
            else
-               Param_Healthy_NoFloat_Left = [Param_Healthy_NoFloat_Left; NaN(1,51)];
+               Kin_Healthy_NoFloat_Left = [Kin_Healthy_NoFloat_Left; NaN(1,51)];
            end
        end
    end
@@ -172,8 +172,8 @@ end
 %Param_Healthy_NoFloat_Left = array2table(Param_Healthy_NoFloat_Left, 'VariableNames', variableNames);
 
 % Right healthy
-Param_Healthy_Float_Right = [];
-Param_Healthy_NoFloat_Right = [];
+Kin_Healthy_Float_Right = [];
+Kin_Healthy_NoFloat_Right = [];
 rightLeg = true;
 
 for i=1:length(fieldnames(HealthySubjectsGaitCyclesRight)) % for each subject
@@ -183,9 +183,9 @@ for i=1:length(fieldnames(HealthySubjectsGaitCyclesRight)) % for each subject
 
            GaitCycle = HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).FLOAT.(strcat('GC',num2str(j)));
            if GaitEventsDetectionCheck(GaitCycle)
-                Param_Healthy_Float_Right = [Param_Healthy_Float_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
+                Kin_Healthy_Float_Right = [Kin_Healthy_Float_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
            else
-               Param_Healthy_Float_Right = [Param_Healthy_Float_Right; NaN(1,51)];
+               Kin_Healthy_Float_Right = [Kin_Healthy_Float_Right; NaN(1,51)];
            end
         end
     end
@@ -196,9 +196,9 @@ for i=1:length(fieldnames(HealthySubjectsGaitCyclesRight)) % for each subject
 
            GaitCycle = HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
            if GaitEventsDetectionCheck(GaitCycle)
-                Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
+                Kin_Healthy_NoFloat_Right = [Kin_Healthy_NoFloat_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
            else
-               Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right; NaN(1,51)];
+               Kin_Healthy_NoFloat_Right = [Kin_Healthy_NoFloat_Right; NaN(1,51)];
            end
        end
    end
@@ -211,21 +211,21 @@ end
 SCI = true;
 
 % SCI Left 
-Param_SCI_Float_Left = [];
-Param_SCI_NoFloat_Left = [];
+Kin_SCI_Float_Left = [];
+Kin_SCI_NoFloat_Left = [];
 rightLeg = false;
 
 for i=1:length(fieldnames(SCI_GaitCycles_Float_Left))
     
     GaitCycle = SCI_GaitCycles_Float_Left.(strcat('GC',num2str(i)));
-    Param_SCI_Float_Left = [Param_SCI_Float_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
+    Kin_SCI_Float_Left = [Kin_SCI_Float_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
     
 end
 
 for i=1:length(fieldnames(SCI_GaitCycles_NoFloat_Left))
     
     GaitCycle = SCI_GaitCycles_NoFloat_Left.(strcat('GC',num2str(i)));
-    Param_SCI_NoFloat_Left = [Param_SCI_NoFloat_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
+    Kin_SCI_NoFloat_Left = [Kin_SCI_NoFloat_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
     
 end
 
@@ -233,21 +233,21 @@ end
 %Param_SCI_NoFloat_Left = array2table(Param_SCI_NoFloat_Left, 'VariableNames', variableNames);
 
 % SCI right
-Param_SCI_Float_Right = [];
-Param_SCI_NoFloat_Right = [];
+Kin_SCI_Float_Right = [];
+Kin_SCI_NoFloat_Right = [];
 rightLeg = true;
 
 for i=1:length(fieldnames(SCI_GaitCycles_Float_Right))
     
     GaitCycle = SCI_GaitCycles_Float_Right.(strcat('GC',num2str(i)));
-    Param_SCI_Float_Right = [Param_SCI_Float_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
+    Kin_SCI_Float_Right = [Kin_SCI_Float_Right; initialize_matrix(GaitCycle, SCI, rightLeg)];
     
 end
 
 for i=1:length(fieldnames(SCI_GaitCycles_NoFloat_Right))
     
     GaitCycle = SCI_GaitCycles_NoFloat_Right.(strcat('GC',num2str(i)));
-    Param_SCI_NoFloat_Right = [Param_SCI_NoFloat_Right;initialize_matrix(GaitCycle, SCI, rightLeg)];
+    Kin_SCI_NoFloat_Right = [Kin_SCI_NoFloat_Right;initialize_matrix(GaitCycle, SCI, rightLeg)];
     
 end
 
@@ -255,10 +255,10 @@ end
 %Param_SCI_NoFloat_Right = array2table(Param_SCI_NoFloat_Right, 'VariableNames', variableNames);
 
 
-save('parametersKin.mat', 'Param_Healthy_Float_Left', 'Param_Healthy_Float_Right',...
-    'Param_Healthy_NoFloat_Left', 'Param_Healthy_NoFloat_Right',...
-    'Param_SCI_Float_Left', 'Param_SCI_Float_Right',...
-    'Param_SCI_NoFloat_Left', 'Param_SCI_NoFloat_Right', 'variableNames');
+save('parametersKin.mat', 'Kin_Healthy_Float_Left', 'Kin_Healthy_Float_Right',...
+    'Kin_Healthy_NoFloat_Left', 'Kin_Healthy_NoFloat_Right',...
+    'Kin_SCI_Float_Left', 'Kin_SCI_Float_Right',...
+    'Kin_SCI_NoFloat_Left', 'Kin_SCI_NoFloat_Right', 'variableNames');
 
 
 %% Check detection
