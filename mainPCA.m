@@ -11,6 +11,9 @@ variableNamesEMG = {'duration LMG', 'duration RMG',...
     'rms LMG', 'rms RMG', 'rms LTA', 'rms RTA',...
     'coactivation Left', 'coactivation Right'}
 
+labels = cat(2,variableNames, variableNamesEMG);
+
+
 %% PCA: segmentation with respect to right foot
 
 data = [Kin_Healthy_NoFloat_Right Param_Healthy_NoFloat_Right;...
@@ -19,7 +22,6 @@ data = [Kin_Healthy_NoFloat_Right Param_Healthy_NoFloat_Right;...
     Kin_SCI_Float_Right Param_SCI_Float_Right]; %put in all different matrices, separate with ;
 %make sure you know indices of the different matrices within data!
 
-labels = cat(2,variableNames, variableNamesEMG)
 
 %normalize data
 data = normalize(data);
@@ -123,8 +125,12 @@ xticklabels(labels(top10_labels_right))
 
 %% PCA: segmentation with respect to left foot
 
-data = [Param_Healthy_NoFloat_Left;Param_Healthy_Float_Left;...
-    Param_SCI_NoFloat_Left;Param_SCI_Float_Left]; %put in all different matrices, separate with ;
+data = [Kin_Healthy_NoFloat_Left Param_Healthy_NoFloat_Left;...
+    Kin_Healthy_Float_Left Param_Healthy_Float_Left;...
+    Kin_SCI_NoFloat_Left Param_SCI_NoFloat_Left;...
+    Kin_SCI_Float_Left Param_SCI_Float_Left];
+
+ %put in all different matrices, separate with ;
 %make sure you know indices of the different matrices within data!
 
 %normalize data
@@ -160,10 +166,10 @@ top10_labels_left = [top10_features(1:features_pc1,1);...
 
 
 %indeces of each "submatrix" that is put into the PCA function
-HealthyNoFloat = 1:100;
-HealthyFloat = 101:189;
-SCINoFloat = 190:211;
-SCIFloat = 212:227;
+HealthyNoFloat = 1:92;
+HealthyFloat = 93:171;
+SCINoFloat = 172:193;
+SCIFloat = 194:209;
 
 figure('Name','PCA: segmentation with respect to left foot')
 %healthy no float
@@ -188,12 +194,12 @@ ylabel('Cumulative variance')
 legend('Cumulative variance', '95% threshold')
 
 figure('Name', 'Top10 features contributing to first 3 PCs')
-bar(1:10, top10_)
+bar(1:length(top10_), top10_)
 hold on
 ylabel('Loading of feature')
-xticks(1:10)
+xticks(1:length(top10_))
 xtickangle(45)
-xticklabels(variableNames(top10_labels_left))
+xticklabels(labels(top10_labels_left))
 
 % % kmeans into 4 clusters
 % idx4 = kmeans(score(1:2,:),4);
