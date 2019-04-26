@@ -370,6 +370,8 @@ else
 end
 
 
+
 save('parametersEMG.mat', 'Param_Healthy_Float_Left', 'Param_Healthy_Float_Right','Param_Healthy_NoFloat_Left', 'Param_Healthy_NoFloat_Right','Param_SCI_Float_Left', 'Param_SCI_Float_Right','Param_SCI_NoFloat_Left', 'Param_SCI_NoFloat_Right');
+
 
 

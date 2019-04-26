@@ -4,13 +4,24 @@
 clear all;close all;
 
 load('parametersKin.mat')
+load('parametersEMG.mat')
+variableNamesEMG = {'duration LMG', 'duration RMG',...
+    'duration LTA',  'duration RTA', 'mean LMG','mean RMG',...
+    'mean LTA',  'mean RTA', 'max LMG', 'max RMG', 'max LTA', 'max RTA',...
+    'rms LMG', 'rms RMG', 'rms LTA', 'rms RTA',...
+    'coactivation Left', 'coactivation Right'}
+
+labels = cat(2,variableNames, variableNamesEMG);
 
 
 %% PCA: segmentation with respect to right foot
 
-data = [Param_Healthy_NoFloat_Right;Param_Healthy_Float_Right;...
-    Param_SCI_NoFloat_Right;Param_SCI_Float_Right]; %put in all different matrices, separate with ;
+data = [Kin_Healthy_NoFloat_Right Param_Healthy_NoFloat_Right;...
+    Kin_Healthy_Float_Right Param_Healthy_Float_Right;...
+    Kin_SCI_NoFloat_Right Param_SCI_NoFloat_Right;...
+    Kin_SCI_Float_Right Param_SCI_Float_Right]; %put in all different matrices, separate with ;
 %make sure you know indices of the different matrices within data!
+
 
 %normalize data
 data = normalize(data);
@@ -43,10 +54,10 @@ top10_ = [top10_sorted(1:features_pc1,1);...
 top10_labels_right = [top10_features(1:features_pc1,1);...
     top10_features(1:features_pc2,2); top10_features(1:features_pc3,3)];
 
-HealthyNoFloat = 1:101;
-HealthyFloat = 102:202;
-SCINoFloat = 203:224;
-SCIFloat = 225:239;
+HealthyNoFloat = 1:88;
+HealthyFloat = 89:181;
+SCINoFloat = 182:203;
+SCIFloat = 204:218;
 
 figure('Name','PCA: segmentation with respect to right foot')
 %healthy no float
@@ -76,7 +87,7 @@ hold on
 ylabel('Contribution of feature')
 xticks(1:10)
 xtickangle(45)
-xticklabels(variableNames(top10_labels_right))
+xticklabels(labels(top10_labels_right))
 
 
 %anova1 to compare if a feature is significantly different between SCI and
@@ -85,37 +96,41 @@ xticklabels(variableNames(top10_labels_right))
 %data for SCI or healthy, then you enter this matrix into anova1() and it
 %will give you a p-value
 %example: p =  anova1(data_for_swing_time)
-a = Param_Healthy_NoFloat_Right(:,top10_labels_right(1));
-b = Param_SCI_NoFloat_Right(:,top10_labels_right(1));
-n = max(numel(a), numel(b));
-a(end+1:n)=NaN;
-b(end+1:n)=NaN;
-p1 = anova1([a,b]);
-
-figure(37)
-bar(1:2, [nanmean(Param_Healthy_NoFloat_Right(:,top10_labels_right(1))),...
-    nanmean(Param_SCI_NoFloat_Right(:,top10_labels_right(1)))])
-hold on
-ylabel(variableNames(top10_labels_right(1)))
-xticks(1:2)
-xtickangle(45)
-xticklabels({'Healthy No Float', 'SCI No Float'})
-
-
-a = Param_Healthy_NoFloat_Right(:,top10_labels_right(2));
-b = Param_SCI_NoFloat_Right(:,top10_labels_right(2));
-n = max(numel(a), numel(b));
-a(end+1:n)=NaN;
-b(end+1:n)=NaN;
-p2 = anova1([a,b]);
+% a = Param_Healthy_NoFloat_Right(:,top10_labels_right(1));
+% b = Param_SCI_NoFloat_Right(:,top10_labels_right(1));
+% n = max(numel(a), numel(b));
+% a(end+1:n)=NaN;
+% b(end+1:n)=NaN;
+% p1 = anova1([a,b]);
+% 
+% figure(37)
+% bar(1:2, [nanmean(Param_Healthy_NoFloat_Right(:,top10_labels_right(1))),...
+%     nanmean(Param_SCI_NoFloat_Right(:,top10_labels_right(1)))])
+% hold on
+% ylabel(variableNames(top10_labels_right(1)))
+% xticks(1:2)
+% xtickangle(45)
+% xticklabels({'Healthy No Float', 'SCI No Float'})
+% 
+% 
+% a = Param_Healthy_NoFloat_Right(:,top10_labels_right(2));
+% b = Param_SCI_NoFloat_Right(:,top10_labels_right(2));
+% n = max(numel(a), numel(b));
+% a(end+1:n)=NaN;
+% b(end+1:n)=NaN;
+% p2 = anova1([a,b]);
 
 
 
 
 %% PCA: segmentation with respect to left foot
 
-data = [Param_Healthy_NoFloat_Left;Param_Healthy_Float_Left;...
-    Param_SCI_NoFloat_Left;Param_SCI_Float_Left]; %put in all different matrices, separate with ;
+data = [Kin_Healthy_NoFloat_Left Param_Healthy_NoFloat_Left;...
+    Kin_Healthy_Float_Left Param_Healthy_Float_Left;...
+    Kin_SCI_NoFloat_Left Param_SCI_NoFloat_Left;...
+    Kin_SCI_Float_Left Param_SCI_Float_Left];
+
+ %put in all different matrices, separate with ;
 %make sure you know indices of the different matrices within data!
 
 %normalize data
@@ -151,10 +166,10 @@ top10_labels_left = [top10_features(1:features_pc1,1);...
 
 
 %indeces of each "submatrix" that is put into the PCA function
-HealthyNoFloat = 1:100;
-HealthyFloat = 101:189;
-SCINoFloat = 190:211;
-SCIFloat = 212:227;
+HealthyNoFloat = 1:92;
+HealthyFloat = 93:171;
+SCINoFloat = 172:193;
+SCIFloat = 194:209;
 
 figure('Name','PCA: segmentation with respect to left foot')
 %healthy no float
@@ -179,12 +194,12 @@ ylabel('Cumulative variance')
 legend('Cumulative variance', '95% threshold')
 
 figure('Name', 'Top10 features contributing to first 3 PCs')
-bar(1:10, top10_)
+bar(1:length(top10_), top10_)
 hold on
 ylabel('Loading of feature')
-xticks(1:10)
+xticks(1:length(top10_))
 xtickangle(45)
-xticklabels(variableNames(top10_labels_left))
+xticklabels(labels(top10_labels_left))
 
 % % kmeans into 4 clusters
 % idx4 = kmeans(score(1:2,:),4);
