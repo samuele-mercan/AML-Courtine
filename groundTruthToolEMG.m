@@ -1,4 +1,4 @@
-
+leftFoot = true;
 [GaitCyclesFloat1,GaitCyclesNoFloat1] = ...
     HealthySubjectSegmentation('Healthy Recordings/Subject1_2018/FLOAT/S1_FLOAT.mat', ...
     'Healthy Recordings/Subject1_2018/NO_FLOAT/S1_NO_FLOAT.mat',...
@@ -14,8 +14,8 @@ for i = 1:numel(fields)
         hold on
         title(strcat(fields2{j}))
         plot(data.(fields{i}).EMG.(fields2{j}));
-        [Onsets.(fields{i}).EMG.(fields2{j}), ~] = ginput;
-        [Offsets.(fields{i}).EMG.(fields2{j}), ~] = ginput;
+        [Onsets.(fields{i}).EMG.(fields2{j}), ~] = ginput
+        [Offsets.(fields{i}).EMG.(fields2{j}), ~] = ginput
     end
 end
 
