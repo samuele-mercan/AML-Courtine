@@ -1,5 +1,5 @@
 clc
-clear all; close all;
+close all;
 %% Loading and Denoising and Segmentation of all data 
 leftFoot = false;
 [SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation(leftFoot);
@@ -79,6 +79,7 @@ leftFoot = false;
 %[onset_SCI_float1,offset_SCI_float1]=detection_burst(env_SCI_float1);
 [onset_SCI_float2,offset_SCI_float2]=detection_burst(env_SCI_float2);
 [onset_SCI_nofloat2,offset_SCI_nofloat2]=detection_burst(env_SCI_nofloat2);
+
 
 % HP No Float
 
@@ -367,5 +368,8 @@ else
     save([pwd,'/EMGParametersMatrix/Param_Healthy_NoFloat_Right.mat'],'Param_Healthy_NoFloat_Right');
     
 end
+
+
+save('parametersEMG.mat', 'Param_Healthy_Float_Left', 'Param_Healthy_Float_Right','Param_Healthy_NoFloat_Left', 'Param_Healthy_NoFloat_Right','Param_SCI_Float_Left', 'Param_SCI_Float_Right','Param_SCI_NoFloat_Left', 'Param_SCI_NoFloat_Right');
 
 

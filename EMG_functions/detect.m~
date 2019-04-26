@@ -6,7 +6,7 @@ offset_index = [];
 
 if ~isempty(data)
     %threshold = mean(data) + std(data);
-    threshold = 0.5 * (max(data) - min(data)) + min(data);
+    threshold =
     data(data >= threshold) =1;
     data(data ~= 1) =0;
     thresholded = diff(data);

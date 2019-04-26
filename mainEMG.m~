@@ -77,7 +77,7 @@ leftFoot = false;
 
 % SCI
 %[onset_SCI_float1,offset_SCI_float1]=detection_burst(env_SCI_float1);
-[onset_SCI_float2,offset_SCI_float2]=detection_burst(env_SCI_float2);
+[onset_SCI_float2,offset_SCI_float2]=detection_burst(env_SCI_float2,);
 [onset_SCI_nofloat2,offset_SCI_nofloat2]=detection_burst(env_SCI_nofloat2);
 
 % HP No Float
