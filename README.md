@@ -16,8 +16,9 @@ Plots for the report:
 TODOs:
 
 Samuele:
-- Adapt Load
-- Adapt code with "InitializeGaitEvents"
+- Adapt Load DONE
+- Adapt code with "InitializeGaitEvents" DONE
+- Correct frequency in logicalMaskSCI
 - Gait detection with velocity
 - Stick plot zy-axis
 

@@ -1,4 +1,4 @@
-function [] = plotVelocityHealty(data, time, subject, sensorType, FLOATorNOT, left)
+function [] = plotVelocitySCI(data, time, sensorType, left)
 % Plot the velocity of the sensor. 
 %   Takes the segmented input data and connects them in a whole plot in
 %   order to have a continuos visualization of the velocity of the sensor
@@ -13,11 +13,11 @@ function [] = plotVelocityHealty(data, time, subject, sensorType, FLOATorNOT, le
 
 frequency = 100;
 
-gaitCycles = fieldnames(data.(subject).(FLOATorNOT));
+gaitCycles = fieldnames(data);
 positionData = [];
 for i = 1:numel(gaitCycles)
     GC = char(gaitCycles(i));
-    positionData = [positionData; data.(subject).(FLOATorNOT).(GC).Kin.(sensorType)];
+    positionData = [positionData; data.(GC).Kin.(sensorType)];
 end
 
 velocity_X = diff(positionData(:,1));
@@ -35,7 +35,7 @@ end
 
 
 [logicalMaskLeftFO, logicalMaskLeftFS, logicalMaskRightFO, logicalMaskRightFS] ...
-    = logicalMaskHealthy(data, subject, FLOATorNOT);
+    = logicalMaskSCI(data);
 
 logicalMaskLeftFO(:,1)=[];
 logicalMaskLeftFS(:,1)=[];
@@ -60,4 +60,3 @@ else
     title('Velocity');
 end
 end
-
