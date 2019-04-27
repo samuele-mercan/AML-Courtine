@@ -1,8 +1,8 @@
 function [] = AnimatedPlotHealthy(data, subject, FLOATorNOT, left, three_d)
 %Real time plot of movement, in 2D or 3D
 %   data: the data coming from, HealthySubjectSegmentation
-%   subject: string, which subject is plotted should be like: Subject1
-%   FLOATorNOT: string (FLOAT - NOFLOAT) 
+%   subject: string, which subject is plotted should be like: 'Subject1'
+%   FLOATorNOT: string ('FLOAT' - 'NOFLOAT') 
 %   left: bool, if 1 left leg else right leg
 %   three_d: bool, if 1 3D else 2D plot
 
