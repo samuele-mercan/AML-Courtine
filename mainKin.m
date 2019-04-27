@@ -155,7 +155,7 @@ for i=1:length(fieldnames(HealthySubjectsGaitCyclesLeft)) % for each subject
     end
 
    % NO FLOAT
-   if i ~= 1; % do not consider the no float from subject 1 from 2018    
+   if i ~= 1 && i ~= 7; % do not consider the no float from subject 1 from 2018    
        for j=1:length(fieldnames(HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).NOFLOAT))
 
            GaitCycle = HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
@@ -191,7 +191,7 @@ for i=1:length(fieldnames(HealthySubjectsGaitCyclesRight)) % for each subject
     end
     
    % NO FLOAT
-   if i ~= 1; % do not consider the no float from subject 1 from 2018   
+   if i ~= 1 && i ~= 7; % do not consider the no float from subject 1 from 2018   
        for j=1:length(fieldnames(HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).NOFLOAT))
 
            GaitCycle = HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
