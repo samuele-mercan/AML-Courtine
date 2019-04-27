@@ -1,7 +1,7 @@
 clc
 close all;
 %% Loading and Denoising and Segmentation of all data 
-leftFoot = true;
+leftFoot = false;
 [SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation(leftFoot);
 
 [GaitCyclesFloat1,GaitCyclesNoFloat1] = ...

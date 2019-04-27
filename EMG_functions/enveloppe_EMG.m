@@ -11,7 +11,7 @@ for i = 1:length(fields)
 
     [max_vals,index] = maxk(pwelch(denoised_emg.(fields{i}).EMG.LMG),5);
     index = index(max_vals>= mean(pwelch(denoised_emg.(fields{i}).EMG.LMG))+std(pwelch(denoised_emg.(fields{i}).EMG.LMG)));
-    if length(index(index >= 50 & index <= 53)) == length(index)
+    if length(index(index >= 50 & index <= 55)) == length(index)
         env1.(fields{i}).EMG.LMG = [];
         env2.(fields{i}).EMG.LMG = [];
     else
@@ -23,7 +23,7 @@ for i = 1:length(fields)
     
     [max_vals,index] = maxk(pwelch(denoised_emg.(fields{i}).EMG.RMG),5);
     index = index(max_vals>= mean(pwelch(denoised_emg.(fields{i}).EMG.RMG))+std(pwelch(denoised_emg.(fields{i}).EMG.RMG)));
-    if length(index(index >= 50 & index <= 53)) == length(index)
+    if length(index(index >= 50 & index <= 55)) == length(index)
         env1.(fields{i}).EMG.RMG = [];
         env2.(fields{i}).EMG.RMG = [];
     else
@@ -35,7 +35,7 @@ for i = 1:length(fields)
 
     [max_vals,index] = maxk(pwelch(denoised_emg.(fields{i}).EMG.LTA),5);
     index = index(max_vals>= mean(pwelch(denoised_emg.(fields{i}).EMG.LTA))+std(pwelch(denoised_emg.(fields{i}).EMG.LTA)));
-    if length(index(index >= 50 & index <= 53)) == length(index)
+    if length(index(index >= 50 & index <= 55)) == length(index)
         env1.(fields{i}).EMG.LTA = [];
         env2.(fields{i}).EMG.LTA = [];
     else
@@ -47,7 +47,7 @@ for i = 1:length(fields)
 
     [max_vals,index] = maxk(pwelch(denoised_emg.(fields{i}).EMG.RTA),5);
     index = index(max_vals>= mean(pwelch(denoised_emg.(fields{i}).EMG.RTA))+std(pwelch(denoised_emg.(fields{i}).EMG.RTA)));
-    if length(index(index >= 50 & index <= 53)) == length(index)
+    if length(index(index >= 50 & index <= 55)) == length(index)
         env1.(fields{i}).EMG.RTA = [];
         env2.(fields{i}).EMG.RTA = [];
     else

@@ -12,11 +12,6 @@ if length(onset) >= 2
     offset = offset(logical([index 1]));
 end
 
-% selection based on duration
-duration = offset - onset;
-onset = onset(duration > threshold);
-offset = offset(duration > threshold);
-
 if length(onset) >= 2
     duration = offset - onset;
     [~,index] = max(duration);
