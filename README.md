@@ -20,7 +20,8 @@ Samuele:
 - Adapt code with "InitializeGaitEvents" DONE
 - Correct frequency in logicalMaskSCI
 - Gait detection with velocity
-- Stick plot zy-axis
+- Stick plot zy-axis ALMOST DONE
+- Add to Stick the FO and FS
 
 Lena:
 - Look if ANOVA is appropriate

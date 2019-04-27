@@ -31,11 +31,10 @@ end
 sizeData = size(plotDataTOE(:,1));
 
 hold on
-for i = 1:2:sizeData(1)
+for i = 1:15:sizeData(1)
     line([plotDataTOE(i,1) plotDataANK(i,1)],[plotDataTOE(i,2) plotDataANK(i,2)]);
     line([plotDataANK(i,1) plotDataKNE(i,1)],[plotDataANK(i,2) plotDataKNE(i,2)]);
-    line([plotDataKNE(i,1) plotDataHIP(i,1)],[plotDataKNE(i,2) plotDataHIP(i,2)]);
-end
+    line([plotDataKNE(i,1) plotDataHIP(i,1)],[plotDataKNE(i,2) plotDataANK(i,2)]);end
 hold off
 
 
