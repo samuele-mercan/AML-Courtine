@@ -40,19 +40,19 @@ for i = 1:size(allFO_left,2)
 end
 
 for i = 1:size(allFO_left,2)
-    currentValue = round(allFS_left(1,i),2);
+    currentValue = round(allFS_left(1,i),2)*frequency;
     tempLogicalLeftFS = (samplePoints == currentValue);
     logicalMaskLeftFS = logicalMaskLeftFS + tempLogicalLeftFS;
 end
 
 for i = 1:size(allFO_right,2)
-    currentValue = round(allFO_right(1,i),2);
+    currentValue = round(allFO_right(1,i),2)*frequency;
     tempLogicalRightFO = (samplePoints == currentValue);
     logicalMaskRightFO = logicalMaskRightFO + tempLogicalRightFO;
 end
 
 for i = 1:size(allFS_right,2)
-    currentValue = round(allFS_right(1,i),2);
+    currentValue = round(allFS_right(1,i),2)*frequency;
     tempLogicalRightFS = (samplePoints == currentValue);
     logicalMaskRightFS = logicalMaskRightFS + tempLogicalRightFS;
 end
