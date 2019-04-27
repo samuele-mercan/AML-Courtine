@@ -1,4 +1,4 @@
-function [] = plotVelocity(data, time, subject, sensorType, FLOATorNOT, left)
+function [] = plotVelocityHealty(data, time, subject, sensorType, FLOATorNOT, left)
 % Plot the velocity of the sensor. 
 %   Takes the segmented input data and connects them in a whole plot in
 %   order to have a continuos visualization of the velocity of the sensor
@@ -23,17 +23,27 @@ end
 velocity_X = diff(positionData(:,1));
 velocity_Y = diff(positionData(:,2));
 velocity_Z = diff(positionData(:,3));
+size(velocity_Z)
+
 
 sizeData = size(positionData(:,1));
 samplePoints = linspace (0,sizeData(1)-1,sizeData(1));
 samplePoints(:,1)=[];
+size(samplePoints)
 
 if (time)
     samplePoints = samplePoints./frequency;
 end
 
+
 [logicalMaskLeftFO, logicalMaskLeftFS, logicalMaskRightFO, logicalMaskRightFS] ...
     = logicalMaskHealthy(data, subject, FLOATorNOT);
+
+logicalMaskLeftFO(:,1)=[];
+logicalMaskLeftFS(:,1)=[];
+logicalMaskRightFO(:,1)=[];
+logicalMaskRightFS(:,1)=[];
+
 if (left)
     plot(samplePoints, velocity_X',  '-r',...
         samplePoints, velocity_Y', '--b',...
