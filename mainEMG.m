@@ -1,7 +1,7 @@
 clc
 close all;
 %% Loading and Denoising and Segmentation of all data 
-leftFoot = false;
+leftFoot = true;
 [SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation(leftFoot);
 
 [GaitCyclesFloat1,GaitCyclesNoFloat1] = ...
@@ -327,7 +327,7 @@ if leftFoot
     Param_Healthy_Float_Left = [Param_Healthy_Float_Left;extract_EMG(duration_HP4_float,mean_HP4_float,max_HP4_float,rms_HP4_float,coactivation_HP4_float)];
     Param_Healthy_Float_Left = [Param_Healthy_Float_Left;extract_EMG(duration_HP5_float,mean_HP5_float,max_HP5_float,rms_HP5_float,coactivation_HP5_float)];
     Param_Healthy_Float_Left = [Param_Healthy_Float_Left;extract_EMG(duration_HP6_float,mean_HP6_float,max_HP6_float,rms_HP6_float,coactivation_HP6_float)];
-    %Param_Healthy_Float_Left = [Param_Healthy_Float_Left;extract_EMG(duration_HP7_float,mean_HP7_float,max_HP7_float,rms_HP7_float,coactivation_HP7_float)];
+    Param_Healthy_Float_Left = [Param_Healthy_Float_Left;extract_EMG(duration_HP7_float,mean_HP7_float,max_HP7_float,rms_HP7_float,coactivation_HP7_float)];
     Param_Healthy_Float_Left = [Param_Healthy_Float_Left;extract_EMG(duration_HP8_float,mean_HP8_float,max_HP8_float,rms_HP8_float,coactivation_HP8_float)];
     Param_Healthy_Float_Left = [Param_Healthy_Float_Left;extract_EMG(duration_HP9_float,mean_HP9_float,max_HP9_float,rms_HP9_float,coactivation_HP9_float)];
     save([pwd,'/EMGParametersMatrix/Param_Healthy_Float_Left.mat'],'Param_Healthy_Float_Left');
@@ -338,7 +338,7 @@ if leftFoot
     labels_HP_float_left = [labels_HP_float_left; zeros(size(extract_EMG(duration_HP4_float,mean_HP4_float,max_HP4_float,rms_HP4_float,coactivation_HP4_float),1),1)];
     labels_HP_float_left = [labels_HP_float_left; zeros(size(extract_EMG(duration_HP5_float,mean_HP5_float,max_HP5_float,rms_HP5_float,coactivation_HP5_float),1),1)];
     labels_HP_float_left = [labels_HP_float_left; zeros(size(extract_EMG(duration_HP6_float,mean_HP6_float,max_HP6_float,rms_HP6_float,coactivation_HP6_float),1),1)];
-    %labels_HP_float_left = [labels_HP_float_left; ones(size(extract_EMG(duration_HP7_float,mean_HP7_float,max_HP7_float,rms_HP7_float,coactivation_HP7_float),1),1)];
+    labels_HP_float_left = [labels_HP_float_left; ones(size(extract_EMG(duration_HP7_float,mean_HP7_float,max_HP7_float,rms_HP7_float,coactivation_HP7_float),1),1)];
     labels_HP_float_left = [labels_HP_float_left; ones(size(extract_EMG(duration_HP8_float,mean_HP8_float,max_HP8_float,rms_HP8_float,coactivation_HP8_float),1),1)];
     labels_HP_float_left = [labels_HP_float_left; ones(size(extract_EMG(duration_HP9_float,mean_HP9_float,max_HP9_float,rms_HP9_float,coactivation_HP9_float),1),1)];
     save([pwd,'/EMGParametersMatrix/labels_HP_float_left.mat'],'labels_HP_float_left');
@@ -385,7 +385,7 @@ else
     Param_Healthy_Float_Right = [Param_Healthy_Float_Right;extract_EMG(duration_HP4_float,mean_HP4_float,max_HP4_float,rms_HP4_float,coactivation_HP4_float)];
     Param_Healthy_Float_Right = [Param_Healthy_Float_Right;extract_EMG(duration_HP5_float,mean_HP5_float,max_HP5_float,rms_HP5_float,coactivation_HP5_float)];
     Param_Healthy_Float_Right = [Param_Healthy_Float_Right;extract_EMG(duration_HP6_float,mean_HP6_float,max_HP6_float,rms_HP6_float,coactivation_HP6_float)];
-    %Param_Healthy_Float_Right = [Param_Healthy_Float_Right;extract_EMG(duration_HP7_float,mean_HP7_float,max_HP7_float,rms_HP7_float,coactivation_HP7_float)];
+    Param_Healthy_Float_Right = [Param_Healthy_Float_Right;extract_EMG(duration_HP7_float,mean_HP7_float,max_HP7_float,rms_HP7_float,coactivation_HP7_float)];
     Param_Healthy_Float_Right = [Param_Healthy_Float_Right;extract_EMG(duration_HP8_float,mean_HP8_float,max_HP8_float,rms_HP8_float,coactivation_HP8_float)];
     Param_Healthy_Float_Right = [Param_Healthy_Float_Right;extract_EMG(duration_HP9_float,mean_HP9_float,max_HP9_float,rms_HP9_float,coactivation_HP9_float)];
     save([pwd,'/EMGParametersMatrix/Param_Healthy_Float_Right.mat'],'Param_Healthy_Float_Right');
@@ -396,7 +396,7 @@ else
     labels_HP_float_right = [labels_HP_float_right; zeros(size(extract_EMG(duration_HP4_float,mean_HP4_float,max_HP4_float,rms_HP4_float,coactivation_HP4_float),1),1)];
     labels_HP_float_right = [labels_HP_float_right; zeros(size(extract_EMG(duration_HP5_float,mean_HP5_float,max_HP5_float,rms_HP5_float,coactivation_HP5_float),1),1)];
     labels_HP_float_right = [labels_HP_float_right; zeros(size(extract_EMG(duration_HP6_float,mean_HP6_float,max_HP6_float,rms_HP6_float,coactivation_HP6_float),1),1)];
-    %labels_HP_float_right = [labels_HP_float_right; ones(size(extract_EMG(duration_HP7_float,mean_HP7_float,max_HP7_float,rms_HP7_float,coactivation_HP7_float),1),1)];
+    labels_HP_float_right = [labels_HP_float_right; ones(size(extract_EMG(duration_HP7_float,mean_HP7_float,max_HP7_float,rms_HP7_float,coactivation_HP7_float),1),1)];
     labels_HP_float_right = [labels_HP_float_right; ones(size(extract_EMG(duration_HP8_float,mean_HP8_float,max_HP8_float,rms_HP8_float,coactivation_HP8_float),1),1)];
     labels_HP_float_right = [labels_HP_float_right; ones(size(extract_EMG(duration_HP9_float,mean_HP9_float,max_HP9_float,rms_HP9_float,coactivation_HP9_float),1),1)];
     save([pwd,'/EMGParametersMatrix/labels_HP_float_right.mat'],'labels_HP_float_right');
