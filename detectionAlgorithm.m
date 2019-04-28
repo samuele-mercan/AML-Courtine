@@ -37,6 +37,19 @@ function detectionAlgorithm(dataFile, fileName)
 
     end
     
+    GaitEvents = [T01_FootStrikes_left(1) T01_FootOffs_left(1)];
+    
+    for index=2:length(T01_FootStrikes_left)
+        if T01_FootStrikes_left(index) > GaitEvents(end) && T01_FootOffs_left(index) > T01_FootStrikes_left(index) && index < length(T01_FootOffs_left)
+            GaitEvents = [GaitEvents T01_FootStrikes_left(index) T01_FootOffs_left(index)];
+        elseif T01_FootStrikes_left(index) > GaitEvents(end) && T01_FootOffs_left(index) > T01_FootStrikes_left(index) && index > length(T01_FootOffs_left)
+            GaitEvents = [GaitEvents T01_FootStrikes_left(index)];
+        end
+    end
+    
+    T01_FootStrikes_left = GaitEvents(1:2:end);
+    T01_FootOffs_left = GaitEvents(2:2:end);
+    
     %% LEFT FOOT, T_02
     
     time_start = 0;
@@ -63,6 +76,19 @@ function detectionAlgorithm(dataFile, fileName)
         T02_FootOffs_left = [T02_FootOffs_left time(stancePos(end))];
         
     end
+    
+    GaitEvents = [T02_FootStrikes_left(1) T02_FootOffs_left(1)];
+    
+    for index=2:length(T02_FootStrikes_left)
+        if T02_FootStrikes_left(index) > GaitEvents(end) && T02_FootOffs_left(index) > T02_FootStrikes_left(index) && index < length(T02_FootOffs_left)
+            GaitEvents = [GaitEvents T02_FootStrikes_left(index) T02_FootOffs_left(index)];
+        elseif T02_FootStrikes_left(index) > GaitEvents(end) && T02_FootOffs_left(index) > T02_FootStrikes_left(index) && index > length(T02_FootOffs_left)
+            GaitEvents = [GaitEvents T02_FootStrikes_left(index)];
+        end
+    end
+    
+    T02_FootStrikes_left = GaitEvents(1:2:end);
+    T02_FootOffs_left = GaitEvents(2:2:end);
     
     %% LEFT FOOT, T_03
     
@@ -91,6 +117,19 @@ function detectionAlgorithm(dataFile, fileName)
         
     end
     
+    GaitEvents = [T03_FootStrikes_left(1) T03_FootOffs_left(1)];
+    
+    for index=2:length(T03_FootStrikes_left)
+        if T03_FootStrikes_left(index) > GaitEvents(end) && T03_FootOffs_left(index) > T03_FootStrikes_left(index) && index < length(T03_FootOffs_left)
+            GaitEvents = [GaitEvents T03_FootStrikes_left(index) T03_FootOffs_left(index)];
+        elseif T03_FootStrikes_left(index) > GaitEvents(end) && T03_FootOffs_left(index) > T03_FootStrikes_left(index) && index > length(T03_FootOffs_left)
+            GaitEvents = [GaitEvents T03_FootStrikes_left(index)];
+        end
+    end
+    
+    T03_FootStrikes_left = GaitEvents(1:2:end);
+    T03_FootOffs_left = GaitEvents(2:2:end);
+    
     %% RIGHT FOOT, T_01
     
     time_start = 0;
@@ -117,6 +156,19 @@ function detectionAlgorithm(dataFile, fileName)
         T01_FootOffs_right = [T01_FootOffs_right time(stancePos(end))];
         
     end
+    
+    GaitEvents = [T01_FootStrikes_right(1) T01_FootOffs_right(1)];
+    
+    for index=2:length(T01_FootStrikes_right)
+        if T01_FootStrikes_right(index) > GaitEvents(end) && T01_FootOffs_right(index) > T01_FootStrikes_right(index) && index < length(T01_FootOffs_right)
+            GaitEvents = [GaitEvents T01_FootStrikes_right(index) T01_FootOffs_right(index)];
+        elseif T01_FootStrikes_right(index) > GaitEvents(end) && T01_FootOffs_right(index) > T01_FootStrikes_right(index) && index > length(T01_FootOffs_right)
+            GaitEvents = [GaitEvents T01_FootStrikes_right(index)];
+        end
+    end
+    
+    T01_FootStrikes_right = GaitEvents(1:2:end);
+    T01_FootOffs_right = GaitEvents(2:2:end);
     
     %% RIGHT FOOT, T_02
     
@@ -145,6 +197,19 @@ function detectionAlgorithm(dataFile, fileName)
         
     end
     
+    GaitEvents = [T02_FootStrikes_right(1) T02_FootOffs_right(1)];
+    
+    for index=2:length(T02_FootStrikes_right)
+        if T02_FootStrikes_right(index) > GaitEvents(end) && T02_FootOffs_right(index) > T02_FootStrikes_right(index) && index < length(T02_FootOffs_right)
+            GaitEvents = [GaitEvents T02_FootStrikes_right(index) T02_FootOffs_right(index)];
+        elseif T02_FootStrikes_right(index) > GaitEvents(end) && T02_FootOffs_right(index) > T02_FootStrikes_right(index) && index > length(T02_FootOffs_right)
+            GaitEvents = [GaitEvents T02_FootStrikes_right(index)];
+        end
+    end
+    
+    T02_FootStrikes_right = GaitEvents(1:2:end);
+    T02_FootOffs_right = GaitEvents(2:2:end);
+    
     %% RIGHT FOOT, T_03
     
     time_start = 0;
@@ -171,6 +236,21 @@ function detectionAlgorithm(dataFile, fileName)
         T03_FootOffs_right = [T03_FootOffs_right time(stancePos(end))];
         
     end
+    
+    GaitEvents = [T03_FootStrikes_right(1) T03_FootOffs_right(1)];
+    
+    for index=2:length(T03_FootStrikes_right)
+        if T03_FootStrikes_right(index) > GaitEvents(end) && T03_FootOffs_right(index) > T03_FootStrikes_right(index) && index < length(T03_FootOffs_right)
+            GaitEvents = [GaitEvents T03_FootStrikes_right(index) T03_FootOffs_right(index)];
+        elseif T03_FootStrikes_right(index) > GaitEvents(end) && T03_FootOffs_right(index) > T03_FootStrikes_right(index) && index > length(T03_FootOffs_right)
+            GaitEvents = [GaitEvents T03_FootStrikes_right(index)];
+        end
+    end
+    
+    T03_FootStrikes_right = GaitEvents(1:2:end);
+    T03_FootOffs_right = GaitEvents(2:2:end);
+    
+    % Structure to output the detected gait events 
     
     gaitEvents = struct();
 
