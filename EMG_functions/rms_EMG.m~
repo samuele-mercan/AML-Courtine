@@ -7,32 +7,32 @@ fields = fieldnames(onset);
 for i = 1:numel(fields)
     
     nans = isnan(offset.(fields{i}).EMG.LMG);
-    if isempty(nans(nans == 1))
-        rms_val.(fields{i}).EMG.LMG = rms(concatenate(gait.(fields{i}).EMG.LMG,onset.(fields{i}).EMG.LMG, ...
+    if ~isnan(onset.(fields{i}).EMG.LMG)
+        rms_val.(fields{i}).EMG.LMG = rms(conctenate(gait.(fields{i}).EMG.LMG,onset.(fields{i}).EMG.LMG, ...
             offset.(fields{i}).EMG.LMG));
     else
         rms_val.(fields{i}).EMG.LMG = NaN;
     end
     
-    nans = isnan(offset.(fields{i}).EMG.RMG);    
-    if isempty(nans(nans == 1))
-        rms_val.(fields{i}).EMG.RMG = rms(concatenate(gait.(fields{i}).EMG.RMG,onset.(fields{i}).EMG.RMG, ...
+    nans = isnan(offset.(fields{i}).EMG.L);    
+    if ~isnan(onset.(fields{i}).EMG.RMG)
+        rms_val.(fields{i}).EMG.RMG = rms(conctenate(gait.(fields{i}).EMG.RMG,onset.(fields{i}).EMG.RMG, ...
             offset.(fields{i}).EMG.RMG));
     else
         rms_val.(fields{i}).EMG.RMG = NaN;
     end
     
     nans = isnan(offset.(fields{i}).EMG.LTA);    
-    if isempty(nans(nans == 1))
-        rms_val.(fields{i}).EMG.LTA = rms(concatenate(gait.(fields{i}).EMG.LTA,onset.(fields{i}).EMG.LTA, ...
+    if ~isnan(onset.(fields{i}).EMG.LTA)
+        rms_val.(fields{i}).EMG.LTA = rms(conctenate(gait.(fields{i}).EMG.LTA,onset.(fields{i}).EMG.LTA, ...
             offset.(fields{i}).EMG.LTA));
     else
         rms_val.(fields{i}).EMG.LTA = NaN;
     end
     
     nans = isnan(offset.(fields{i}).EMG.RTA);    
-    if isempty(nans(nans == 1))
-        rms_val.(fields{i}).EMG.RTA = rms(concatenate(gait.(fields{i}).EMG.LMG,onset.(fields{i}).EMG.RTA, ...
+    if ~isnan(onset.(fields{i}).EMG.RTA)
+        rms_val.(fields{i}).EMG.RTA = rms(conctenate(gait.(fields{i}).EMG.LMG,onset.(fields{i}).EMG.RTA, ...
             offset.(fields{i}).EMG.RTA));
     else
         rms_val.(fields{i}).EMG.RTA = NaN;

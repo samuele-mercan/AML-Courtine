@@ -1,0 +1,11 @@
+function [emg] = concatenate(onset,offset,gait)
+%UNTITLED3 Summary of this function goes here
+%   Detailed explanation goes here
+
+emg = [];
+for i = 1:length(onset)
+    o
+    emg = [emg,gait(onset(i):offset(i))];
+end
+end
+

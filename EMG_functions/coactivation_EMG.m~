@@ -2,11 +2,8 @@ function [coactivation] = coactivation_EMG(onset,offset,gait)
 
 
 fields = fieldnames(onset);
-for i = 1:numel(fields)  
-    
-    nansLMG = isnan(offset.(fields{i}).EMG.LMG);
-    nansLTA = isnan(offset.(fields{i}).EMG.LTA); 
-    if isempty(nansLMG(nansLMG == 1)) && isempty(nansLTA(nansLTA == 1))
+for i = 1:numel(fields)   
+    if ~isnan(onset.(fields{i}).EMG.LMG) &&  ~isnan(onset.(fields{i}).EMG.LTA)
         
         index_LMG = [];
         for j = 1:length(onset.(fields{i}).EMG.LMG)
@@ -26,9 +23,8 @@ for i = 1:numel(fields)
         coactivation.(fields{i}).EMG.Left = NaN;
     end
     
-    nansRMG = isnan(offset.(fields{i}).EMG.RMG);
-    nansRTA = isnan(offset.(fields{i}).EMG.RTA); 
-    if isempty(nansRMG(nansRMG == 1)) &&  isempty(nansRTA(nansRTA == 1))
+        
+    if ~isnan(onset.(fields{i}).EMG.RMG) &&  ~isnan(onset.(fields{i}).EMG.RTA)
         
         index_RMG = [];
         for j = 1:length(onset.(fields{i}).EMG.RMG)
@@ -42,7 +38,9 @@ for i = 1:numel(fields)
             offset.(fields{i}).EMG.RTA(j)];
         end  
         
-        coactivation.(fields{i}).EMG.Right = sum(ismember(index_RMG,index_RTA))/length(gait.(fields{i}).EMG.RMG);
+        coactivation.(fields{i}).EMG.Right = sum(ismember(onset.(fields{i}).EMG.RMG(1): ... 
+            offset.(fields{i}).EMG.RMG(1), onset.(fields{i}).EMG.RTA(1): ... 
+            offset.(fields{i}).EMG.RTA(1)))/length(gait.(fields{i}).EMG.RMG);
     else
         coactivation.(fields{i}).EMG.Right = NaN;
     end   

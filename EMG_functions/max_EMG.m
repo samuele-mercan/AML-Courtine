@@ -6,33 +6,34 @@ function [max_val] = max_EMG(onset,offset,gait)
 fields = fieldnames(onset);
 
 for i = 1:numel(fields)
-    
-    if ~isnan(onset.(fields{i}).EMG.LMG)
-        max_val.(fields{i}).EMG.LMG = max(gait.(fields{i}).EMG.LMG(onset.(fields{i}).EMG.LMG(1): ...
-            offset.(fields{i}).EMG.LMG(1)));
+    nans = isnan(offset.(fields{i}).EMG.LMG);
+    if isempty(nans(nans == 1))
+        max_val.(fields{i}).EMG.LMG = max(concatenate(gait.(fields{i}).EMG.LMG,onset.(fields{i}).EMG.LMG, ...
+            offset.(fields{i}).EMG.LMG));
     else
         max_val.(fields{i}).EMG.LMG = NaN;
     end
     
-    if ~isnan(onset.(fields{i}).EMG.RMG)
-        max_val.(fields{i}).EMG.RMG = max(gait.(fields{i}).EMG.RMG(onset.(fields{i}).EMG.RMG(1): ...
-            offset.(fields{i}).EMG.RMG(1)));
+    nans = isnan(offset.(fields{i}).EMG.RMG);
+    if isempty(nans(nans == 1))
+        max_val.(fields{i}).EMG.RMG = max(concatenate(gait.(fields{i}).EMG.RMG,onset.(fields{i}).EMG.RMG, ...
+            offset.(fields{i}).EMG.RMG));
     else
         max_val.(fields{i}).EMG.RMG = NaN;
     end
     
-        
-    if ~isnan(onset.(fields{i}).EMG.LTA)
-        max_val.(fields{i}).EMG.LTA = max(gait.(fields{i}).EMG.LTA(onset.(fields{i}).EMG.LTA(1): ...
-            offset.(fields{i}).EMG.LTA(1)));
+    nans = isnan(offset.(fields{i}).EMG.LTA);   
+    if isempty(nans(nans == 1))
+        max_val.(fields{i}).EMG.LTA = max(concatenate(gait.(fields{i}).EMG.LTA,onset.(fields{i}).EMG.LTA, ...
+            offset.(fields{i}).EMG.LTA));
     else
         max_val.(fields{i}).EMG.LTA = NaN;
     end
     
-        
-    if ~isnan(onset.(fields{i}).EMG.RTA)
-        max_val.(fields{i}).EMG.RTA = max(gait.(fields{i}).EMG.RTA(onset.(fields{i}).EMG.RTA(1): ...
-            offset.(fields{i}).EMG.RTA(1)));
+    nans = isnan(offset.(fields{i}).EMG.RTA);    
+    if isempty(nans(nans == 1))
+        max_val.(fields{i}).EMG.RTA = max(concatenate(gait.(fields{i}).EMG.RTA,onset.(fields{i}).EMG.RTA, ...
+            offset.(fields{i}).EMG.RTA));
     else
         max_val.(fields{i}).EMG.RTA = NaN;
     end

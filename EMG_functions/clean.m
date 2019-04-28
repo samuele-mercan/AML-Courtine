@@ -12,12 +12,12 @@ if length(onset) >= 2
     offset = offset(logical([index 1]));
 end
 
-if length(onset) >= 2
-    duration = offset - onset;
-    [~,index] = max(duration);
-    onset = onset(index);
-    offset = offset(index);
-end
+% if length(onset) >= 2
+%     duration = offset - onset;
+%     [~,index] = max(duration);
+%     onset = onset(index);
+%     offset = offset(index);
+% end
 
 if isempty(onset)
     onset = NaN;
