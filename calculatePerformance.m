@@ -6,7 +6,7 @@ function calculatePerformance()
 
     figure()
     hold on
-    title('Error in the gait events detection for the FLOAT and NO_FLOAT data')
+    title('Error in the gait events detection for the FLOAT and NO FLOAT data')
     ylabel('Difference in the time detected for the gait events')
     group = [ ones(size(detectionDifferencesFloat')); 2 * ones(size(detectionDifferencesNoFloat'))];
     boxplot([detectionDifferencesFloat';detectionDifferencesNoFloat'], group)

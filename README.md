@@ -8,10 +8,11 @@ Questions about the kinematics parameters:
 - what is the symmetry ratio? 
 
 Plots for the report: 
-- a plot showing the kinematics signals (hip, knee, ankle, toe) with the Foot Off and Foot Strikes events (without float, healthy)
+- a plot showing the kinematics signals (ANK and TOE only) with the Foot Off and Foot Strikes events (without float, healthy), to underline the elements used to create the ground truth (max is the strike, min is off for, the toe and the opposite for the ankle)
 - a plot showing the EMG signals of both MG and TA (without float, healthy)
 - graph of all the Explained Variance vs. all the Principal Components  
-- plot of the PCA (PC1-2-3) [least-squares spheres ?]
+- boxplot for the performance of the algorithm 
+- plots of the PCA: parameters explaining the most variance
 
 TODOs:
 
