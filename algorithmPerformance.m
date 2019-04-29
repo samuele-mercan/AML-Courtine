@@ -1,9 +1,9 @@
-function detectionDifferences = algorithmPerformance(detectedGaitsDirectory, healthyGaitsDirectory)
+function detectionError = algorithmPerformance(detectedGaitsDirectory, healthyGaitsDirectory)
     
     detectedStructs = dir(detectedGaitsDirectory);
     groundTruthStructs = dir(healthyGaitsDirectory);
     
-    detectionDifferences = [];
+    detectionError = [];
     
     for i=1:length(detectedStructs)
         
@@ -74,51 +74,51 @@ function detectionDifferences = algorithmPerformance(detectedGaitsDirectory, hea
             detected_T03_FO_right < groundTruth_T03_FO_right(end));
         
         for j=1:min([length(detected_T01_FS_left) length(groundTruth_T01_FS_left)])
-            detectionDifferences = [detectionDifferences abs(detected_T01_FS_left(j)-groundTruth_T01_FS_left(j))];
+            detectionError = [detectionError abs(detected_T01_FS_left(j)-groundTruth_T01_FS_left(j))/groundTruth_T01_FS_left(j)];
         end
         
         for j=1:min([length(detected_T01_FO_left) length(groundTruth_T01_FO_left)])
-            detectionDifferences = [detectionDifferences abs(detected_T01_FO_left(j)-groundTruth_T01_FO_left(j))];
+            detectionError = [detectionError abs(detected_T01_FO_left(j)-groundTruth_T01_FO_left(j))/groundTruth_T01_FO_left(j)];
         end
         
         for j=1:min([length(detected_T01_FS_right) length(groundTruth_T01_FS_right)])
-            detectionDifferences = [detectionDifferences abs(detected_T01_FS_right(j)-groundTruth_T01_FS_right(j))];
+            detectionError = [detectionError abs(detected_T01_FS_right(j)-groundTruth_T01_FS_right(j))/groundTruth_T01_FS_right(j)];
         end
         
         for j=1:min([length(detected_T01_FO_right) length(groundTruth_T01_FO_right)])
-            detectionDifferences = [detectionDifferences abs(detected_T01_FO_right(j)-groundTruth_T01_FO_right(j))];
+            detectionError = [detectionError abs(detected_T01_FO_right(j)-groundTruth_T01_FO_right(j))/groundTruth_T01_FO_right(j)];
         end
         
         for j=1:min([length(detected_T02_FS_left) length(groundTruth_T02_FS_left)])
-            detectionDifferences = [detectionDifferences abs(detected_T02_FS_left(j)-groundTruth_T02_FS_left(j))];
+            detectionError = [detectionError abs(detected_T02_FS_left(j)-groundTruth_T02_FS_left(j))/groundTruth_T02_FS_left(j)];
         end
         
         for j=1:min([length(detected_T02_FO_left) length(groundTruth_T02_FO_left)])
-            detectionDifferences = [detectionDifferences abs(detected_T02_FO_left(j)-groundTruth_T02_FO_left(j))];
+            detectionError = [detectionError abs(detected_T02_FO_left(j)-groundTruth_T02_FO_left(j))/groundTruth_T02_FO_left(j)];
         end
         
         for j=1:min([length(detected_T02_FS_right) length(groundTruth_T02_FS_right)])
-            detectionDifferences = [detectionDifferences abs(detected_T02_FS_right(j)-groundTruth_T02_FS_right(j))];
+            detectionError = [detectionError abs(detected_T02_FS_right(j)-groundTruth_T02_FS_right(j))/groundTruth_T02_FS_right(j)];
         end
         
         for j=1:min([length(detected_T02_FO_right) length(groundTruth_T02_FO_right)])
-            detectionDifferences = [detectionDifferences abs(detected_T02_FO_right(j)-groundTruth_T02_FO_right(j))];
+            detectionError = [detectionError abs(detected_T02_FO_right(j)-groundTruth_T02_FO_right(j))/groundTruth_T02_FO_right(j)];
         end
         
         for j=1:min([length(detected_T03_FS_left) length(groundTruth_T03_FS_left)])
-            detectionDifferences = [detectionDifferences abs(detected_T03_FS_left(j)-groundTruth_T03_FS_left(j))];
+            detectionError = [detectionError abs(detected_T03_FS_left(j)-groundTruth_T03_FS_left(j))/groundTruth_T03_FS_left(j)];
         end
         
         for j=1:min([length(detected_T03_FO_left) length(groundTruth_T03_FO_left)])
-            detectionDifferences = [detectionDifferences abs(detected_T03_FO_left(j)-groundTruth_T03_FO_left(j))];
+            detectionError = [detectionError abs(detected_T03_FO_left(j)-groundTruth_T03_FO_left(j))/groundTruth_T03_FO_left(j)];
         end
         
         for j=1:min([length(detected_T03_FS_right) length(groundTruth_T03_FS_right)])
-            detectionDifferences = [detectionDifferences abs(detected_T03_FS_right(j)-groundTruth_T03_FS_right(j))];
+            detectionError = [detectionError abs(detected_T03_FS_right(j)-groundTruth_T03_FS_right(j))/groundTruth_T03_FS_right(j)];
         end
         
         for j=1:min([length(detected_T03_FO_right) length(groundTruth_T03_FO_right)])
-            detectionDifferences = [detectionDifferences abs(detected_T03_FO_right(j)-groundTruth_T03_FO_right(j))];
+            detectionError = [detectionError abs(detected_T03_FO_right(j)-groundTruth_T03_FO_right(j))/groundTruth_T03_FO_right(j)];
         end
         
     end

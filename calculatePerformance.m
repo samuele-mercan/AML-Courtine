@@ -1,15 +1,19 @@
 function calculatePerformance()
 
 
-    detectionDifferencesFloat = algorithmPerformance('DetectedHealthyGaitEvents/*FLOAT*', 'HealthyGaitEvents/*FLOAT*');
-    detectionDifferencesNoFloat = algorithmPerformance('DetectedHealthyGaitEvents/*NO_FLOAT*', 'HealthyGaitEvents/*NO_FLOAT*');
+    detectionErrorFloat = algorithmPerformance('DetectedHealthyGaitEvents/*FLOAT*', 'HealthyGaitEvents/*FLOAT*');
+    detectionErrorNoFloat = algorithmPerformance('DetectedHealthyGaitEvents/*NO_FLOAT*', 'HealthyGaitEvents/*NO_FLOAT*');
 
     figure()
     hold on
     title('Error in the gait events detection for the FLOAT and NO FLOAT data')
-    ylabel('Difference in the time detected for the gait events')
-    group = [ ones(size(detectionDifferencesFloat')); 2 * ones(size(detectionDifferencesNoFloat'))];
-    boxplot([detectionDifferencesFloat';detectionDifferencesNoFloat'], group)
+    ylabel('Error in the detection of the gait events')
+    group = [ ones(size(detectionErrorFloat')); 2 * ones(size(detectionErrorNoFloat'))];
+    bPlot = boxplot([detectionErrorFloat';detectionErrorNoFloat'], group);
     set(gca, 'XTickLabel', {'Float', 'No Float'})
+    
+    outliers = findobj(bPlot,'Tag','Outliers');
+    yy = get(outliers,'YData');
+    
 
 end
