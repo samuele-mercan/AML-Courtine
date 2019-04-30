@@ -13,6 +13,7 @@ frequency = 100;
 [logicalMaskLeftFO, logicalMaskLeftFS, logicalMaskRightFO, logicalMaskRightFS]...
     = logicalMaskSCI(data);
 
+
 gaitCycles = fieldnames(data);
 plotData = [];
 for i = 1:numel(gaitCycles)
@@ -24,20 +25,10 @@ samplePoints = linspace (0,sizeData(1)-1,sizeData(1));
 if (time)
     samplePoints = samplePoints./frequency;
 end
-% figure(1);
-% plot(samplePoints, plotData(:,1),  '-r',...
-%     samplePoints,plotData(:,3), '.-c',...
-%     samplePoints, plotData(:,1)'.*logicalMaskLeftFO, 'pr',...
-%     samplePoints, plotData(:,1)'.*logicalMaskLeftFS, 'pb',...
-%     samplePoints, plotData(:,3)'.*logicalMaskLeftFO, 'pr',...
-%     samplePoints, plotData(:,3)'.*logicalMaskLeftFS, 'pb'); 
-% legend('x-coordinate', 'z-coordinate');
-% 
-% figure(2);
-% plot(samplePoints,plotData(:,2), '--b')
+
 
 if (left)
-    figure(1);
+    figure();
     plot(samplePoints, plotData(:,1)', '-r',...
         samplePoints, plotData(:,3)', '-m',...
         samplePoints, plotData(:,1)'.*logicalMaskLeftFO, 'pr',...
@@ -53,7 +44,7 @@ if (left)
     end
     ylabel('Position [m]');
     
-    figure(2);
+    figure();
     plot(samplePoints, plotData(:,2)', '-b',...
     samplePoints, plotData(:,2)'.*logicalMaskLeftFO, 'pr',...
     samplePoints, plotData(:,2)'.*logicalMaskLeftFS, 'pb');
@@ -67,7 +58,7 @@ if (left)
     ylabel('Position [m]');
 
 else
-    figure(1);
+    figure();
     plot(samplePoints, plotData(:,1)', '-r',...
         samplePoints, plotData(:,3)', '-m',...
         samplePoints, plotData(:,1)'.*logicalMaskRightFO, 'pr',...
@@ -83,7 +74,7 @@ else
     end
     ylabel('Position [m]');
     
-    figure(2);
+    figure();
     plot(samplePoints, plotData(:,2)', '-b',...
     samplePoints, plotData(:,2)'.*logicalMaskRightFO, 'pr',...
     samplePoints, plotData(:,2)'.*logicalMaskRightFS, 'pb');

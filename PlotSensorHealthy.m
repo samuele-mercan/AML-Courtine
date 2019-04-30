@@ -31,7 +31,7 @@ if (time)
 end
 
 if (left)
-    figure(1);
+    figure();
     plot(samplePoints, plotData(:,1)', '-r',...
         samplePoints, plotData(:,3)', '-m',...
         samplePoints, plotData(:,1)'.*logicalMaskLeftFO, 'pr',...
@@ -47,7 +47,7 @@ if (left)
     end
     ylabel('Position [m]');
     
-    figure(2);
+    figure();
     plot(samplePoints, plotData(:,2)', '-b',...
     samplePoints, plotData(:,2)'.*logicalMaskLeftFO, 'pr',...
     samplePoints, plotData(:,2)'.*logicalMaskLeftFS, 'pb');
@@ -61,7 +61,7 @@ if (left)
     ylabel('Position [m]');
 
 else
-    figure(1);
+    figure();
     plot(samplePoints, plotData(:,1)', '-r',...
         samplePoints, plotData(:,3)', '-m',...
         samplePoints, plotData(:,1)'.*logicalMaskRightFO, 'pr',...
@@ -77,7 +77,7 @@ else
     end
     ylabel('Position [m]');
     
-    figure(2);
+    figure();
     plot(samplePoints, plotData(:,2)', '-b',...
     samplePoints, plotData(:,2)'.*logicalMaskRightFO, 'pr',...
     samplePoints, plotData(:,2)'.*logicalMaskRightFS, 'pb');

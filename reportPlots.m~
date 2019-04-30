@@ -138,15 +138,11 @@ HealthySubjectsGaitCyclesRight = struct();
     yy = get(outliers,'YData');
     print('Figures/Performance Box Plot, with outliers', '-dpng')
     
-    %% Samuele's plots L/R-TOE Healthy
+    %% Samuele's plots LTOE Healthy
     PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 1, 'NOFLOAT');
     PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 1, 'FLOAT');
     PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 0, 'NOFLOAT');
     PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 0, 'FLOAT');
     
-    %% Samuele's plots L/R-TOE SCI
-    plotSensorSCI(SCI_GaitCycles_NoFloat_Left,1, 'LTOE', 1);
-    plotSensorSCI(SCI_GaitCycles_Float_Left, 1, 'LTOE', 1);
-    plotSensorSCI(SCI_GaitCycles_NoFloat_Left, 1, 'RTOE', 0);
-    plotSensorSCI(SCI_GaitCycles_Float_Left, 1, 'RTOE', 0);
+    %% Samuele's plots 
 end
