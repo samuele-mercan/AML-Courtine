@@ -43,48 +43,21 @@ logicalMaskRightFO(:,1)=[];
 logicalMaskRightFS(:,1)=[];
 
 if (left)
-    figure();
+    figure()
     plot(samplePoints, velocity_X',  '-r',...
+        samplePoints, velocity_Y', '--b',...
         samplePoints,velocity_Z', '.-c',...
-        samplePoints, velocity_X'.*logicalMaskLeftFO, 'pr',...
-        samplePoints, velocity_X'.*logicalMaskLeftFS, 'pb',...
         samplePoints, velocity_Z'.*logicalMaskLeftFO, 'pr',...
         samplePoints, velocity_Z'.*logicalMaskLeftFS, 'pb');  
-    legend('x-velocity', 'z-velocity','Foot Off','Foot Strike');
+    legend('x-velocity', 'y-velocity', 'z-velocity');
     title('Velocity');
-    xlabel('Time [s]');
-    ylabel('Velocity [m/s]');
-    
-    figure();
-    plot(samplePoints, velocity_Y', '--b',...
-        samplePoints, velocity_Y'.*logicalMaskLeftFO, 'pr',...
-        samplePoints, velocity_Y'.*logicalMaskLeftFS, 'pb');  
-    legend('y-velocity','Foot Off','Foot Strike');
-    title('Velocity');
-    xlabel('Time [s]');
-    ylabel('Velocity [m/s]');
-        
-
 else
-    figure();
     plot(samplePoints, velocity_X',  '-r',...
+        samplePoints, velocity_Y', '--b',...
         samplePoints,velocity_Z', '.-c',...
-        samplePoints, velocity_X'.*logicalMaskRightFO, 'pr',...
-        samplePoints, velocity_X'.*logicalMaskRightFS, 'pb',...
         samplePoints, velocity_Z'.*logicalMaskRightFO, 'pr',...
         samplePoints, velocity_Z'.*logicalMaskRightFS, 'pb');  
-    legend('x-velocity', 'z-velocity','Foot Off','Foot Strike');
+    legend('x-velocity', 'y-velocity', 'z-velocity');
     title('Velocity');
-    xlabel('Time [s]');
-    ylabel('Velocity [m/s]');
-    
-    figure();
-    plot(samplePoints, velocity_Y', '--b',...
-        samplePoints, velocity_Y'.*logicalMaskRightFO, 'pr',...
-        samplePoints, velocity_Y'.*logicalMaskRightFS, 'pb');  
-    legend('y-velocity','Foot Off','Foot Strike');
-    title('Velocity');
-    xlabel('Time [s]');
-    ylabel('Velocity [m/s]');
 end
 end
