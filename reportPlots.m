@@ -15,7 +15,7 @@ function reportPlots()
     ylim([-0.1 1.4]);
     outliers = findobj(bPlot,'Tag','Outliers');
     yy = get(outliers,'YData');
-    print('Figures/Performance Box Plot, without outliers', '-dpdf')
+    print('Figures/Performance Box Plot, without outliers', '-dpng')
     
     %with outliers
     figure()
@@ -27,5 +27,5 @@ function reportPlots()
     set(gca, 'XTickLabel', {'Float', 'No Float'})
     outliers = findobj(bPlot,'Tag','Outliers');
     yy = get(outliers,'YData');
-    print('Figures/Performance Box Plot, with outliers', '-dpdf')
+    print('Figures/Performance Box Plot, with outliers', '-dpng')
 end
