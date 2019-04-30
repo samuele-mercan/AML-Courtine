@@ -21,7 +21,11 @@ TODOs:
 Samuele:
 - Adapt Load DONE
 - Adapt code with "InitializeGaitEvents" DONE
-- Correct frequency in logicalMaskSCI
+- logicalMaskSCI DONE
+- logicalMaskHealthy DONE
+- plotSensorSCI DONE
+- plotSensorHealthy DONE
+- Animated Plots DONE (Could make it better)
 - Gait detection with velocity
 - Stick plot zy-axis ALMOST DONE
 - Add to Stick the FO and FS
