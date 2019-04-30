@@ -149,4 +149,19 @@ HealthySubjectsGaitCyclesRight = struct();
     plotSensorSCI(SCI_GaitCycles_Float_Left, 1, 'LTOE', 1);
     plotSensorSCI(SCI_GaitCycles_NoFloat_Left, 1, 'RTOE', 0);
     plotSensorSCI(SCI_GaitCycles_Float_Left, 1, 'RTOE', 0);
+    
+    %% Samuele's plots Velocity Healthy
+    
+    % TODO: separe times T01-03
+    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 'NOFLOAT', 1);
+    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 'FLOAT', 1);
+    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 'NOFLOAT', 0);
+    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 'FLOAT', 0);
+    
+    %% Samuele's plots Velocity SCI
+    
+    plotVelocitySCI(SCI_GaitCycles_NoFloat_Left, 1, 'LTOE', 1);
+    plotVelocitySCI(SCI_GaitCycles_Float_Left, 1, 'LTOE', 1);
+    plotVelocitySCI(SCI_GaitCycles_NoFloat_Left, 1, 'RTOE', 0);
+    plotVelocitySCI(SCI_GaitCycles_Float_Left, 1, 'RTOE', 0);
 end
