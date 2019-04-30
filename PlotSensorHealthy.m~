@@ -35,11 +35,11 @@ if (left)
     plot(samplePoints, plotData(:,1)', '-r',...
         samplePoints, plotData(:,3)', '-m',...
         samplePoints, plotData(:,1)'.*logicalMaskLeftFO, 'pr',...
-        samplePoints, plotData(:,1)'.*logicalMaskLeftFS, 'pb',...
         samplePoints, plotData(:,3)'.*logicalMaskLeftFO, 'pr',...
+        samplePoints, plotData(:,1)'.*logicalMaskLeftFS, 'pb',...
         samplePoints, plotData(:,3)'.*logicalMaskLeftFS, 'pb');
     title('Sensor position over time');
-    legend('x-axis position', 'z-axis position','Foot Off','Foot Strike');
+    legend('x-axis position', 'z-axis position');
     if (time)
         xlabel('Time [s]');
     else
@@ -52,7 +52,7 @@ if (left)
     samplePoints, plotData(:,2)'.*logicalMaskLeftFO, 'pr',...
     samplePoints, plotData(:,2)'.*logicalMaskLeftFS, 'pb');
     title('Sensor position over time');
-    legend('y-axis position','Foot Off','Foot Strike');
+    legend('y-axis position');
     if (time)
         xlabel('Time [s]');
     else
@@ -82,7 +82,7 @@ else
     samplePoints, plotData(:,2)'.*logicalMaskRightFO, 'pr',...
     samplePoints, plotData(:,2)'.*logicalMaskRightFS, 'pb');
     title('Sensor position over time');
-    legend('y-axis position','Foot Off','Foot Strike');
+    legend('y-axis position');
     if (time)
         xlabel('Time [s]');
     else
