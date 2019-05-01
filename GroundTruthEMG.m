@@ -1,6 +1,17 @@
 function GroundTruthEMG(leftFoot)
 
-if leftFoot
+% leftFoot indicates which foot is used for the gait cycles segmentation
+
+% for each subject, segments the data (EMG signals, kinematics signals, 
+% sampling frequencies, gait events) into gait cycles, using the left foot
+% or the right foot as the reference foot for the gait cycles boundaries
+% using HealthySubjectSegmentation or SCIsegmentation
+
+% detects manually for each gait cycle the onset and offset of the bursts of EMG
+% activities with GroundTruthToolEMG for FLOAT and NO FLOAT for each
+% subject
+
+if leftFoot % reference foot is the left foot
     
     % HEALTHY
 
@@ -83,7 +94,7 @@ if leftFoot
     GroundTruthToolEMG(GaitCyclesFloat10,'/GroundTruthBurstsLeft/2019_SCI_FLOAT.mat');
     GroundTruthToolEMG(GaitCyclesNoFloat10,'/GroundTruthBurstsLeft/2019_SCI_NO_FLOAT.mat');
 
-else
+else % reference foot is the right foot
     
     [GaitCyclesFloat1,GaitCyclesNoFloat1] = ...
     HealthySubjectSegmentation('Healthy Recordings/Subject1_2018/FLOAT/S1_FLOAT.mat', ...
