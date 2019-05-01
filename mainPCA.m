@@ -3,9 +3,7 @@
 
 clear all;close all;
 
-%load('parametersKin.mat')
-
-load('NEWparametersKin.mat')
+load('parametersKin.mat')
 load('parametersEMG.mat')
 variableNamesEMG = {'duration LMG', 'duration RMG',...
     'duration LTA',  'duration RTA', 'mean LMG','mean RMG',...
