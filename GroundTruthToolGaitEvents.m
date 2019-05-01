@@ -1,5 +1,5 @@
 
-function groundTruthTool(dataName, fileName)
+function GroundTruthGaitEvents(dataName, fileName)
 
 % this tool plots each raw signal for the kinematics with a cursor 
 % by looking at the signal, the locations of the gait events are found
