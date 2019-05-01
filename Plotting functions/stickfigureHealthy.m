@@ -44,31 +44,31 @@ hold on
 for i = rangeStart:1:rangeEnd
     if (left)
         if(logicalMaskLeftFO(i) == 1)
-            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)], 'Color','red','LineWidth', 2);
-            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)], 'Color','red','LineWidth', 2);
-            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)], 'Color','red','LineWidth', 2);
+            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)], 'Color','red','LineWidth', 2,'Marker','.');
+            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)], 'Color','red','LineWidth', 2,'Marker','.');
+            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)], 'Color','red','LineWidth', 2,'Marker','.');
         elseif(logicalMaskLeftFS(i) == 1)
-            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)], 'Color','magenta','LineWidth', 2);
-            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)], 'Color','magenta','LineWidth', 2);
-            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)], 'Color','magenta','LineWidth', 2);
+            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)], 'Color','magenta','LineWidth', 2,'Marker','.');
+            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)], 'Color','magenta','LineWidth', 2,'Marker','.');
+            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)], 'Color','magenta','LineWidth', 2,'Marker','.');
         else
-            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)]);
-            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)]);
-            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)]);
+            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)],'Marker','.');
+            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)],'Marker','.');
+            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)],'Marker','.');
         end
     else
         if(logicalMaskRightFO(i) == 1)
-            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)], 'Color','red','LineWidth', 2);
-            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)], 'Color','red','LineWidth', 2);
-            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)], 'Color','red','LineWidth', 2);
+            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)], 'Color','red','LineWidth', 2,'Marker','.');
+            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)], 'Color','red','LineWidth', 2,'Marker','.');
+            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)], 'Color','red','LineWidth', 2,'Marker','.');
         elseif(logicalMaskRightFS(i) == 1)
-            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)], 'Color','magenta','LineWidth', 2);
-            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)], 'Color','magenta','LineWidth', 2);
-            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)], 'Color','magenta','LineWidth', 2);
+            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)], 'Color','magenta','LineWidth', 2,'Marker','.');
+            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)], 'Color','magenta','LineWidth', 2,'Marker','.');
+            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)], 'Color','magenta','LineWidth', 2,'Marker','.');
         else
-            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)]);
-            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)]);
-            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)]);
+            line([plotDataTOE(i,2) plotDataANK(i,2)],[plotDataTOE(i,3) plotDataANK(i,3)],'Marker','.');
+            line([plotDataANK(i,2) plotDataKNE(i,2)],[plotDataANK(i,3) plotDataKNE(i,3)],'Marker','.');
+            line([plotDataKNE(i,2) plotDataHIP(i,2)],[plotDataKNE(i,3) plotDataHIP(i,3)],'Marker','.');
         end
     end
 end
