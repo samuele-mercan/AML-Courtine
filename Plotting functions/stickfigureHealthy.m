@@ -38,6 +38,9 @@ sizeData = size(plotDataTOE(:,1));
 if (sizeData(1) < rangeEnd)
     rangeEnd = sizeData(1);
 end
+if(rangeStart < 1)
+    rangeStart = 1;
+end
  
 figure();
 hold on
