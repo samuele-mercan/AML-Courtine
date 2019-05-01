@@ -1,9 +1,12 @@
 function [SCI_GaitCycles_Float, SCI_GaitCycles_noFloat] = SCIsegmentation(leftFoot)
-    %======================================================================
-    % Load Data for SCI subject
-    %======================================================================
     
-    %% Load the data
+    % load the gait events for the FLOAT and NO FLOAT for a subject
+    
+    % calls segmentation for both FLOAT and NO FLOAT data of a SCI subject 
+    % to segment the signals into gait cycles and associate each gait cycle 
+    % with its related gait events (FS_left,FS_right,FO_left, FO_right)
+    
+    % leftFoot indicates which foot to use for the segmentation
     
     % Data with Float, no Crutches 
     

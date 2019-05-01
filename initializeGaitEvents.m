@@ -5,13 +5,17 @@ function [dataset_01_FS_left, dataset_01_FS_right, ...
     dataset_03_FS_left, dataset_03_FS_right, ...
     dataset_03_FO_left, dataset_03_FO_right] = initializeGaitEvents(table_01, table_02, table_03) 
 
-    % LOAD DATA FROM CSV FILES
-    % table_01
+    % separates all gait events of each trial into vectors of FS_right, 
+    % FS_left, FO_left, FO_right
+    
+    % TRIAL 1
     dataset_01_FS_left=[];
     dataset_01_FS_right=[];
     dataset_01_FO_left=[];
     dataset_01_FO_right=[];
    
+    % for each gait event of the first trial, determines if left or right
+    % and if foot off or foot strike and stores it
     for i = 1:length(table_01.Name)
         if string(table_01.Name{i})=='Foot Strike'
             if string(table_01.Context{i}) == 'Left'
@@ -28,7 +32,7 @@ function [dataset_01_FS_left, dataset_01_FS_right, ...
         end
     end    
     
-    % table_02
+    % TRIAL 2
     dataset_02_FS_left=[];
     dataset_02_FS_right=[];
     dataset_02_FO_left=[];
@@ -49,7 +53,8 @@ function [dataset_01_FS_left, dataset_01_FS_right, ...
             end
         end
     end
-    % table_03
+    
+    % TRIAL 3
     dataset_03_FS_left=[];
     dataset_03_FS_right=[];
     dataset_03_FO_left=[];
@@ -71,6 +76,4 @@ function [dataset_01_FS_left, dataset_01_FS_right, ...
         end
     end
     
-    
-    
-    
+   

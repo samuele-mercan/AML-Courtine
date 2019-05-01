@@ -1,10 +1,23 @@
 function [GaitCycles] = HealthyGaitCyclesSegmentation(datasetName, datasetGaitEvents, leftFoot)
 
+    % segments the data into gait cycles for Heatlhy subjects
+    
+    % datasetName : the data of a healthy subject (FLOAT or NO FLOAT)
+    % datasetGaitEvents : the gait events associated to the data (FS_left,
+    % FS_right, FO_left, FO_right))
+    % leftFoot : indicates which foot is used for the segmentation (true if
+    % the left foot is used)
+    
+    % GaitCycles : structure containing the segmented gait cycles, as well
+    % as the sampling frequencies and gait events of each gait cycle for
+    % the 3 trials
+
     %% Load Data
     
     GaitEvents = load(datasetGaitEvents);
     fieldsGaitEvents = fieldnames(GaitEvents);
     
+    % retrieves the gait events for each trial for both feet
     dataset_01_FS_left = GaitEvents.(fieldsGaitEvents{1}).T01_FS_left;
     dataset_01_FS_right = GaitEvents.(fieldsGaitEvents{1}).T01_FS_right;
     dataset_01_FO_left = GaitEvents.(fieldsGaitEvents{1}).T01_FO_left;
@@ -23,6 +36,8 @@ function [GaitCycles] = HealthyGaitCyclesSegmentation(datasetName, datasetGaitEv
     dataset = load(datasetName);
     fields = fieldnames(dataset); 
     
+    % retrieves the sensors positions and the sampling frequencies for 
+    % each trial for both feet
     fsKIN_dataset_01 = dataset.(fields{1}).T_01.fsKin;
     fsKIN_dataset_02 = dataset.(fields{1}).T_02.fsKin;
     fsKIN_dataset_03 = dataset.(fields{1}).T_03.fsKin;
@@ -63,9 +78,10 @@ function [GaitCycles] = HealthyGaitCyclesSegmentation(datasetName, datasetGaitEv
     RTOE_dataset_02 = dataset.(fields{1}).T_02.Raw.Kin.RTOE;
     RTOE_dataset_03 = dataset.(fields{1}).T_03.Raw.Kin.RTOE;
     
+    % retrieves and filters the EMG signals with a Butterworth filter
     frequency = 10;
     [b,a] = butter(3,frequency/500,'high');    
-    
+   
     LTA_dataset_01 = filtfilt(b,a,dataset.(fields{1}).T_01.Raw.EMG.LTA);
     LTA_dataset_02 = filtfilt(b,a,dataset.(fields{1}).T_02.Raw.EMG.LTA);
     LTA_dataset_03 = filtfilt(b,a,dataset.(fields{1}).T_03.Raw.EMG.LTA);
@@ -88,8 +104,11 @@ function [GaitCycles] = HealthyGaitCyclesSegmentation(datasetName, datasetGaitEv
     
     % we take the Foot Strike to segment the data in gait cycles
 
-    %T_01
+    % TRIAL 1
     
+    % determine whether should use the foot strikes of the left foot or the 
+    % right foot to determine the gait cycles and select the foot strikes
+    % in consequence
     if (leftFoot)
         firstLength = length(dataset_01_FS_left)-1;
         gaitEventsForSegmentation = dataset_01_FS_left; 
@@ -98,35 +117,50 @@ function [GaitCycles] = HealthyGaitCyclesSegmentation(datasetName, datasetGaitEv
         gaitEventsForSegmentation = dataset_01_FS_right; 
     end
     
+    % stores the data (sampling frequency, sensors positions, EMG, gait 
+    % events) into the structure for each gait cycle of the first trial
     for i=1:firstLength
         
         GaitCycles.(strcat('GC',num2str(i))).Kin = [] ;
         GaitCycles.(strcat('GC',num2str(i))).EMG = [] ;
             
+        % determines the indexes for the beginning and the end of the gait
+        % cycle by using the times of the foot strikes of the foot used for
+        % the segmentation
         startIndexKin = int16(gaitEventsForSegmentation(i)*fsKIN_dataset_01);
         endIndexKin = int16(gaitEventsForSegmentation(i+1)*fsKIN_dataset_01);
         startIndexEmg = int16(gaitEventsForSegmentation(i)*fsEMG_dataset_01);
         endIndexEmg = int16(gaitEventsForSegmentation(i+1)*fsEMG_dataset_01);
-                
+        
+        % kinematics signals left
         GaitCycles.(strcat('GC',num2str(i))).Kin.LHIP = LHIP_dataset_01(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.LKNE = LKNE_dataset_01(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.LANK = LANK_dataset_01(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.LTOE = LTOE_dataset_01(startIndexKin:endIndexKin,:);
         
+        % EMG signals left
         GaitCycles.(strcat('GC',num2str(i))).EMG.LTA = LTA_dataset_01(startIndexEmg:endIndexEmg);
         GaitCycles.(strcat('GC',num2str(i))).EMG.LMG = LMG_dataset_01(startIndexEmg:endIndexEmg);
-
+        
+        % kinematics signals right
         GaitCycles.(strcat('GC',num2str(i))).Kin.RHIP = RHIP_dataset_01(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.RKNE = RKNE_dataset_01(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.RANK = RANK_dataset_01(startIndexKin:endIndexKin,:);
         GaitCycles.(strcat('GC',num2str(i))).Kin.RTOE = RTOE_dataset_01(startIndexKin:endIndexKin,:);
 
+        % EMG signals right
         GaitCycles.(strcat('GC',num2str(i))).EMG.RTA = RTA_dataset_01(startIndexEmg:endIndexEmg);
         GaitCycles.(strcat('GC',num2str(i))).EMG.RMG = RMG_dataset_01(startIndexEmg:endIndexEmg);
         
+        % sampling frequencies for EMG and kinematics signals
         GaitCycles.(strcat('GC',num2str(i))).fsKIN = fsKIN_dataset_01;
         GaitCycles.(strcat('GC',num2str(i))).fsEMG = fsEMG_dataset_01;
         
+        % select the foot off and foot strikes of both feet associated
+        % with the gait cycle : makes sure that the events are located
+        % after the first foot strike and before the second foot strike of
+        % the foot used to determine the gait cycles, as they determine the 
+        % boundaries of the gait cycle
         if (leftFoot)
             GaitCycles.(strcat('GC',num2str(i))).FS_left = 0;
             GaitCycles.(strcat('GC',num2str(i))).FO_left = dataset_01_FO_left(dataset_01_FO_left < gaitEventsForSegmentation(i+1) & dataset_01_FO_left > gaitEventsForSegmentation(i))-gaitEventsForSegmentation(i);
@@ -141,7 +175,7 @@ function [GaitCycles] = HealthyGaitCyclesSegmentation(datasetName, datasetGaitEv
          
     end
     
-    %T_02
+    % TRIAL 2
     
     if (leftFoot)
         secondLength = length(dataset_02_FS_left)-1;
@@ -151,6 +185,7 @@ function [GaitCycles] = HealthyGaitCyclesSegmentation(datasetName, datasetGaitEv
         gaitEventsForSegmentation = dataset_02_FS_right; 
     end
     
+    % for each gait cycle of the second trial
     for j=1:secondLength
         
         GaitCycles.(strcat('GC',num2str(j+firstLength))).Kin = [] ;
@@ -199,7 +234,7 @@ function [GaitCycles] = HealthyGaitCyclesSegmentation(datasetName, datasetGaitEv
         
     end
 
-    %T_03
+    % TRIAL 3
     
     if (leftFoot)
         thirdLength = length(dataset_03_FS_left)-1;
@@ -209,6 +244,7 @@ function [GaitCycles] = HealthyGaitCyclesSegmentation(datasetName, datasetGaitEv
         gaitEventsForSegmentation = dataset_03_FS_right; 
     end
     
+    % for each gait cycle of the second trial
     for k=1:thirdLength
         
         GaitCycles.(strcat('GC',num2str(k+firstLength+secondLength))).Kin = [] ;
@@ -255,6 +291,3 @@ function [GaitCycles] = HealthyGaitCyclesSegmentation(datasetName, datasetGaitEv
         end
         
     end
-    
-    
-    

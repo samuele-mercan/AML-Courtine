@@ -1,9 +1,19 @@
 close all; clear all; 
 
-%% GAIT CYCLES SEGMENTATION
+%% DATA LOADING AND GAIT CYCLES SEGMENTATION 
+
+% for both FLOAT and NO FLOAT signals and for the 3 trials of each subject,
+% retrieves the EMG and kin frequencies, the segmented gait cycles as well 
+% as the gait events of each gait cycle (FS_left,FS_right,FO_left,FO_right)
+% do the segmentation using first the left and then the right foot 
+% strikes as gait cycles delimiters
+% stocks the structure corresponding to each subject in 2 structures :
+% HealthySubjectsGaitCyclesLeft and HealthySubjectsGaitCyclesRight
 
 % LEFT FOOT
-leftFoot = true;
+
+% indicates which foot to use for the gait cycle segmentation
+leftFoot = true; 
 HealthySubjectsGaitCyclesLeft = struct();
 
 % Healthy subject
@@ -109,6 +119,7 @@ HealthySubjectsGaitCyclesRight = struct();
 
 
 %%
+% stores the names of the kinematics parameters
 variableNames = {'max angle HIP right', 'max angle KNE right', 'max angle ANK right',...
         'max vAng ANK right', ...
         'max angle HIP left', 'max angle KNE left', 'max angle ANK left', ...
@@ -131,31 +142,41 @@ variableNames = {'max angle HIP right', 'max angle KNE right', 'max angle ANK ri
         'stance left', 'stance right', ...
         'swing left', 'swing right', ...
         'cadence'};
-%  AllSubjectsGaitCycles - Subject1 - FLOAT / NO FLOAT - GC1
 
+% for each gait cycle for each subject, evaluates the different kinematics
+% parameters and stores them in different matrices depending on whether it
+% is FLOAT or NO FLOAT, healthy or SCI, right or left foot segmentation
+ 
+% true if SCI and false if healthy subject
 SCI = false;
 
-% Left healthy
+% LEFT HEALTHY
 Kin_Healthy_Float_Left = [];
 Kin_Healthy_NoFloat_Left = [];
+% true if the rightLeg is used for segmentation and false if it is the left
 rightLeg = false;
 
 for i=1:length(fieldnames(HealthySubjectsGaitCyclesLeft)) % for each subject
     % FLOAT
     if i ~= 2; % do not consider the float from subject 2 from 2018   
         for j=1:length(fieldnames(HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).FLOAT)) % for each GC
-
+            
+           % select the EMG signals, kinematics signals, gait events,
+           % sampling frequencies of the gait cycle
            GaitCycle = HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).FLOAT.(strcat('GC',num2str(j)));
            if GaitEventsDetectionCheck(GaitCycle) % check for correct gait events detection
+               % evaluates the gait cycle kinematics parameters
                Kin_Healthy_Float_Left = [Kin_Healthy_Float_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
            else
+               % if no good gait event detection, put NaN as parameters (if
+               % not 1 FS_right, 1 FS_left, 1 FO_right, 1 FO_left)
                Kin_Healthy_Float_Left = [Kin_Healthy_Float_Left; NaN(1,51)];
            end
         end
     end
 
    % NO FLOAT
-   if i ~= 1 && i ~= 7; % do not consider the no float from subject 1 from 2018    
+   if i ~= 1 && i ~= 7; % do not consider the no float from subject 1 from 2018 or the no float from subject 1 2019   
        for j=1:length(fieldnames(HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).NOFLOAT))
 
            GaitCycle = HealthySubjectsGaitCyclesLeft.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
@@ -169,7 +190,7 @@ for i=1:length(fieldnames(HealthySubjectsGaitCyclesLeft)) % for each subject
 end
 
 
-% Right healthy
+% RIGHT HEALTHY
 Kin_Healthy_Float_Right = [];
 Kin_Healthy_NoFloat_Right = [];
 rightLeg = true;
@@ -189,7 +210,7 @@ for i=1:length(fieldnames(HealthySubjectsGaitCyclesRight)) % for each subject
     end
     
    % NO FLOAT
-   if i ~= 1 && i ~= 7; % do not consider the no float from subject 1 from 2018   
+   if i ~= 1 && i ~= 7; % do not consider the no float from subject 1 from 2018 or the no float from subject 1 2019     
        for j=1:length(fieldnames(HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).NOFLOAT))
 
            GaitCycle = HealthySubjectsGaitCyclesRight.(strcat('Subject',num2str(i))).NOFLOAT.(strcat('GC',num2str(j)));
@@ -205,18 +226,23 @@ end
 
 SCI = true;
 
-% SCI Left 
+% SCI LEFT 
 Kin_SCI_Float_Left = [];
 Kin_SCI_NoFloat_Left = [];
 rightLeg = false;
 
-for i=1:length(fieldnames(SCI_GaitCycles_Float_Left))
-    
+% FLOAT
+for i=1:length(fieldnames(SCI_GaitCycles_Float_Left)) % for each gait cycle
+
+    % select the EMG signals, kinematics signals, gait events,
+    % sampling frequencies of the gait cycle
     GaitCycle = SCI_GaitCycles_Float_Left.(strcat('GC',num2str(i)));
+    % evaluates the kinematics parameters
     Kin_SCI_Float_Left = [Kin_SCI_Float_Left; initialize_matrix(GaitCycle, SCI, rightLeg)];
     
 end
 
+% NO FLOAT
 for i=1:length(fieldnames(SCI_GaitCycles_NoFloat_Left))
     
     GaitCycle = SCI_GaitCycles_NoFloat_Left.(strcat('GC',num2str(i)));
@@ -225,11 +251,12 @@ for i=1:length(fieldnames(SCI_GaitCycles_NoFloat_Left))
 end
 
 
-% SCI right
+% SCI RIGHT
 Kin_SCI_Float_Right = [];
 Kin_SCI_NoFloat_Right = [];
 rightLeg = true;
 
+% FLOAT
 for i=1:length(fieldnames(SCI_GaitCycles_Float_Right))
     
     GaitCycle = SCI_GaitCycles_Float_Right.(strcat('GC',num2str(i)));
@@ -237,6 +264,7 @@ for i=1:length(fieldnames(SCI_GaitCycles_Float_Right))
     
 end
 
+% NO FLOAT
 for i=1:length(fieldnames(SCI_GaitCycles_NoFloat_Right))
     
     GaitCycle = SCI_GaitCycles_NoFloat_Right.(strcat('GC',num2str(i)));
@@ -267,13 +295,10 @@ function [correct] = GaitEventsDetectionCheck(GaitCycle)
 
 end
 
-%% calculate all parameters for all gait cycles
+%% calculate all kinematics parameters for all gait cycles
 
 % rightLeg is True if the right leg is used as reference to segment the
 % gait cycles and is False if the left leg is used
-
-% sampling_frequency_kin is the sampling frequency of the kinetics
-% measures
 
 function parameters = initialize_matrix(GaitCycle, SCI, rightLeg)
     
@@ -334,9 +359,12 @@ function parameters = initialize_matrix(GaitCycle, SCI, rightLeg)
 end
 
 %% calculate different angles
+
+% calculates hip, knee and ankle max angles and max angular velocity of 
+% angle from a given gait cycle 
+
 function [max_angle_HIP, max_angle_KNE, max_angle_ANK, max_vAng_ANK] = calculate_jointAngles(data,rightLeg, SCI)
-    %calculates hip, knee and ankle angle from a given kinematic data structure
-    %and max angular velocity of angle
+    
     if rightLeg
         if SCI
             Hip = data.Kin.RASI;
@@ -383,6 +411,7 @@ function [max_angle_HIP, max_angle_KNE, max_angle_ANK, max_vAng_ANK] = calculate
         angle_ANK(i) = acosd((a*a + c*c -b*b)/(2*a*c));
     end
     
+    % retains only max angle
     max_angle_HIP = max(angle_HIP);
     max_angle_KNE = max(angle_KNE);
     max_angle_ANK = max(angle_ANK);
@@ -390,9 +419,13 @@ function [max_angle_HIP, max_angle_KNE, max_angle_ANK, max_vAng_ANK] = calculate
 end
 
 %% calculate elevation angles 
+
+% calculates knee and ankle max elevation angles from a given kinematic 
+% data structure
+
 function [max_elevationangle_THIGH, max_elevationangle_SHANK,...
     max_elevationangle_FOOT] = calculate_elevationAngles(data,rightLeg, SCI)
-    %calculates knee and ankle angle from a given kinematic data structure
+    
     if rightLeg
         if SCI
             Hip = data.Kin.RASI;
@@ -435,13 +468,19 @@ function [max_elevationangle_THIGH, max_elevationangle_SHANK,...
         elevationangle_FOOT(i)     = acosd(g/c);
     end
     
+    % retains only the maximum angles
     max_elevationangle_THIGH = max(elevationangle_THIGH);
     max_elevationangle_SHANK = max(elevationangle_SHANK);
     max_elevationangle_FOOT = max(elevationangle_FOOT);
 end
 
-%% calculate elevation angles 
+%% calculate stride length
+
+% determines the length walked during a gait cycle by the foot used to
+% segment the gait cycle (right if rightLeg and left if not rightLeg)
+
 function strideLength = calculate_strideLength(data, rightLeg)
+
     if rightLeg
         Ankle = data.Kin.RANK;         
     else
@@ -453,12 +492,12 @@ end
 
 %% calculate peak swing velocity and acceleration
 
+% peak swing velocity and acceleration of the ankle in the gait cycle
+
 function [peakSwingVelocity, peakSwingAcceleration] = calculate_peakSwing (data,rightLeg)
     if rightLeg
-        Knee = data.Kin.RKNE;
         Ankle = data.Kin.RANK;
     else
-        Knee = data.Kin.LKNE;
         Ankle = data.Kin.LANK;
     end
     
@@ -469,30 +508,41 @@ end
 
 %% Cadence
 
+% evaluates the number of steps per minute
+
 function [cadence] = calculate_cadence(GaitCycle)
-    GCT = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
+
+    GCT = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN; % gait cycle duration
     cadence = 120/GCT;  
 end
 
 %% Swing
 
-% rightLeg is a variable with value True or False to indicate whether the
-% foot used to determine the gait cycles is the right foot or the left foot
+% evaluates the swing duration : duration between the foot off and the
+% consecutive foot strike of the same foot
 
 function [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg)
     
+    % duration of the gait cycle = second foot strike event
+    % of the foot used for the gait cycle segmentation
     reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
     
     if rightLeg % the reference foot is the right foot
         
         FS_right = reference_foot_strike;
         
+        % left swing
+        % makes sure that there are a FS and a FO detected for the left
+        % foot (otherwise store a NaN as parameter)
         if ~  isempty(GaitCycle.FS_left) && ~  isempty(GaitCycle.FO_left)
             swing_left = GaitCycle.FS_left - GaitCycle.FO_left ;
         else
             swing_left = nan;
         end
         
+        % right swing
+        % makes sure that there is a FO detected for the right foot
+        % (otherwise store a NaN as parameter)
         if ~  isempty(GaitCycle.FO_right)
             swing_right = FS_right - GaitCycle.FO_right;
         else
@@ -502,12 +552,16 @@ function [swing_left,swing_right] = calculate_swing(GaitCycle, rightLeg)
     else  % reference is the left foot
         FS_left = reference_foot_strike;
         
+        % right swing
+        % makes sure that a FS and a FO were detected for the right foot
         if ~  isempty(GaitCycle.FS_right) && ~  isempty(GaitCycle.FO_right)
             swing_right = GaitCycle.FS_right - GaitCycle.FO_right;
         else
             swing_right = nan;
         end
         
+        % left swing
+        % makes sure that a FO was detected for the left foot
         if ~  isempty(GaitCycle.FO_left)
             swing_left = FS_left - GaitCycle.FO_left;
         else
@@ -518,25 +572,31 @@ end
 
 %% Stance
 
-% rightLeg is a variable with value True or False to indicate whether the
-% foot used to determine the gait cycles is the right foot or the left foot
+% evaluates the stance duration : duration between the foot strike and the
+% consecutive foot off of the same foot
 
 % for the stance period of the non reference foot, we do an approximation : 
 % we use the end of the stance from the lase gait cycle and the beginning
-% of the stance from the curremt gait cycle
+% of the stance from the current gait cycle
 
 function [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg)
 
+    % determines the duration of the gait cycle = second foot strike event
+    % of the foot used for the gait cycle segmentation
     reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
 
     if rightLeg % reference foot is the right foot
         
+        % right stance
+        % makes sure that a FO was detected for the right foot
         if ~  isempty(GaitCycle.FO_right)
            stance_right = GaitCycle.FO_right;
         else
             stance_right = nan;
         end
         
+        % left stance
+        % makes sure that a FO and FS are detected for the left foot
         if ~  isempty(GaitCycle.FO_left) && ~  isempty(GaitCycle.FS_left)
             stance_left = GaitCycle.FO_left + (reference_foot_strike - GaitCycle.FS_left);
         else
@@ -546,12 +606,16 @@ function [stance_left, stance_right] = calculate_stance(GaitCycle, rightLeg)
         
     else % the reference foot is the left foot
         
+        % left stance
+        % makes sure that a FO was detected for the left foot
         if ~  isempty(GaitCycle.FO_left)
             stance_left = GaitCycle.FO_left;
         else
             stance_left = nan;
         end
         
+        % right stance
+        % makes sure that a FO and FS are detected for the right foot
         if ~  isempty(GaitCycle.FO_right) && ~  isempty(GaitCycle.FS_right)
             stance_right = GaitCycle.FO_right + (reference_foot_strike - GaitCycle.FS_right);
         else
@@ -564,19 +628,25 @@ end
 %% Double support
 
 % evaluates the duration of the initial and terminal double supports during
-% the gait cycle
+% the gait cycle  = time between the foot strike of a foot and the
+% consecutive foot off of the contralateral foot
 
 function [initial_double_support,terminal_double_support] = calculate_double_support(...
     GaitCycle,rightLeg)
     
-    if rightLeg
+    if rightLeg % reference foot is the right foot
         
+        % initial double support
+        % makes sure that a FO was detected for the left foot
         if ~  isempty(GaitCycle.FO_left)
             initial_double_support = GaitCycle.FO_left;
-        else
+        else % otherwise gives a NaN as value to the parameter
             initial_double_support = nan;
         end
         
+        % terminal double support
+        % makes sure that a FS and a FO were detected for the left and 
+        % right foot
         if ~  isempty(GaitCycle.FS_left) && ~  isempty(GaitCycle.FO_right)
             terminal_double_support = GaitCycle.FO_right - GaitCycle.FS_left;
         else
@@ -585,12 +655,17 @@ function [initial_double_support,terminal_double_support] = calculate_double_sup
         
     else % left foot is the reference
         
+        % initial double support
+        % makes sure that a FO was detected for the right foot        
         if ~  isempty(GaitCycle.FO_right)
             initial_double_support = GaitCycle.FO_right;
         else
             initial_double_support = nan;
         end
-        
+
+        % terminal double support
+        % makes sure that a FS and a FO were detected for the right and 
+        % left foot
         if ~  isempty(GaitCycle.FS_right) && ~  isempty(GaitCycle.FO_left)
             terminal_double_support = GaitCycle.FO_left - GaitCycle.FS_right;
         else
@@ -604,16 +679,18 @@ end
 %% Step period
 
 % Step period is determined as the time between 2 consecutive footstrikes
-% (definition cours)
 % Step left is the step during which foot left swings
 % Step right is the step during which foot right swings
 
 function [step_period_left,step_period_right] = calculate_step_period(GaitCycle,rightLeg)
 
+    % duration of the gait cycle = second foot strike event of the foot 
+    % used for the gait cycle segmentation
     reference_foot_strike = length(GaitCycle.Kin.LANK(:,1))/GaitCycle.fsKIN;
     
-    if rightLeg
-        
+    if rightLeg % reference foot is the right foot
+
+        % makes sure that a FS was detected for the left foot 
         if ~  isempty(GaitCycle.FS_left)
             step_period_left = GaitCycle.FS_left;
             step_period_right = reference_foot_strike - GaitCycle.FS_left;
@@ -622,8 +699,9 @@ function [step_period_left,step_period_right] = calculate_step_period(GaitCycle,
             step_period_right = nan;
         end
         
-    else
-        
+    else % reference foot is the left foot
+
+        % makes sure that a FS was detected for the right foot         
         if ~  isempty(GaitCycle.FS_right)
             step_period_right = GaitCycle.FS_right;
             step_period_left = reference_foot_strike - GaitCycle.FS_right;
@@ -641,34 +719,41 @@ end
 % corresponds to the distance covered between the initial contact of one
 % foot and the following initial contact of the contralateral foot
 % = distance between 2 consecutive footstrikes (Y direction)
-% (definition cours)
 
 function [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg)
 
-    if rightLeg
+    if rightLeg % reference foot is the right foot
         
+        % makes sure that a FS was detected for the left foot  
         if ~  isempty(GaitCycle.FS_left)
-            FS_right1 = GaitCycle.Kin.RANK(1,2);
+            FS_right1 = GaitCycle.Kin.RANK(1,2); % Y position first FS (right)
             index_FS_left = round(GaitCycle.FS_left*GaitCycle.fsKIN);
-            FS_left = GaitCycle.Kin.LANK(index_FS_left,2);           
-            FS_right2 = GaitCycle.Kin.RANK(end,2);
+            FS_left = GaitCycle.Kin.LANK(index_FS_left,2); % Y position 2nd FS (left)      
+            FS_right2 = GaitCycle.Kin.RANK(end,2); % Y position third FS (right)
             
+            % between consecutive initial contacts of right and left foot
             step_length_left = abs(FS_left-FS_right1);
+            % between consecutive initial contacts of left and right foot
             step_length_right = abs(FS_right2-FS_left);
         else
             step_length_right = nan;
             step_length_left = nan;
         end
         
-    else
+    else % reference foot is the left foot
         
+        % makes sure that a FS was detected for the right foot 
         if ~  isempty(GaitCycle.FS_right)
-            FS_left1 = GaitCycle.Kin.LANK(1,2);
+            FS_left1 = GaitCycle.Kin.LANK(1,2); % Y position first FS (left)
             index_FS_right = round(GaitCycle.FS_right*GaitCycle.fsKIN);
-            FS_right = GaitCycle.Kin.RANK(index_FS_right,2);
-            FS_left2 = GaitCycle.Kin.LANK(end,2);
+            FS_right = GaitCycle.Kin.RANK(index_FS_right,2); % Y position 2nd FS (right) 
+            FS_left2 = GaitCycle.Kin.LANK(end,2); % Y position third FS (left)
             
+            % distance between consecutive initial contacts of left and
+            % right foot in Y direction
             step_length_right = abs(FS_right - FS_left1);
+            % distance between consecutive initial contacts of right and
+            % left foot in Y direction
             step_length_left = abs(FS_left2 - FS_right);
         else
             step_length_right = nan;
@@ -680,6 +765,8 @@ function [step_length_right,step_length_left] = step_length(GaitCycle,rightLeg)
 end
 
 %% Heel and toe max clearance
+
+% max heel and toe clearance during the gait cycle (Z direction)
 
 function [max_clearance_toe_right, max_clearance_toe_left, max_clearance_heel_right, ...
     max_clearance_heel_left] = calculate_max_clearance(GaitCycle)
@@ -699,30 +786,40 @@ end
 
 function [right_step_width,left_step_width] = calculate_step_width(GaitCycle,rightLeg)
     
-    if rightLeg
+    if rightLeg % reference foot is the right foot
         
+        % makes sure that a FS was detected for the left foot 
         if ~  isempty(GaitCycle.FS_left)
-            FS_right1 = GaitCycle.Kin.RANK(1,1);
+            FS_right1 = GaitCycle.Kin.RANK(1,1); % X position first FS (right)
             index_FS_left = round(GaitCycle.FS_left*GaitCycle.fsKIN);
-            FS_left = GaitCycle.Kin.LANK(index_FS_left,1);           
-            FS_right2 = GaitCycle.Kin.RANK(end,1);
+            FS_left = GaitCycle.Kin.LANK(index_FS_left,1); % X position second FS (left)        
+            FS_right2 = GaitCycle.Kin.RANK(end,1); % X position third FS (right)
             
+            % distance between consecutive initial contacts of right and
+            % left foot in X direction
             left_step_width = abs(FS_left-FS_right1);
+            % distance between consecutive initial contacts of left and
+            % right foot in X direction
             right_step_width = abs(FS_right2-FS_left);
         else
             right_step_width = nan;
             left_step_width = nan;
         end
         
-    else
+    else % reference foot is the left foot
         
+        % makes sure that a FS was detected for the right foot 
         if ~  isempty(GaitCycle.FS_right)
-            FS_left1 = GaitCycle.Kin.LANK(1,1);
+            FS_left1 = GaitCycle.Kin.LANK(1,1); % X position first FS (left)
             index_FS_right = round(GaitCycle.FS_right*GaitCycle.fsKIN);
-            FS_right = GaitCycle.Kin.RANK(index_FS_right,1);
-            FS_left2 = GaitCycle.Kin.LANK(end,1);
+            FS_right = GaitCycle.Kin.RANK(index_FS_right,1);  % X position second FS (right)
+            FS_left2 = GaitCycle.Kin.LANK(end,1);  % X position third FS (left)
             
+            % distance between consecutive initial contacts of left and
+            % right foot in X direction
             right_step_width = abs(FS_right - FS_left1);
+            % distance between consecutive initial contacts of right and
+            % left foot in X direction            
             left_step_width = abs(FS_left2 - FS_right);
         else
             right_step_width = nan;
@@ -740,6 +837,8 @@ end
 
 function [symmetry_index,symmetry_ratio] = calculate_symmetry_param(right_param,left_param)
 
+    % makes sure that the parameter was correctly detected for both feet
+    % and is not a NaN
     if ~  isempty(right_param) && ~  isempty(left_param)
         symmetry_index = 100*(right_param - left_param)/(0.5*(right_param + left_param));
         symmetry_ratio = 100*right_param/left_param;
@@ -751,7 +850,8 @@ function [symmetry_index,symmetry_ratio] = calculate_symmetry_param(right_param,
 end
 
 % here measures symmetry index for swing, stance, step period, step
-% lenght, max toe clearance, max heel clearance, step width
+% lenght, max toe clearance, max heel clearance, step width for a gait
+% cycle
 
 function [swing_SI, swing_SR, stance_SI, stance_SR, step_period_SI, step_period_SR, ...
     step_length_SI, step_length_SR, ...
