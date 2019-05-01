@@ -1,4 +1,4 @@
-function [] = PlotSensorHealthy(data,y, time, subject, sensorType, left, FLOATorNOT, rangeStart, rangeEnd)
+function [] = PlotSensorHealthy(data,,y, time, subject, sensorType, left, FLOATorNOT, rangeStart, rangeEnd)
 % Plot the movement of the sensor. On the same plot we see all the axis
 % movement.
 %   Takes the segmented input data and connects them in a whole plot in
@@ -108,6 +108,6 @@ else
         ylabel('Position [m]');
     end
 end
-end
 
+end
 

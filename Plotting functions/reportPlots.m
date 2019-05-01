@@ -138,5 +138,21 @@ HealthySubjectsGaitCyclesRight = struct();
     yy = get(outliers,'YData');
     print('Figures/Performance Box Plot, with outliers', '-dpng')
     
+   %stickFigure
+   rangeStart = 700;
+   rangeEnd = 875;
+   stickfigureHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'NOFLOAT', rangeStart, rangeEnd);
+   print('Figures/stickFigure', '-dpng')
    
+   %LTOE sensor Y
+   rangeStart = 650;
+   rangeEnd = 1099;
+   PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 0, 1, 'Subject4','LTOE', 1, 'NOFLOAT', rangeStart, rangeEnd)
+   print('Figures/plotYSensor_LTOE', '-dpng')
+   
+   %LTOE sensor XZ
+   rangeStart = 650;
+   rangeEnd = 1099;
+   PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 1, 'Subject4','LTOE', 1, 'NOFLOAT', rangeStart, rangeEnd)
+   print('Figures/plotXZSensor_LTOE', '-dpng')
 end
