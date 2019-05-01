@@ -74,6 +74,7 @@ for i = rangeStart:1:rangeEnd
 end
 title('Stick Figure Plot');
 xlabel('Sampling points');
+ylabel('Z-dimension [cm]');
 hold off
 
 end
