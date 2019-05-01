@@ -1,42 +1,54 @@
 function detectionAlgorithm(dataFile, fileName)
+% Algorithm that detects the gait events.
+% It finds the Foot strikes and Foot offs for each dataFile given.
+% It the stores the gait events in a .mat structure files.
+% The detection is done using the y-axis of the kinematic signal of the toe. 
+% It finds the location of the plateaus, corresponding to the stance
+% phases. 
+% Then, we know that the beginning of this phase corresponds to the foot 
+% strike and the end to the foot off event. 
 
-% Algorithm that detects the gait events, it finds the Foot strikes and Foot offs %
-
+    % load the data (.mat structures)
     data = load(dataFile);
     fields = fieldnames(data);
     
-    % the detection is done using the y-axis of the kinematic signal of the
-    % toe 
-    % Find the location of the plateaus, this flat portion of the signal
-    % are the stance phases
-    
     %% LEFT FOOT, T_01
-    
+
+    % calculate the time vector, based on the sampling frequency 
     time_start = 0;
     time_end = (length(data.(fields{1}).T_01.Raw.Kin.LTOE(:,2))-1)/data.(fields{1}).T_01.fsKin;
     time_step = 1/data.(fields{1}).T_01.fsKin;
     time = time_start:time_step:time_end;
     
+    % findpeaks, with the right PeakDistance, finds the location of the
+    % stance phase plateau
     [pks, locks] = findpeaks(data.(fields{1}).T_01.Raw.Kin.LTOE(:,2),'MinPeakDistance',100);
 
+    % initialize the vectors to store the gait events 
     T01_FootStrikes_left = [];
     T01_FootOffs_left = [];
     
+    % by using a specific threshold we determine all the points of the
+    % stance phase 
     for j=1:length(pks)
         
-        stancePos = [];
+        stanceLocation = [];
         
         for i=1:length(data.(fields{1}).T_01.Raw.Kin.LTOE(:,2))
             if abs(data.(fields{1}).T_01.Raw.Kin.LTOE(i,2) - pks(j))<= 30
-                stancePos = [stancePos i];
+                stanceLocation = [stanceLocation i];
             end   
         end
         
-        T01_FootStrikes_left = [T01_FootStrikes_left time(stancePos(1))];
-        T01_FootOffs_left = [T01_FootOffs_left time(stancePos(end))];
+        T01_FootStrikes_left = [T01_FootStrikes_left time(stanceLocation(1))];
+        T01_FootOffs_left = [T01_FootOffs_left time(stanceLocation(end))];
 
     end
     
+    % remove all the wronly detected gait events by making sure that every 
+    % foot strike is followed by a foot off;
+    % like this we can make sure that there are no two foot strikes, or
+    % foot off, are next to each other
     GaitEvents = [T01_FootStrikes_left(1) T01_FootOffs_left(1)];
     
     for index=2:length(T01_FootStrikes_left)
@@ -49,34 +61,44 @@ function detectionAlgorithm(dataFile, fileName)
     
     T01_FootStrikes_left = GaitEvents(1:2:end);
     T01_FootOffs_left = GaitEvents(2:2:end);
-    
+   
     %% LEFT FOOT, T_02
     
+    % calculate the time vector, based on the sampling frequency 
     time_start = 0;
     time_end = (length(data.(fields{1}).T_02.Raw.Kin.LTOE(:,2))-1)/data.(fields{1}).T_02.fsKin;
     time_step = 1/data.(fields{1}).T_02.fsKin;
     time = time_start:time_step:time_end;
     
+    % findpeaks, with the right PeakDistance, finds the location of the
+    % stance phase plateau
     [pks, locks] = findpeaks(data.(fields{1}).T_02.Raw.Kin.LTOE(:,2),'MinPeakDistance',100);
 
+    % initialize the vectors to store the gait events
     T02_FootStrikes_left = [];
     T02_FootOffs_left = [];
     
+    % by using a specific threshold we determine all the points of the
+    % stance phase
     for j=1:length(pks)
         
-        stancePos = [];
+        stanceLocation = [];
         
         for i=1:length(data.(fields{1}).T_02.Raw.Kin.LTOE(:,2))
             if abs(data.(fields{1}).T_02.Raw.Kin.LTOE(i,2) - pks(j))<= 30
-                stancePos = [stancePos i];
+                stanceLocation = [stanceLocation i];
             end   
         end
         
-        T02_FootStrikes_left = [T02_FootStrikes_left time(stancePos(1))];
-        T02_FootOffs_left = [T02_FootOffs_left time(stancePos(end))];
+        T02_FootStrikes_left = [T02_FootStrikes_left time(stanceLocation(1))];
+        T02_FootOffs_left = [T02_FootOffs_left time(stanceLocation(end))];
         
     end
     
+    % remove all the wronly detected gait events by making sure that every 
+    % foot strike is followed by a foot off;
+    % like this we can make sure that there are no two foot strikes, or
+    % foot off, are next to each other
     GaitEvents = [T02_FootStrikes_left(1) T02_FootOffs_left(1)];
     
     for index=2:length(T02_FootStrikes_left)
@@ -89,34 +111,44 @@ function detectionAlgorithm(dataFile, fileName)
     
     T02_FootStrikes_left = GaitEvents(1:2:end);
     T02_FootOffs_left = GaitEvents(2:2:end);
-    
+        
     %% LEFT FOOT, T_03
     
+    % calculate the time vector, based on the sampling frequency 
     time_start = 0;
     time_end = (length(data.(fields{1}).T_03.Raw.Kin.LTOE(:,2))-1)/data.(fields{1}).T_03.fsKin;
     time_step = 1/data.(fields{1}).T_03.fsKin;
     time = time_start:time_step:time_end;
     
+    % findpeaks, with the right PeakDistance, finds the location of the
+    % stance phase plateau
     [pks, locks] = findpeaks(data.(fields{1}).T_03.Raw.Kin.LTOE(:,2),'MinPeakDistance',100);
 
+    % initialize the vectors to store the gait events
     T03_FootStrikes_left = [];
     T03_FootOffs_left = [];
     
+    % by using a specific threshold we determine all the points of the
+    % stance phase
     for j=1:length(pks)
         
-        stancePos = [];
+        stanceLocation = [];
         
         for i=1:length(data.(fields{1}).T_03.Raw.Kin.LTOE(:,2))
             if abs(data.(fields{1}).T_03.Raw.Kin.LTOE(i,2) - pks(j))<= 30
-                stancePos = [stancePos i];
+                stanceLocation = [stanceLocation i];
             end   
         end
         
-        T03_FootStrikes_left = [T03_FootStrikes_left time(stancePos(1))];
-        T03_FootOffs_left = [T03_FootOffs_left time(stancePos(end))];
+        T03_FootStrikes_left = [T03_FootStrikes_left time(stanceLocation(1))];
+        T03_FootOffs_left = [T03_FootOffs_left time(stanceLocation(end))];
         
     end
     
+    % remove all the wronly detected gait events by making sure that every 
+    % foot strike is followed by a foot off;
+    % like this we can make sure that there are no two foot strikes, or
+    % foot off, are next to each other
     GaitEvents = [T03_FootStrikes_left(1) T03_FootOffs_left(1)];
     
     for index=2:length(T03_FootStrikes_left)
@@ -132,28 +164,34 @@ function detectionAlgorithm(dataFile, fileName)
     
     %% RIGHT FOOT, T_01
     
+    % calculate the time vector, based on the sampling frequency 
     time_start = 0;
     time_end = (length(data.(fields{1}).T_01.Raw.Kin.RTOE(:,2))-1)/data.(fields{1}).T_01.fsKin;
     time_step = 1/data.(fields{1}).T_01.fsKin;
     time = time_start:time_step:time_end;
     
+    % findpeaks, with the right PeakDistance, finds the location of the
+    % stance phase plateau
     [pks, locks] = findpeaks(data.(fields{1}).T_01.Raw.Kin.RTOE(:,2),'MinPeakDistance',100);
 
+    % initialize the vectors to store the gait events
     T01_FootStrikes_right = [];
     T01_FootOffs_right = [];
     
+    % by using a specific threshold we determine all the points of the
+    % stance phase
     for j=1:length(pks)
         
-        stancePos = [];
+        stanceLocation = [];
         
         for i=1:length(data.(fields{1}).T_01.Raw.Kin.RTOE(:,2))
             if abs(data.(fields{1}).T_01.Raw.Kin.RTOE(i,2) - pks(j))<= 30
-                stancePos = [stancePos i];
+                stanceLocation = [stanceLocation i];
             end   
         end
         
-        T01_FootStrikes_right = [T01_FootStrikes_right time(stancePos(1))];
-        T01_FootOffs_right = [T01_FootOffs_right time(stancePos(end))];
+        T01_FootStrikes_right = [T01_FootStrikes_right time(stanceLocation(1))];
+        T01_FootOffs_right = [T01_FootOffs_right time(stanceLocation(end))];
         
     end
     
@@ -172,31 +210,41 @@ function detectionAlgorithm(dataFile, fileName)
     
     %% RIGHT FOOT, T_02
     
+    % calculate the time vector, based on the sampling frequency 
     time_start = 0;
     time_end = (length(data.(fields{1}).T_02.Raw.Kin.RTOE(:,2))-1)/data.(fields{1}).T_02.fsKin;
     time_step = 1/data.(fields{1}).T_02.fsKin;
     time = time_start:time_step:time_end;
     
+    % findpeaks, with the right PeakDistance, finds the location of the
+    % stance phase plateau
     [pks, locks] = findpeaks(data.(fields{1}).T_02.Raw.Kin.RTOE(:,2),'MinPeakDistance',100);
 
+    % initialize the vectors to store the gait events
     T02_FootStrikes_right = [];
     T02_FootOffs_right = [];
     
+    % by using a specific threshold we determine all the points of the
+    % stance phase
     for j=1:length(pks)
         
-        stancePos = [];
+        stanceLocation = [];
         
         for i=1:length(data.(fields{1}).T_02.Raw.Kin.RTOE(:,2))
             if abs(data.(fields{1}).T_02.Raw.Kin.RTOE(i,2) - pks(j))<= 30
-                stancePos = [stancePos i];
+                stanceLocation = [stanceLocation i];
             end   
         end
         
-        T02_FootStrikes_right = [T02_FootStrikes_right time(stancePos(1))];
-        T02_FootOffs_right = [T02_FootOffs_right time(stancePos(end))];
+        T02_FootStrikes_right = [T02_FootStrikes_right time(stanceLocation(1))];
+        T02_FootOffs_right = [T02_FootOffs_right time(stanceLocation(end))];
         
     end
     
+    % remove all the wronly detected gait events by making sure that every 
+    % foot strike is followed by a foot off;
+    % like this we can make sure that there are no two foot strikes, or
+    % foot off, are next to each other
     GaitEvents = [T02_FootStrikes_right(1) T02_FootOffs_right(1)];
     
     for index=2:length(T02_FootStrikes_right)
@@ -212,31 +260,41 @@ function detectionAlgorithm(dataFile, fileName)
     
     %% RIGHT FOOT, T_03
     
+    % calculate the time vector, based on the sampling frequency 
     time_start = 0;
     time_end = (length(data.(fields{1}).T_03.Raw.Kin.RTOE(:,2))-1)/data.(fields{1}).T_03.fsKin;
     time_step = 1/data.(fields{1}).T_03.fsKin;
     time = time_start:time_step:time_end;
     
+    % findpeaks, with the right PeakDistance, finds the location of the
+    % stance phase plateau
     [pks, locks] = findpeaks(data.(fields{1}).T_03.Raw.Kin.RTOE(:,2),'MinPeakDistance',100);
 
+    % initialize the vectors to store the gait events
     T03_FootStrikes_right = [];
     T03_FootOffs_right = [];
     
+    % by using a specific threshold we determine all the points of the
+    % stance phase
     for j=1:length(pks)
         
-        stancePos = [];
+        stanceLocation = [];
         
         for i=1:length(data.(fields{1}).T_03.Raw.Kin.RTOE(:,2))
             if abs(data.(fields{1}).T_03.Raw.Kin.RTOE(i,2) - pks(j))<= 30
-                stancePos = [stancePos i];
+                stanceLocation = [stanceLocation i];
             end   
         end
         
-        T03_FootStrikes_right = [T03_FootStrikes_right time(stancePos(1))];
-        T03_FootOffs_right = [T03_FootOffs_right time(stancePos(end))];
+        T03_FootStrikes_right = [T03_FootStrikes_right time(stanceLocation(1))];
+        T03_FootOffs_right = [T03_FootOffs_right time(stanceLocation(end))];
         
     end
     
+    % remove all the wronly detected gait events by making sure that every 
+    % foot strike is followed by a foot off;
+    % like this we can make sure that there are no two foot strikes, or
+    % foot off, are next to each other
     GaitEvents = [T03_FootStrikes_right(1) T03_FootOffs_right(1)];
     
     for index=2:length(T03_FootStrikes_right)

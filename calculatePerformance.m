@@ -1,4 +1,8 @@
 function [detectionErrorFloat, detectionErrorNoFloat] = calculatePerformance()
+% Function that calls the algorithmPerformance function to find the
+% detection performance for each data set. 
+% We take FLOAT and NO_FLOAT data separately, to study the performance for
+% the two conditions. 
 
     detectionErrorFloat = [algorithmPerformance('DetectedHealthyGaitEvents/*S1_FLOAT*', 'HealthyGaitEvents/*S1_FLOAT*'),...
         algorithmPerformance('DetectedHealthyGaitEvents/*S2_FLOAT*', 'HealthyGaitEvents/*S2_FLOAT*'), ...

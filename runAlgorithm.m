@@ -1,5 +1,7 @@
-function generateDetectedGaitEvents()
+function runAlgorithm()
+% Function that calls the detectionAlgorithm function for each dataset given 
 
+    % generate the folder in which all the structure files will be stored
     mkdir('DetectedHealthyGaitEvents');
     
     detectionAlgorithm('Healthy Recordings/Subject1_2019/FLOAT/S1_FLOAT.mat', ...
