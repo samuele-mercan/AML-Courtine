@@ -38,6 +38,9 @@ sizeData = size(plotDataTOE(:,1));
 if (sizeData(1) < rangeEnd)
     rangeEnd = sizeData(1);
 end
+if(rangeStart < 1)
+    rangeStart = 1;
+end
  
 figure();
 hold on
@@ -74,6 +77,7 @@ for i = rangeStart:1:rangeEnd
 end
 title('Stick Figure Plot');
 xlabel('Sampling points');
+ylabel('Z-dimension [cm]');
 hold off
 
 end

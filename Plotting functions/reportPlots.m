@@ -138,30 +138,21 @@ HealthySubjectsGaitCyclesRight = struct();
     yy = get(outliers,'YData');
     print('Figures/Performance Box Plot, with outliers', '-dpng')
     
-    %% Plots L/R-TOE Healthy
-    PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 1, 'NOFLOAT');
-    PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 1, 'FLOAT');
-    PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 0, 'NOFLOAT');
-    PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 0, 'FLOAT');
-    
-    %% Plots L/R-TOE SCI
-    plotSensorSCI(SCI_GaitCycles_NoFloat_Left,1, 'LTOE', 1);
-    plotSensorSCI(SCI_GaitCycles_Float_Left, 1, 'LTOE', 1);
-    plotSensorSCI(SCI_GaitCycles_NoFloat_Left, 1, 'RTOE', 0);
-    plotSensorSCI(SCI_GaitCycles_Float_Left, 1, 'RTOE', 0);
-    
-    %% Plots Velocity Healthy
-    
-    % TODO: separe times T01-03
-    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 'NOFLOAT', 1);
-    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 'FLOAT', 1);
-    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 'NOFLOAT', 0);
-    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 'FLOAT', 0);
-    
-    %% Plots Velocity SCI
-    
-    plotVelocitySCI(SCI_GaitCycles_NoFloat_Left, 1, 'LTOE', 1);
-    plotVelocitySCI(SCI_GaitCycles_Float_Left, 1, 'LTOE', 1);
-    plotVelocitySCI(SCI_GaitCycles_NoFloat_Left, 1, 'RTOE', 0);
-    plotVelocitySCI(SCI_GaitCycles_Float_Left, 1, 'RTOE', 0);
+   %stickFigure
+   rangeStart = 700;
+   rangeEnd = 875;
+   stickfigureHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'NOFLOAT', rangeStart, rangeEnd);
+   print('Figures/stickFigure', '-dpng')
+   
+   %LTOE sensor Y
+   rangeStart = 650;
+   rangeEnd = 1099;
+   PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 0, 1, 'Subject4','LTOE', 1, 'NOFLOAT', rangeStart, rangeEnd)
+   print('Figures/plotYSensor_LTOE', '-dpng')
+   
+   %LTOE sensor XZ
+   rangeStart = 650;
+   rangeEnd = 1099;
+   PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 1, 'Subject4','LTOE', 1, 'NOFLOAT', rangeStart, rangeEnd)
+   print('Figures/plotXZSensor_LTOE', '-dpng')
 end
