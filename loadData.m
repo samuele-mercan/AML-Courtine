@@ -1,6 +1,6 @@
-function reportPlots()
-%% Load data
-%Needed for Samuele's plots
+function [] = loadData()
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
 % LEFT FOOT
 leftFoot = true;
 HealthySubjectsGaitCyclesLeft = struct();
@@ -105,63 +105,5 @@ HealthySubjectsGaitCyclesRight = struct();
 % SCI subject
 
 [SCI_GaitCycles_Float_Right, SCI_GaitCycles_NoFloat_Right] = SCIsegmentation(leftFoot);
-
-
-%%
-    mkdir('Figures')
-    % Boxplots to assess the performance of the algorithm 
-    
-    [detectionErrorFloat, detectionErrorNoFloat] = calculatePerformance();
-    
-    %without outliers
-    figure()
-    hold on
-    title('Error in the gait events detection for the FLOAT and NO FLOAT data')
-    ylabel('Error in the detection of the gait events')
-    group = [ ones(size(detectionErrorFloat')); 2 * ones(size(detectionErrorNoFloat'))];
-    bPlot = boxplot([detectionErrorFloat';detectionErrorNoFloat'], group, 'symbol','');
-    set(gca, 'XTickLabel', {'Float', 'No Float'})
-    ylim([-0.1 1.4]);
-    outliers = findobj(bPlot,'Tag','Outliers');
-    yy = get(outliers,'YData');
-    print('Figures/Performance Box Plot, without outliers', '-dpng')
-    
-    %with outliers
-    figure()
-    hold on
-    title('Error in the gait events detection for the FLOAT and NO FLOAT data')
-    ylabel('Error in the detection of the gait events')
-    group = [ ones(size(detectionErrorFloat')); 2 * ones(size(detectionErrorNoFloat'))];
-    bPlot = boxplot([detectionErrorFloat';detectionErrorNoFloat'], group);
-    set(gca, 'XTickLabel', {'Float', 'No Float'})
-    outliers = findobj(bPlot,'Tag','Outliers');
-    yy = get(outliers,'YData');
-    print('Figures/Performance Box Plot, with outliers', '-dpng')
-    
-    %% Samuele's plots L/R-TOE Healthy
-    PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 1, 'NOFLOAT');
-    PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 1, 'FLOAT');
-    PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 0, 'NOFLOAT');
-    PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 0, 'FLOAT');
-    
-    %% Samuele's plots L/R-TOE SCI
-    plotSensorSCI(SCI_GaitCycles_NoFloat_Left,1, 'LTOE', 1);
-    plotSensorSCI(SCI_GaitCycles_Float_Left, 1, 'LTOE', 1);
-    plotSensorSCI(SCI_GaitCycles_NoFloat_Left, 1, 'RTOE', 0);
-    plotSensorSCI(SCI_GaitCycles_Float_Left, 1, 'RTOE', 0);
-    
-    %% Samuele's plots Velocity Healthy
-    
-    % TODO: separe times T01-03
-    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 'NOFLOAT', 1);
-    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'LTOE', 'FLOAT', 1);
-    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 'NOFLOAT', 0);
-    plotVelocityHealthy(HealthySubjectsGaitCyclesLeft, 1, 'Subject4', 'RTOE', 'FLOAT', 0);
-    
-    %% Samuele's plots Velocity SCI
-    
-    plotVelocitySCI(SCI_GaitCycles_NoFloat_Left, 1, 'LTOE', 1);
-    plotVelocitySCI(SCI_GaitCycles_Float_Left, 1, 'LTOE', 1);
-    plotVelocitySCI(SCI_GaitCycles_NoFloat_Left, 1, 'RTOE', 0);
-    plotVelocitySCI(SCI_GaitCycles_Float_Left, 1, 'RTOE', 0);
 end
+

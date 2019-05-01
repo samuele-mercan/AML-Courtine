@@ -168,8 +168,6 @@ for i=1:length(fieldnames(HealthySubjectsGaitCyclesLeft)) % for each subject
    end
 end
 
-%Param_Healthy_Float_Left = array2table(Param_Healthy_Float_Left, 'VariableNames', variableNames);
-%Param_Healthy_NoFloat_Left = array2table(Param_Healthy_NoFloat_Left, 'VariableNames', variableNames);
 
 % Right healthy
 Kin_Healthy_Float_Right = [];
@@ -204,9 +202,6 @@ for i=1:length(fieldnames(HealthySubjectsGaitCyclesRight)) % for each subject
    end
 end
 
-%Param_Healthy_Float_Right = array2table(Param_Healthy_Float_Right, 'VariableNames', variableNames);
-%Param_Healthy_NoFloat_Right = array2table(Param_Healthy_NoFloat_Right, 'VariableNames', variableNames);
-
 
 SCI = true;
 
@@ -229,8 +224,6 @@ for i=1:length(fieldnames(SCI_GaitCycles_NoFloat_Left))
     
 end
 
-%Param_SCI_Float_Left = array2table(Param_SCI_Float_Left, 'VariableNames', variableNames);
-%Param_SCI_NoFloat_Left = array2table(Param_SCI_NoFloat_Left, 'VariableNames', variableNames);
 
 % SCI right
 Kin_SCI_Float_Right = [];
@@ -251,11 +244,8 @@ for i=1:length(fieldnames(SCI_GaitCycles_NoFloat_Right))
     
 end
 
-%Param_SCI_Float_Right = array2table(Param_SCI_Float_Right, 'VariableNames', variableNames);
-%Param_SCI_NoFloat_Right = array2table(Param_SCI_NoFloat_Right, 'VariableNames', variableNames);
 
-
-save('NEWparametersKin.mat', 'Kin_Healthy_Float_Left', 'Kin_Healthy_Float_Right',...
+save('parametersKin.mat', 'Kin_Healthy_Float_Left', 'Kin_Healthy_Float_Right',...
     'Kin_Healthy_NoFloat_Left', 'Kin_Healthy_NoFloat_Right',...
     'Kin_SCI_Float_Left', 'Kin_SCI_Float_Right',...
     'Kin_SCI_NoFloat_Left', 'Kin_SCI_NoFloat_Right', 'variableNames');

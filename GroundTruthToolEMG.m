@@ -1,4 +1,4 @@
-function GroundTruthToolEMGLaure(data,fileName)
+function GroundTruthToolEMG(data,fileName)
 
     fields = fieldnames(data);
 
