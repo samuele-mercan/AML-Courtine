@@ -274,7 +274,7 @@ legend('Cumulative variance', '95% threshold')
 figure('Name', 'Top10 features contributing to first 3 PCs')
 bar(1:length(top10_), top10_)
 hold on
-ylabel('Loading of feature','fontweight','bold')
+ylabel('Contribution of feature','fontweight','bold')
 ylim([0 0.4])
 xticks(1:length(top10_))
 xtickangle(45)
