@@ -420,8 +420,7 @@ end
 
 %% calculate elevation angles 
 
-% calculates knee and ankle max elevation angles from a given kinematic 
-% data structure
+% calculates thigh, shank and foot max elevation angles for a gait cycle
 
 function [max_elevationangle_THIGH, max_elevationangle_SHANK,...
     max_elevationangle_FOOT] = calculate_elevationAngles(data,rightLeg, SCI)
