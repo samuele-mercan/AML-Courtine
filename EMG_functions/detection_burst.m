@@ -15,7 +15,7 @@ for i = 1:length(fields) % for each gait cycle
     [onset_index.(fields{i}).EMG.LTA,offset_index.(fields{i}).EMG.LTA] = detect(env_EMG.(fields{i}).EMG.LTA);
     [onset_index.(fields{i}).EMG.RTA,offset_index.(fields{i}).EMG.RTA] = detect(env_EMG.(fields{i}).EMG.RTA);
 
-    % 
+    % removing 
     [onset_index.(fields{i}).EMG.LMG,offset_index.(fields{i}).EMG.LMG] = clean(onset_index.(fields{i}).EMG.LMG,offset_index.(fields{i}).EMG.LMG,window);
     [onset_index.(fields{i}).EMG.RMG,offset_index.(fields{i}).EMG.RMG] = clean(onset_index.(fields{i}).EMG.RMG,offset_index.(fields{i}).EMG.RMG,window);
     [onset_index.(fields{i}).EMG.LTA,offset_index.(fields{i}).EMG.LTA] = clean(onset_index.(fields{i}).EMG.LTA,offset_index.(fields{i}).EMG.LTA,window);

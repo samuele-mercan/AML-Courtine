@@ -1,5 +1,5 @@
 function [onset,offset] = clean(onset,offset,window)
-%
+% 
 
 threshold = window;
 

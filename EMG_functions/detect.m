@@ -1,5 +1,5 @@
 function [onset_index,offset_index] = detect(data)
-%UNTITLED8 Summary of this function goes here
+% 
 %   Detailed explanation goes here
 onset_index = [];
 offset_index = [];
