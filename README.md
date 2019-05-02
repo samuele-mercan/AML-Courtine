@@ -12,11 +12,14 @@ B. Ground Truth Generation
 - GroundTruthGaitEvents.m : launches the manual labelling of events for segmentation into gait cycles => returns structure containing FO and FS times for each gait 
 - GroundTruthEMG.m :  launches the manual labelling of events for segmentation into gait cycles => returns structure containing onset and offsets samples for each gait 
 
-C. Algorithm for the gait events detection 
+C. Performance of the EMG algorithm
+- performanceGT.m: launches the calculation of the performance for the detection of the onset and offset for the EMG signals 
+
+D. Algorithm for the gait events detection 
 - runAlgorithm.m: launches the script for the automatic detection of gait events => stores all the gait events in .mat structures inside the DetectedHealthyGaitEvents folder
 - calculatePerformance.m: calculates the performance of the algorithm by computing an error => returns two vectors containing the errors, for the FLOAT and NO_FLOAT conditions
 
-D. Reproduce the figures present in the report
+E. Reproduce the figures present in the report
 - reportPlots.m Load data separated in Gait Cycles using left or right gait events for Float or No Float. Creates a folder "Figures" where ale the plot are stored as .png
 
 Notes:
