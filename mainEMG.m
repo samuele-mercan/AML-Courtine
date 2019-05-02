@@ -602,7 +602,6 @@ Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right;extract_EMG(duration_
 Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right;extract_EMG(duration_HP4_nofloat,mean_HP4_nofloat,max_HP4_nofloat,rms_HP4_nofloat,coactivation_HP4_nofloat)];
 Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right;extract_EMG(duration_HP5_nofloat,mean_HP5_nofloat,max_HP5_nofloat,rms_HP5_nofloat,coactivation_HP5_nofloat)];
 Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right;extract_EMG(duration_HP6_nofloat,mean_HP6_nofloat,max_HP6_nofloat,rms_HP6_nofloat,coactivation_HP6_nofloat)];
-Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right;extract_EMG(duration_HP7_nofloat,mean_HP7_nofloat,max_HP7_nofloat,rms_HP7_nofloat,coactivation_HP7_nofloat)];
 Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right;extract_EMG(duration_HP8_nofloat,mean_HP8_nofloat,max_HP8_nofloat,rms_HP8_nofloat,coactivation_HP8_nofloat)];
 Param_Healthy_NoFloat_Right = [Param_Healthy_NoFloat_Right;extract_EMG(duration_HP9_nofloat,mean_HP9_nofloat,max_HP9_nofloat,rms_HP9_nofloat,coactivation_HP9_nofloat)];
 
@@ -612,13 +611,12 @@ labels_HP_nofloat_right = [labels_HP_nofloat_right; 2*ones(size(extract_EMG(dura
 labels_HP_nofloat_right = [labels_HP_nofloat_right; 2*ones(size(extract_EMG(duration_HP4_nofloat,mean_HP4_nofloat,max_HP4_nofloat,rms_HP4_nofloat,coactivation_HP4_nofloat),1),1)];
 labels_HP_nofloat_right = [labels_HP_nofloat_right; 2*ones(size(extract_EMG(duration_HP5_nofloat,mean_HP5_nofloat,max_HP5_nofloat,rms_HP5_nofloat,coactivation_HP5_nofloat),1),1)];
 labels_HP_nofloat_right = [labels_HP_nofloat_right; 2*ones(size(extract_EMG(duration_HP6_nofloat,mean_HP6_nofloat,max_HP6_nofloat,rms_HP6_nofloat,coactivation_HP6_nofloat),1),1)];
-labels_HP_nofloat_right = [labels_HP_nofloat_right; 3*ones(size(extract_EMG(duration_HP7_nofloat,mean_HP7_nofloat,max_HP7_nofloat,rms_HP7_nofloat,coactivation_HP7_nofloat),1),1)];
 labels_HP_nofloat_right = [labels_HP_nofloat_right; 3*ones(size(extract_EMG(duration_HP8_nofloat,mean_HP8_nofloat,max_HP8_nofloat,rms_HP8_nofloat,coactivation_HP8_nofloat),1),1)];
 labels_HP_nofloat_right = [labels_HP_nofloat_right; 3*ones(size(extract_EMG(duration_HP9_nofloat,mean_HP9_nofloat,max_HP9_nofloat,rms_HP9_nofloat,coactivation_HP9_nofloat),1),1)];
 
 
 % save Feature Matrix et Labels Vector
-save('parametersEMG_allbursts.mat', 'Param_Healthy_Float_Left', 'Param_Healthy_Float_Right','Param_Healthy_NoFloat_Left', 'Param_Healthy_NoFloat_Right','Param_SCI_Float_Left', 'Param_SCI_Float_Right','Param_SCI_NoFloat_Left', 'Param_SCI_NoFloat_Right');
+save('parametersEMG.mat', 'Param_Healthy_Float_Left', 'Param_Healthy_Float_Right','Param_Healthy_NoFloat_Left', 'Param_Healthy_NoFloat_Right','Param_SCI_Float_Left', 'Param_SCI_Float_Right','Param_SCI_NoFloat_Left', 'Param_SCI_NoFloat_Right');
 save('labels.mat',  'labels_HP_float_left', 'labels_HP_float_left','labels_HP_nofloat_left', 'labels_HP_nofloat_left','labels_SCI_float_left', 'labels_SCI_float_left','labels_SCI_nofloat_left', 'labels_SCI_nofloat_left');
 
 

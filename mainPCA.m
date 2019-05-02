@@ -552,7 +552,7 @@ hold on
 scatter(score(HealthyFloat,1), score(HealthyFloat,2));
 scatter(score(SCINoFloat,1), score(SCINoFloat,2));
 scatter(score(SCIFloat,1), score(SCIFloat,2));
-xlabel('PC1')
-ylabel('PC2')
+xlabel('PC1','fontweight','bold')
+ylabel('PC2','fontweight','bold')
 title('no EMG data')
 legend('Healthy No Float', 'Healthy Float', 'SCI No Float', 'SCI Float')
