@@ -1,21 +1,27 @@
 function [] = stickfigureHealthy(data, left, subject, FLOATorNOT, rangeStart, rangeEnd)
 %Plot a stick figure on the XZ-plane
-%   data: comes from HealthySegmentation
+%   data: comes from HealthySegmentation, Choose between:
+%       HealthySubjectsGaitCyclesLeft/HealthySubjectsGaitCyclesRight
 %   left: boolean, if 1 is left leg else right
+%   subject: Specify the subject, choose between 'Subject1' till 'Subject9'
+%   FLOATorNOT: Specify if float or no float, choose between 'FLOAT' or
+%       'NOFLOAT'
+%   rangeStart, rangeEnd: choose the range of the plot
 
-
+%Store the names of the gate cycles
 gaitCycles = fieldnames(data.(subject).(FLOATorNOT));
 plotDataTOE = [];
 plotDataANK = [];
 plotDataKNE = [];
 plotDataHIP = [];
 
+%Compute the logical masks for this data
 [logicalMaskLeftFO, logicalMaskLeftFS, logicalMaskRightFO, logicalMaskRightFS]...
     = logicalMaskHealthy(data, subject, FLOATorNOT);
 
 
-
-if (left)
+%Append all the gate cycles registrations as a continous recording
+if (left) 
     for i = 1:numel(gaitCycles)
         GC = char(gaitCycles(i));
         plotDataTOE = [plotDataTOE; data.(subject).(FLOATorNOT).(GC).Kin.LTOE];
@@ -35,13 +41,19 @@ end
 
 sizeData = size(plotDataTOE(:,1));
 
+%Check if the range given are appropriate
 if (sizeData(1) < rangeEnd)
     rangeEnd = sizeData(1);
 end
 if(rangeStart < 1)
     rangeStart = 1;
 end
- 
+if(rangeStart >= rangeEnd)
+    rangeStart = 1;
+end
+
+%Plot primitive lines for the YZ-axis connecting Toe to Ankle, Ankle to
+%Knee, Knee to Hips.
 figure();
 hold on
 for i = rangeStart:1:rangeEnd

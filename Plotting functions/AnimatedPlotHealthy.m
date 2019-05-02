@@ -1,11 +1,15 @@
 function [] = AnimatedPlotHealthy(data, subject, FLOATorNOT, left, three_d)
 %Real time plot of movement, in 2D or 3D
-%   data: the data coming from, HealthySubjectSegmentation
-%   subject: string, which subject is plotted should be like: 'Subject1'
-%   FLOATorNOT: string ('FLOAT' - 'NOFLOAT') 
+%   data: segmented structure derived from: HealthySubjectSegmentation.
+%       Choose between: HealthySubjectsGaitCyclesLeft, 
+%       HealthySubjectsGaitCyclesRight
+%   subject: string, which healthy subject we are studying. choose between
+%       'Subject1' till 'Subject9'
+%   FLOATorNOT: string, is it 'FLOAT' or 'NOFLOAT' depending on what we want to
 %   left: bool, if 1 left leg else right leg
 %   three_d: bool, if 1 3D else 2D plot
 
+%Store all the names of the gait cycles
 gaitCycles = fieldnames(data.(subject).(FLOATorNOT));
 
 x_ankle = [];
@@ -24,6 +28,7 @@ x_hip = [];
 y_hip = [];
 z_hip = [];
 
+%Plot continous animation of the position of the various sensors in time
 if (three_d)
     if (left)
         for i = 1:numel(gaitCycles)
@@ -95,8 +100,8 @@ else
             z_knee = [z_knee, data.(subject).(FLOATorNOT).(GC).Kin.RKNE(:,3)'];
             y_toe = [y_toe, data.(subject).(FLOATorNOT).(GC).Kin.RTOE(:,2)'];
             z_toe = [z_toe, data.(subject).(FLOATorNOT).(GC).Kin.RTOE(:,3)'];
-            y_hip = [y_knee, data.(subject).(FLOATorNOT).(GC).Kin.RHIP(:,2)'];
-            z_hip = [z_knee, data.(subject).(FLOATorNOT).(GC).Kin.RHIP(:,3)'];
+            y_hip = [y_hip, data.(subject).(FLOATorNOT).(GC).Kin.RHIP(:,2)'];
+            z_hip = [z_hip, data.(subject).(FLOATorNOT).(GC).Kin.RHIP(:,3)'];
         end
     end
     

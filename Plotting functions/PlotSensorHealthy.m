@@ -5,23 +5,32 @@ function [] = PlotSensorHealthy(data,y, time, subject, sensorType, left, FLOATor
 %   order to have a continuos visualization of the movement of the sensor
 %   in time.
 %   data: segmented structure derived from: HealthySubjectSegmentation.
+%       Choose between: HealthySubjectsGaitCyclesLeft, 
+%       HealthySubjectsGaitCyclesRight
+%   y: boolean, if 1 plot the y component, else plots only x and z component on
+%       the same plot
 %   time: boolean, if time plot in seconds, else in frequency.
-%   subject: string, which healthy subject we are studying.
+%   subject: string, which healthy subject we are studying. choose between
+%       'Subject1' till 'Subject9'
 %   sensorType: string, which sensor we want to plot
-%   FLOATorNOT: string, is it FLOAT or NOFLOAT depending on what we want to
+%   left: boolean if we are using a sensor from left leg = 1 else 0.
+%   FLOATorNOT: string, is it 'FLOAT' or 'NOFLOAT' depending on what we want to
 %   plot.
+%   rangeStart, rangeEnd: set the X-axis limits.
 
-if(rangeStart < 1)
-    rangeStart = 1;
-end
- 
+
+%The frequency of registration
 frequency = 100;
 
+%compute the logical mask for FO and FS.
 [logicalMaskLeftFO, logicalMaskLeftFS, logicalMaskRightFO, logicalMaskRightFS]...
     = logicalMaskHealthy(data, subject, FLOATorNOT);
 
+%Store all the names of the gait cycles
 gaitCycles = fieldnames(data.(subject).(FLOATorNOT));
 plotData = [];
+
+%Append each gait cycle as a continous recording
 for i = 1:numel(gaitCycles)
     GC = char(gaitCycles(i));
     plotData = [plotData; data.(subject).(FLOATorNOT).(GC).Kin.(sensorType)];
@@ -30,10 +39,21 @@ end
 sizeData = size(plotData(:,1));
 samplePoints = linspace (0,sizeData(1)-1,sizeData(1));
 
+%Check if the range given are appropriate
 if (sizeData(1) < rangeEnd)
     rangeEnd = sizeData(1);
 end
+if(rangeStart < 1)
+    rangeStart = 1;
+end
+if(rangeStart >= rangeEnd)
+    rangeStart = 1;
+end
+if(rangeStart >= rangeEnd)
+    rangeStart = 1;
+end
 
+%Converts in seconds
 if (time)
     samplePoints = samplePoints./frequency;
     rangeStart = rangeStart/frequency;

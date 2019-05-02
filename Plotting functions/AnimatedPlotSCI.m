@@ -1,9 +1,13 @@
 function [] = AnimatedPlotSCI(data, left, three_d)
 %Real time plot of movement, in 2D or 3D
-%   data: the data coming from, SCIsegmentation
-%   left: bool, if 1 left leg else right leg
+%   data: segmented structure derived from: HealthySubjectSegmentation.
+%       Choose between SCI_GaitCycles_Float_Left;
+%       SCI_GaitCycles_Float_Right; SCI_GaitCycles_NoFloat_Left; 
+%       SCI_GaitCycles_NoFloat_Left.%   left: bool, if 1 left leg else right leg
 %   three_d: bool, if 1 3D else 2D plot
+%   rangeStart, rangeEnd: set the X-axis limits.
 
+%Store all the names of the gait cycles
 gaitCycles = fieldnames(data);
 
 x_ankle = [];
@@ -22,6 +26,7 @@ x_asi = [];
 y_asi = [];
 z_asi = [];
 
+%Plot continous animation of the position of the various sensors in time
 if (three_d)
     if (left)
         for i = 1:numel(gaitCycles)

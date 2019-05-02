@@ -16,3 +16,8 @@ C. Algorithm for the gait events detection
 - runAlgorithm.m: launches the script for the automatic detection of gait events => stores all the gait events in .mat structures inside the DetectedHealthyGaitEvents folder
 - calculatePerformance.m: calculates the performance of the algorithm by computing an error => returns two vectors containing the errors, for the FLOAT and NO_FLOAT conditions
 
+D. Reproduce the figures present in the report
+- reportPlots.m Load data separated in Gait Cycles using left or right gait events for Float or No Float. Creates a folder "Figures" where ale the plot are stored as .png
+
+Notes:
+In the folder Plotting functions you can find all the graphical exploratory tools used during the project. You might run them in the Command Window, just make sure to load the data as you do in e.g. reportPlots.m
