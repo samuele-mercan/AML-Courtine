@@ -1,7 +1,7 @@
 function detectionAlgorithm(dataFile, fileName)
 % Algorithm that detects the gait events.
 % It finds the Foot strikes and Foot offs for each dataFile given.
-% It the stores the gait events in a .mat structure files.
+% It stores the gait events in a .mat structure files.
 % The detection is done using the y-axis of the kinematic signal of the toe. 
 % It finds the location of the plateaus, corresponding to the stance
 % phases. 
@@ -308,7 +308,7 @@ function detectionAlgorithm(dataFile, fileName)
     T03_FootStrikes_right = GaitEvents(1:2:end);
     T03_FootOffs_right = GaitEvents(2:2:end);
     
-    % Structure to output the detected gait events 
+    %% Structure to output the detected gait events 
     
     gaitEvents = struct();
 
