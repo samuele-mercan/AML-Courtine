@@ -23,4 +23,5 @@ E. Reproduce the figures present in the report
 - reportPlots.m Load data separated in Gait Cycles using left or right gait events for Float or No Float. 
 
 Notes:
-In the folder Plotting functions you can find all the graphical exploratory tools used during the project. You might run them in the Command Window, just make sure to load the data as you do in e.g. reportPlots.m
+- The folder data 'Exercise - Material - SCI Subject' and 'Healthy Recordings' are not included in the project folder
+- In the folder Plotting functions you can find all the graphical exploratory tools used during the project. You might run them in the Command Window, just make sure to load the data as you do in e.g. reportPlots.m
