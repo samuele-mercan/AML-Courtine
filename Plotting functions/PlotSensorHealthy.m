@@ -48,7 +48,7 @@ if (left)
         samplePoints, plotData(:,1)'.*logicalMaskLeftFS, 'pb',...
         samplePoints, plotData(:,3)'.*logicalMaskLeftFO, 'pr',...
         samplePoints, plotData(:,3)'.*logicalMaskLeftFS, 'pb');
-    title('Sensor position over time');
+    title('Kinematics signal of the left toe marker over time');
     legend('x-axis position', 'z-axis position','Foot Off','Foot Strike');
     xlim([rangeStart rangeEnd]);
     if (time)
@@ -63,7 +63,7 @@ if (left)
         plot(samplePoints, plotData(:,2)', '-r',...
         samplePoints, plotData(:,2)'.*logicalMaskLeftFO, 'pr',...
         samplePoints, plotData(:,2)'.*logicalMaskLeftFS, 'pb');
-        title('Sensor position over time');
+        title('Kinematics signal of the left toe marker over time');
         legend('y-axis position','Foot Off','Foot Strike');
         xlim([rangeStart rangeEnd]);
         if (time)
@@ -82,7 +82,7 @@ else
         samplePoints, plotData(:,1)'.*logicalMaskRightFS, 'pb',...
         samplePoints, plotData(:,3)'.*logicalMaskRightFO, 'pr',...
         samplePoints, plotData(:,3)'.*logicalMaskRightFS, 'pb');
-    title('Sensor position over time');
+    title(' over time');
     legend('x-axis position', 'z-axis position','Foot Off','Foot Strike');
     xlim([rangeStart rangeEnd]);
     if (time)

@@ -147,12 +147,12 @@ HealthySubjectsGaitCyclesRight = struct();
    %LTOE sensor Y
    rangeStart = 650;
    rangeEnd = 1099;
-   PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 0, 1, 'Subject4','LTOE', 1, 'NOFLOAT', rangeStart, rangeEnd)
+   PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 1, 'Subject4','LTOE', 1, 'NOFLOAT', rangeStart, rangeEnd)
    print('Figures/plotYSensor_LTOE', '-dpng')
    
    %LTOE sensor XZ
    rangeStart = 650;
    rangeEnd = 1099;
-   PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 1, 1, 'Subject4','LTOE', 1, 'NOFLOAT', rangeStart, rangeEnd)
+   PlotSensorHealthy(HealthySubjectsGaitCyclesLeft, 0, 1, 'Subject4','LTOE', 1, 'NOFLOAT', rangeStart, rangeEnd)
    print('Figures/plotXZSensor_LTOE', '-dpng')
 end
