@@ -1,5 +1,6 @@
 function [onset,offset] = clean(onset,offset,window)
-% 
+% Clean detected onset and offsets by merging bursts less than 250 samples
+% apart
 
 threshold = window;
 
